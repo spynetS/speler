@@ -1,7 +1,7 @@
 package com.example;
 
 import java.awt.Graphics2D;
-
+import java.util.UUID;
 import com.example.*;
 import com.example.ECS.Renderable;
 import com.example.ECS.Transform;
@@ -16,7 +16,7 @@ public class RenderSystem {
     }
 
     public void render() {
-        for (int entityId : ecs.getEntities()) {
+        for (UUID entityId : ecs.getEntities()) {
             Transform t = ecs.getComponent(entityId, Transform.class);
             Renderable r = ecs.getComponent(entityId, Renderable.class);
             if (t != null && r != null) {

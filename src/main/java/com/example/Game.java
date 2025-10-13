@@ -6,6 +6,7 @@ import javax.swing.JButton;
 
 import com.example.GameWindow;
 import com.example.Scene;
+import com.example.ecs.*;
 
 public class Game implements Runnable
 {
@@ -18,6 +19,10 @@ public class Game implements Runnable
 		this.window = new GameWindow();
 		this.ecs = new ECS();
 		setSelectedScene(new Scene(ecs));
+
+		// add systems
+		ecs.addSystem(new ScriptSystem());
+		
 	}
 				
 	public void setSelectedScene(Scene scene) {
@@ -47,9 +52,8 @@ public class Game implements Runnable
     
 		
     private void update() {
-        // update ECS systems: physics, AI, etc.
-        //ecs.getSystem(MovementSystem.class).update();
-///        ecs.getSystem(HealthSystem.class).update();
+				// 60fps
+				ecs.update(0.016f);
     }
 
     private void render() {

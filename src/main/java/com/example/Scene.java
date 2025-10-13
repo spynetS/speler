@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
+import com.example.ecs.*;
 
 public class Scene extends JPanel
 {
