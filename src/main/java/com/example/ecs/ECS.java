@@ -33,11 +33,11 @@ public class ECS {
     // Add a component to an entity
     public <T extends Component> void addComponent(UUID entityId, T component) {
         components.computeIfAbsent(entityId, id -> new HashMap<>())
-                  .put(component.getClass(), component);
+						.put(component.getClass(), component);
     }
 
     // Get a component from an entity
-	public <T> T getComponent(UUID id, Class<T> componentClass) { //
+		public <T> T getComponent(UUID id, Class<T> componentClass) { //
 																
         Map<Class<?>, Component> entityComponents = components.get(id);
         if (entityComponents == null) return null;
@@ -62,7 +62,9 @@ public class ECS {
     public static interface Component {}
 
     public static class Transform implements Component {
-        public int x = 0, y = 0;
+				public int x = 0, y = 0;
+				public int w = 100, h = 100;
+				
     }
 
     public static class Renderable implements Component {
@@ -70,9 +72,21 @@ public class ECS {
         public Renderable(String sprite) { this.sprite = sprite; }
     }
 
-    public static class ScriptComponent implements Component {
-        public Script script;
-        public ScriptComponent(Script script) { this.script = script; }
-    }
+	public static class ScriptComponent implements Component {
+		public Script script;
+
+		public ScriptComponent(Script script) {
+			this.script = script;
+		}
+	}
+
+	public static class SpriteComponent implements Component {
+		public String imagePath;
+
+		public SpriteComponent(String imagePath) {
+			this.imagePath = imagePath;
+		}
+	}
+		
 
 }

@@ -11,7 +11,6 @@ public class ScriptSystem implements UpdateSystem {
 		public void update(ECS ecs, float deltaTime) {
 				for (UUID entity : ecs.getEntities()) {
 						ScriptComponent sc = ecs.getComponent(entity, ScriptComponent.class);
-						System.out.println("HERE");
 						if (sc != null && sc.script != null) {
 								sc.script.update(deltaTime);
 						}
