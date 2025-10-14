@@ -58,7 +58,7 @@ public class ECS {
         }
     }
 
-    // ---------------- Component Definitions ----------------
+
     public static interface Component {}
 
     public static class Transform implements Component {
@@ -74,7 +74,5 @@ public class ECS {
         public Script script;
         public ScriptComponent(Script script) { this.script = script; }
     }
-
-    // ---------------- System Definitions ----------------
 
 }

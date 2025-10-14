@@ -20,7 +20,7 @@ public class RenderSystem {
             Transform t = ecs.getComponent(entityId, Transform.class);
             Renderable r = ecs.getComponent(entityId, Renderable.class);
             if (t != null && r != null) {
-                g.drawOval(t.x,t.y,10,10);
+                g.fillOval(t.x,t.y,10,10);
             }
         }
     }

@@ -1,6 +1,0 @@
-package com.example;
-
-public interface UpdateSystem {
-		void update(ECS ecs, float deltaTime);
-		void start();
-}
