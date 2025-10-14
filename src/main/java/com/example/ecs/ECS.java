@@ -10,7 +10,6 @@ import com.example.scripting.*;
 import com.example.ecs.UpdateSystem;
 
 
-
 public class ECS {
     public Map<UUID, Map<Class<?>, Component>> components = new HashMap<>();
     public List<UUID> entities = new ArrayList<>();
@@ -81,10 +80,10 @@ public class ECS {
 	}
 
 	public static class SpriteComponent implements Component {
-		public String imagePath;
+			public String image;
 
-		public SpriteComponent(String imagePath) {
-			this.imagePath = imagePath;
+		public SpriteComponent(String image) {
+			this.image = image;
 		}
 	}
 		

@@ -36,7 +36,7 @@ public class RenderSystem {
             }
 
             if (t != null && spriteComponent != null) {
-                BufferedImage image = ResourceManager.getImage(spriteComponent.imagePath);
+                BufferedImage image = ResourceManager.getImage(spriteComponent.image);
                 int x = camera.worldToScreenX(t.x, screenWidth);
                 int y = camera.worldToScreenY(t.y, screenHeight);
                 int w = camera.worldToScreenSize(t.w);
