@@ -14,6 +14,9 @@ import com.example.input.*;
 
 import javax.swing.JPanel;
 import com.example.ecs.*;
+import com.example.Vector2;
+
+
 
 public class Scene extends JPanel
 {
@@ -34,7 +37,17 @@ public class Scene extends JPanel
 				super.paintComponent(g);
 
 				Toolkit.getDefaultToolkit().sync();
-		
+
+				int x = (int)Input.getMousePositionOnCanvas().x;
+				int y = (int)Input.getMousePositionOnCanvas().y;
+
+				Input.setMousePosition(new Vector2(
+																					 camera.screenToWorldX(x, getWidth()),
+																					 camera.screenToWorldY(y, getHeight())
+																					 ));
+
+
+				
 				renderer = new RenderSystem(ecs, (Graphics2D) g,camera, this.getWidth(), this.getHeight());
         renderer.render();
     }
@@ -110,7 +123,8 @@ public class Scene extends JPanel
 								@Override
 								public void mouseMoved(MouseEvent e) {
 										super.mouseMoved(e);
-										Input.setMousePositionOnCanvas(new Vector2((float) e.getPoint().getX(), (float) e.getPoint().getY()));
+						Input.setMousePositionOnCanvas(
+								new Vector2((float) e.getPoint().getX(), (float) e.getPoint().getY()));
 										Input.setMouseEvent(e);
 										requestFocus();
 								}

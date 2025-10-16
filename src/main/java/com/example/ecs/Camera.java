@@ -15,10 +15,16 @@ public class Camera {
         return Math.round((worldX - x) * zoom + screenWidth / 2.0f);
     }
 
-    public int worldToScreenY(float worldY, int screenHeight) {
-        return Math.round((worldY - y) * zoom + screenHeight / 2.0f);
-    }
+	public int worldToScreenY(float worldY, int screenHeight) {
+		return Math.round((worldY - y) * zoom + screenHeight / 2.0f);
+	}
 
+		public float screenToWorldX(int screenX, int screenWidth) {
+				return x + (screenX - screenWidth / 2.0f) / zoom;
+		}
+		public float screenToWorldY(int screenY, int screenHeight) {
+				return y + (screenY - screenHeight / 2.0f) / zoom;
+		}
     // Convert world size to screen size (for scaling sprites)
     public int worldToScreenSize(int size) {
         return Math.round(size * zoom);

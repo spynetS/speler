@@ -93,10 +93,11 @@ public class App
 			super.update(deltatime);
 			Transform transform = this.gameObject.getComponent(Transform.class);
 
+			
 
 			if (Input.isKeyDown(Keys.D)) {
 				transform.x += 2;
-									gameObject.getComponent(SpriteComponent.class).inverted = false;
+				gameObject.getComponent(SpriteComponent.class).inverted = false;
 			}
 			
 			if (Input.isKeyDown(Keys.A)) {
@@ -111,9 +112,13 @@ public class App
 			if (Input.isKeyDown(Keys.S))
 					transform.y -= -2;
 			
-			App.game.selectedScene.getCamera().x = transform.x;
-			App.game.selectedScene.getCamera().y = transform.y;
 
+
+			transform.x = (int)Input.getMousePosition().x;
+			transform.y = (int) Input.getMousePosition().y;
+
+
+			
 		}
 
 	}

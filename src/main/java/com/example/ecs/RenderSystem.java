@@ -4,6 +4,9 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.UUID;
 import com.example.*;
+
+import com.example.input.*;
+
 import com.example.ecs.ECS.*;
 import com.example.ecs.*;
 import com.example.resources.*;
@@ -35,17 +38,20 @@ public class RenderSystem {
                 g.fillOval(x - size / 2, y - size / 2, size, size);
             }
 
-            if (t != null && spriteComponent != null) {
-                BufferedImage image = ResourceManager.getImage(spriteComponent.image);
-                int x = camera.worldToScreenX(t.x, screenWidth);
-                int y = camera.worldToScreenY(t.y, screenHeight);
-                int w = camera.worldToScreenSize(t.w);
-								int h = camera.worldToScreenSize(t.h);
+			if (t != null && spriteComponent != null) {
+				BufferedImage image = ResourceManager.getImage(spriteComponent.image);
+				int x = camera.worldToScreenX(t.x, screenWidth);
+				int y = camera.worldToScreenY(t.y, screenHeight);
+				int w = camera.worldToScreenSize(t.w);
+				int h = camera.worldToScreenSize(t.h);
 
-								int flip = spriteComponent.inverted ? -1 : 1;
-								w = w * flip;
-								g.drawImage(image, x - w / 2, y - h / 2, w, h, null);
-            }
+				int flip = spriteComponent.inverted ? -1 : 1;
+				w = w * flip;
+				g.drawImage(image, x - w / 2, y - h / 2, w, h, null);
+				g.drawString(String.valueOf(Input.getMousePosition().x),x - w / 2, y - h -10 / 2);
+			}
+
+
         }
     }
 }
