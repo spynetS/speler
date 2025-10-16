@@ -8,8 +8,6 @@ import com.example.ecs.AnimationSystem;
 import com.example.ecs.ECS.*;
 import com.example.resources.*;
 
-import javax.swing.*;
-import java.awt.*;
 
 import java.util.List;
 
@@ -49,20 +47,19 @@ public class App
 								}
 				};
 
-				java.util.List<AnimationTrack.Keyframe<Integer>> frames = java.util.List.of(
-																																										new AnimationTrack.Keyframe<>(0,0),
-																																										new AnimationTrack.Keyframe<>(0.1f,1),
-																																										new AnimationTrack.Keyframe<>(0.2f,2),
-																																										new AnimationTrack.Keyframe<>(0.3f,3),
-																																										new AnimationTrack.Keyframe<>(0.4f,4),
-																																										new AnimationTrack.Keyframe<>(0.5f,5),
-																																										new AnimationTrack.Keyframe<>(0.6f,6),
-																																																																																		new AnimationTrack.Keyframe<>(1.4f,7)
-																																										
-																																										
-);
+				List<AnimationTrack.Keyframe<Integer>> frames =
+						List.of(
+										new AnimationTrack.Keyframe<>(0,0),
+										new AnimationTrack.Keyframe<>(0.1f,1),
+										new AnimationTrack.Keyframe<>(0.2f,2),
+										new AnimationTrack.Keyframe<>(0.3f,3),
+										new AnimationTrack.Keyframe<>(0.4f,4),
+										new AnimationTrack.Keyframe<>(0.5f,5),
+										new AnimationTrack.Keyframe<>(0.6f,6),
+										new AnimationTrack.Keyframe<>(1.4f,7)										
+										);
+				
 				TimeTrackedAnimation<Integer> anim = new TimeTrackedAnimation<>(frames, transformAnim, true);
-
 				AnimationSystem animationSystem = new AnimationSystem();
 				animationSystem.addTrack(anim);
 
