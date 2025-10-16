@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import com.example.scripting.*;
+import com.example.animations.AnimationTrack;
 import com.example.ecs.UpdateSystem;
 
 
@@ -80,10 +81,21 @@ public class ECS {
 	}
 
 	public static class SpriteComponent implements Component {
-			public String image;
+		public String image;
 
 		public SpriteComponent(String image) {
 			this.image = image;
+		}
+	}
+
+	public static class AnimationComponent implements Component {
+			public List<AnimationTrack<?>> tracks;
+			public int currentTrack;
+
+			
+		public AnimationComponent(List<AnimationTrack<?>> tracks) {
+				this.tracks = tracks;
+				currentTrack = 0;
 		}
 	}
 		

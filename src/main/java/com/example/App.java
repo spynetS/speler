@@ -37,12 +37,13 @@ public class App
 				GameObject gameObject2 = new GameObject(game.ecs);
 				gameObject2.getComponent(Transform.class).x = 0;
 				gameObject2.getComponent(Transform.class).y = 0;
+				gameObject2.addComponent(new ScriptComponent(new MyScript(gameObject2)));
 				gameObject2.addComponent(new SpriteComponent(keys[0]));
 
+				
 				Animatable<Integer> transformAnim = new Animatable<Integer>() {
 								@Override
 								public void apply(Integer value) {
-										System.out.println("UPDATE "+value);
 										gameObject2.getComponent(SpriteComponent.class).image = keys[value];
 								}
 				};
@@ -56,13 +57,15 @@ public class App
 										new AnimationTrack.Keyframe<>(0.4f,4),
 										new AnimationTrack.Keyframe<>(0.5f,5),
 										new AnimationTrack.Keyframe<>(0.6f,6),
-										new AnimationTrack.Keyframe<>(1.4f,7)										
+										new AnimationTrack.Keyframe<>(0.7f,7)										
 										);
 				
 				TimeTrackedAnimation<Integer> anim = new TimeTrackedAnimation<>(frames, transformAnim, true);
-				AnimationSystem animationSystem = new AnimationSystem();
-				animationSystem.addTrack(anim);
 
+
+				gameObject2.addComponent(new AnimationComponent(List.of(anim)));
+
+				AnimationSystem animationSystem = new AnimationSystem();
 				game.ecs.addSystem(animationSystem);
 				
 				game.run();

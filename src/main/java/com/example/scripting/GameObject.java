@@ -12,11 +12,12 @@ public class GameObject {
 
 		public UUID id;
 		ECS ecs;
+		public final Transform transform = new Transform();
 
 		public GameObject(ECS ecs){
 				this.ecs = ecs;
 				this.id = ecs.instantiate();
-				this.ecs.addComponent(this.id,new Transform());
+				this.ecs.addComponent(this.id,transform);
 				this.ecs.addComponent(this.id,new Renderable(""));
 		}
 		

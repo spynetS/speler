@@ -27,8 +27,6 @@ public class AnimationTrack<T> {
 		if (keyframes.size() == 0)
 			return;
 
-		System.out.println(elapsedTime);
-		
         float totalDuration = keyframes.get(keyframes.size() - 1).time;
         float t = loop ? (elapsedTime % totalDuration) : Math.min(elapsedTime, totalDuration);
 

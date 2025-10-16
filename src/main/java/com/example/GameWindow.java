@@ -9,6 +9,5 @@ public class GameWindow extends JFrame
 		setSize(800, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	 	setVisible(true);
-		System.out.println("Window started");
 	}
 }
