@@ -6,6 +6,8 @@ import com.example.scripting.GameObject;
 import com.example.scripting.Script;
 import com.example.ecs.AnimationSystem;
 import com.example.ecs.ECS.*;
+import com.example.input.Input;
+import com.example.input.Keys;
 import com.example.resources.*;
 import com.example.resources.ResourceManager.Sprite;
 
@@ -45,6 +47,7 @@ public class App
 				gameObject2.getComponent(Transform.class).y = 0;
 				gameObject2.addComponent(new ScriptComponent(new MyScript(gameObject2)));
 				gameObject2.addComponent(new SpriteComponent(keys[0]));
+				gameObject2.getComponent(SpriteComponent.class).inverted = true;
 
 
 				
@@ -89,21 +92,25 @@ public class App
 		public void update(float deltatime) {
 			super.update(deltatime);
 			Transform transform = this.gameObject.getComponent(Transform.class);
-			transform.x += vx * 2;
-			transform.y += vy * 2;
 
-			if (transform.x >= 200) {
-				vx = -1;
+
+			if (Input.isKeyDown(Keys.D)) {
+				transform.x += 2;
+									gameObject.getComponent(SpriteComponent.class).inverted = false;
 			}
-			if (transform.x <= 0) {
-				vx = 1;
+			
+			if (Input.isKeyDown(Keys.A)) {
+				transform.x -= 2;
+				gameObject.getComponent(SpriteComponent.class).inverted = true;
+					
 			}
-			if (transform.y >= 200) {
-				vy = -1;
-			}
-			if (transform.y <= 0) {
-				vy = 1;
-			}
+
+			
+			if (Input.isKeyDown(Keys.W))
+				transform.y+=-2;
+			if (Input.isKeyDown(Keys.S))
+					transform.y -= -2;
+			
 			App.game.selectedScene.getCamera().x = transform.x;
 			App.game.selectedScene.getCamera().y = transform.y;
 

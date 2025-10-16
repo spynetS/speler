@@ -82,6 +82,7 @@ public class ECS {
 
 	public static class SpriteComponent implements Component {
 		public String image;
+		public boolean inverted = false;
 
 		public SpriteComponent(String image) {
 			this.image = image;

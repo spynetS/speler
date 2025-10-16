@@ -40,8 +40,11 @@ public class RenderSystem {
                 int x = camera.worldToScreenX(t.x, screenWidth);
                 int y = camera.worldToScreenY(t.y, screenHeight);
                 int w = camera.worldToScreenSize(t.w);
-                int h = camera.worldToScreenSize(t.h);
-                g.drawImage(image, x - w / 2, y - h / 2, w, h, null);
+								int h = camera.worldToScreenSize(t.h);
+
+								int flip = spriteComponent.inverted ? -1 : 1;
+								w = w * flip;
+								g.drawImage(image, x - w / 2, y - h / 2, w, h, null);
             }
         }
     }
