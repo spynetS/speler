@@ -17,7 +17,7 @@ public class Scene extends JPanel
 	public Scene(ECS ecs) {
 			this.ecs = ecs;
 			this.setBackground(Color.CYAN);
-			this.camera = new Camera(100,100,1);
+			this.camera = new Camera(0,0,1);
 	}
 
     @Override
