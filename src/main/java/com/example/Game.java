@@ -8,10 +8,13 @@ import com.example.GameWindow;
 import com.example.Scene;
 import com.example.ecs.*;
 import com.example.resources.*;
+import com.example.resources.ResourceManager.Sprite;
 
 
 public class Game implements Runnable {
-		private boolean running = true;
+	private boolean running = true;
+
+
 		ResourceManager resourceManager;
 		GameWindow window;
 		Scene selectedScene;
@@ -26,6 +29,7 @@ public class Game implements Runnable {
 				ecs.addSystem(new ScriptSystem());
 				ecs.addSystem(new AnimationSystem());
 
+				Sprite.game = this;
 				
 				resourceManager = new ResourceManager();
 		}
@@ -61,9 +65,47 @@ public class Game implements Runnable {
 				ecs.update(0.016f);
     }
 
-    private void render() {
-        // repaint JPanel or use buffer strategy
-        selectedScene.repaint();
-    }
+	private void render() {
+		// repaint JPanel or use buffer strategy
+		selectedScene.repaint();
+	}
 
+
+		public boolean isRunning() {
+			return running;
+		}
+
+		public void setRunning(boolean running) {
+			this.running = running;
+		}
+
+		public ResourceManager getResourceManager() {
+			return resourceManager;
+		}
+
+		public void setResourceManager(ResourceManager resourceManager) {
+			this.resourceManager = resourceManager;
+		}
+
+		public GameWindow getWindow() {
+			return window;
+		}
+
+		public void setWindow(GameWindow window) {
+			this.window = window;
+		}
+
+		public Scene getSelectedScene() {
+			return selectedScene;
+		}
+
+		public ECS getEcs() {
+			return ecs;
+		}
+
+		public void setEcs(ECS ecs) {
+			this.ecs = ecs;
+		}
+
+		
 }

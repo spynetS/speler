@@ -7,7 +7,7 @@ import com.example.scripting.Script;
 import com.example.ecs.AnimationSystem;
 import com.example.ecs.ECS.*;
 import com.example.resources.*;
-
+import com.example.resources.ResourceManager.Sprite;
 
 import java.util.List;
 
@@ -17,36 +17,34 @@ public class App
 
 
 
-    public static void main( String[] args )
+    public static void main( String[] args ) throws Exception
     {
 				String path = "/home/spy/dev/playengine/Sprites/01-King Human/Run (78x58).png";
 
 
 				// load the image into a sheet
-				SpriteSheet sheet = new SpriteSheet(game.resourceManager.loadImage(path),78,58);
+				SpriteSheet sheet = new SpriteSheet(game.getResourceManager().loadImage(path),78,58);
 				// add the extracted tile into out resource manager and save the key to it
 				// we give out spritecomponent the key later
 				String[] keys = new String[8];
-				keys[0] = game.resourceManager.registerImage(sheet.getFrame(0,0));
-				keys[1] = game.resourceManager.registerImage(sheet.getFrame(0,1));
-				keys[2] = game.resourceManager.registerImage(sheet.getFrame(0,2));
-				keys[3] = game.resourceManager.registerImage(sheet.getFrame(0,3));
-				keys[4] = game.resourceManager.registerImage(sheet.getFrame(0,4));
-				keys[5] = game.resourceManager.registerImage(sheet.getFrame(0,5));
-				keys[6] = game.resourceManager.registerImage(sheet.getFrame(0,6));
-				keys[7] = game.resourceManager.registerImage(sheet.getFrame(0,7));
-				
+				keys[0] = Sprite.getSprite(sheet,0,0);
+				keys[1] = Sprite.getSprite(sheet,0,1);
+				keys[2] = Sprite.getSprite(sheet,0,2);
+				keys[3] = Sprite.getSprite(sheet,0,3);
+				keys[4] = Sprite.getSprite(sheet,0,4);
+				keys[5] = Sprite.getSprite(sheet,0,5);
+				keys[6] = Sprite.getSprite(sheet,0,6);
+				keys[7] = Sprite.getSprite(sheet,0, 7);
+
 
 				GameObject gameObject1 = new GameObject(game.ecs);
-				gameObject1.addComponent(new SpriteComponent(keys[0]));
+				gameObject1.addComponent(new SpriteComponent(Sprite.getSprite(sheet,0,0)));
 				
 				GameObject gameObject2 = new GameObject(game.ecs);
 				gameObject2.getComponent(Transform.class).x = 20;
 				gameObject2.getComponent(Transform.class).y = 0;
 				gameObject2.addComponent(new ScriptComponent(new MyScript(gameObject2)));
 				gameObject2.addComponent(new SpriteComponent(keys[0]));
-
-
 
 
 				
@@ -78,40 +76,39 @@ public class App
     }
 
 
-		static class MyScript extends Script {
+	static class MyScript extends Script {
 
-				int vx = 1;
-				int vy = 1;
-				
-				public MyScript(GameObject gameObject) {
-						super(gameObject);
-				}
+		int vx = 1;
+		int vy = 1;
 
-				@Override
-				public void update(float deltatime) {
-						super.update(deltatime);
-						Transform transform  = this.gameObject.getComponent(Transform.class);
-						transform.x += vx*2;
-						transform.y += vy*2;
-
-						if(transform.x >= 200){
-								vx = -1;
-						}
-						if(transform.x <= 0){
-								vx = 1;
-						}
-						if(transform.y >= 200){
-								vy = -1;
-						}
-						if (transform.y <= 0) {
-							vy = 1;
-						}
-						App.game.selectedScene.getCamera().x = transform.x;
-						App.game.selectedScene.getCamera().y = transform.y;
-
-				}
-
-				
+		public MyScript(GameObject gameObject) {
+			super(gameObject);
 		}
+
+		@Override
+		public void update(float deltatime) {
+			super.update(deltatime);
+			Transform transform = this.gameObject.getComponent(Transform.class);
+			transform.x += vx * 2;
+			transform.y += vy * 2;
+
+			if (transform.x >= 200) {
+				vx = -1;
+			}
+			if (transform.x <= 0) {
+				vx = 1;
+			}
+			if (transform.y >= 200) {
+				vy = -1;
+			}
+			if (transform.y <= 0) {
+				vy = 1;
+			}
+			App.game.selectedScene.getCamera().x = transform.x;
+			App.game.selectedScene.getCamera().y = transform.y;
+
+		}
+
+	}
 		
 }
