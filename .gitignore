@@ -1,0 +1,35 @@
+# Ignore build output directories
+/build/
+/bin/
+
+# Ignore Gradle wrapper caches and temp files
+/.gradle/
+/gradle/
+
+# Ignore local environment properties
+gradle.properties
+
+# Ignore IDE files (add yours if you use an IDE)
+.idea/
+/*.iml
+/.vscode/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore logs and temp files
+*.log
+*.tmp
+
+# Ignore generated files (optional, if any)
+/out/
+/target/
+
+# Ignore libs if you don't want to commit dependencies
+/lib/
+
+
+.project
+.classpath
+/.settings/
