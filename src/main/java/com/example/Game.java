@@ -24,8 +24,10 @@ public class Game implements Runnable {
 
 				// add systems
 				ecs.addSystem(new ScriptSystem());
+				ecs.addSystem(new AnimationSystem());
+
+				
 				resourceManager = new ResourceManager();
-		
 		}
 				
 		public void setSelectedScene(Scene scene) {

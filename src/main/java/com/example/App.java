@@ -13,9 +13,12 @@ import java.util.List;
 
 public class App 
 {
+		public static Game game = new Game();
+
+
+
     public static void main( String[] args )
     {
-				Game game = new Game();
 				String path = "/home/spy/dev/playengine/Sprites/01-King Human/Run (78x58).png";
 
 
@@ -34,11 +37,17 @@ public class App
 				keys[7] = game.resourceManager.registerImage(sheet.getFrame(0,7));
 				
 
+				GameObject gameObject1 = new GameObject(game.ecs);
+				gameObject1.addComponent(new SpriteComponent(keys[0]));
+				
 				GameObject gameObject2 = new GameObject(game.ecs);
-				gameObject2.getComponent(Transform.class).x = 0;
+				gameObject2.getComponent(Transform.class).x = 20;
 				gameObject2.getComponent(Transform.class).y = 0;
 				gameObject2.addComponent(new ScriptComponent(new MyScript(gameObject2)));
 				gameObject2.addComponent(new SpriteComponent(keys[0]));
+
+
+
 
 				
 				Animatable<Integer> transformAnim = new Animatable<Integer>() {
@@ -61,15 +70,11 @@ public class App
 										);
 				
 				TimeTrackedAnimation<Integer> anim = new TimeTrackedAnimation<>(frames, transformAnim, true);
-
+				
 
 				gameObject2.addComponent(new AnimationComponent(List.of(anim)));
 
-				AnimationSystem animationSystem = new AnimationSystem();
-				game.ecs.addSystem(animationSystem);
-				
 				game.run();
-				
     }
 
 
@@ -98,10 +103,12 @@ public class App
 						if(transform.y >= 200){
 								vy = -1;
 						}
-						if(transform.y <= 0){
-								vy = 1;
+						if (transform.y <= 0) {
+							vy = 1;
 						}
-						
+						App.game.selectedScene.getCamera().x = transform.x;
+						App.game.selectedScene.getCamera().y = transform.y;
+
 				}
 
 				

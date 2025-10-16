@@ -29,5 +29,29 @@ public class Scene extends JPanel
 		renderer = new RenderSystem(ecs, (Graphics2D) g,camera, this.getWidth(), this.getHeight());
         renderer.render();
     }
+
+	public RenderSystem getRenderer() {
+		return renderer;
+	}
+
+	public void setRenderer(RenderSystem renderer) {
+		this.renderer = renderer;
+	}
+
+	public ECS getEcs() {
+		return ecs;
+	}
+
+	public void setEcs(ECS ecs) {
+		this.ecs = ecs;
+	}
+
+	public Camera getCamera() {
+		return camera;
+	}
+
+	public void setCamera(Camera camera) {
+		this.camera = camera;
+	}
 		
 }
