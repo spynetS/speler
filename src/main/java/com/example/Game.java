@@ -28,6 +28,7 @@ public class Game implements Runnable {
 				// add systems
 				ecs.addSystem(new ScriptSystem());
 				ecs.addSystem(new AnimationSystem());
+				ecs.addSystem(new ParentSystem());
 
 				Sprite.game = this;
 				
@@ -40,18 +41,17 @@ public class Game implements Runnable {
 		}
 
 		public void run() {
-				final double FPS = 60.0;
+				final double FPS =144.0;
 				final double TIME_PER_UPDATE = 1_000_000_000 / FPS; // nanoseconds per update
 				long lastTime = System.nanoTime();
 				double delta = 0;
-
 				while (running) {
 						long now = System.nanoTime();
 						delta += (now - lastTime) / TIME_PER_UPDATE;
 						lastTime = now;
 
 						while (delta >= 1) {
-								update(); // update game logic
+								update(1/FPS); // update game logic
 								delta--;
 						}
 
@@ -60,9 +60,9 @@ public class Game implements Runnable {
 		}
     
 		
-    private void update() {
-				// 60fps
-				ecs.update(0.016f);
+    private void update(double delta) {
+		// 60fps
+				ecs.update((float)delta);
     }
 
 	private void render() {

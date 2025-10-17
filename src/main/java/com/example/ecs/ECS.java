@@ -63,7 +63,13 @@ public class ECS {
 
     public static class Transform implements Component {
 				public int x = 0, y = 0;
-				public int w = 100, h = 100;
+				public int w = 1, h = 1;
+				public float rotation = 0;
+
+
+				public int worldX, worldY;
+				public float worldRotation = 0;
+				public float worldW = 100, worldH = 100;
 				
     }
 
@@ -90,15 +96,23 @@ public class ECS {
 	}
 
 	public static class AnimationComponent implements Component {
-			public List<AnimationTrack<?>> tracks;
-			public int currentTrack;
+		public List<AnimationTrack<?>> tracks;
+		public int currentTrack;
 
-			
 		public AnimationComponent(List<AnimationTrack<?>> tracks) {
-				this.tracks = tracks;
-				currentTrack = 0;
+			this.tracks = tracks;
+			currentTrack = 0;
 		}
 	}
-		
+
+	public static class ParentComponent implements Component {
+
+		public UUID parentId;
+
+		public ParentComponent(UUID parentId) {
+			this.parentId = parentId;
+		}
+			
+	}
 
 }

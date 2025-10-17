@@ -1,6 +1,7 @@
 package com.example.ecs;
 
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.UUID;
 import com.example.*;
@@ -38,18 +39,31 @@ public class RenderSystem {
                 g.fillOval(x - size / 2, y - size / 2, size, size);
             }
 
-			if (t != null && spriteComponent != null) {
-				BufferedImage image = ResourceManager.getImage(spriteComponent.image);
-				int x = camera.worldToScreenX(t.x, screenWidth);
-				int y = camera.worldToScreenY(t.y, screenHeight);
-				int w = camera.worldToScreenSize(t.w);
-				int h = camera.worldToScreenSize(t.h);
+						if (t != null && spriteComponent != null) {
+								BufferedImage image = ResourceManager.getImage(spriteComponent.image);
 
-				int flip = spriteComponent.inverted ? -1 : 1;
-				w = w * flip;
-				g.drawImage(image, x - w / 2, y - h / 2, w, h, null);
-				g.drawString(String.valueOf(Input.getMousePosition().x),x - w / 2, y - h -10 / 2);
-			}
+								int screenX = camera.worldToScreenX(t.worldX, screenWidth);
+								int screenY = camera.worldToScreenY(t.worldY, screenHeight);
+								int w = camera.worldToScreenSize((int)t.worldW);
+								int h = camera.worldToScreenSize((int)t.worldH);
+
+								// Handle horizontal flip
+								int flip = spriteComponent.inverted ? -1 : 1;
+								w = w * flip;
+
+								// Save current transform
+								AffineTransform oldTransform = g.getTransform();
+
+								// Translate to center of the sprite
+								g.translate(screenX, screenY);
+								// Rotate around the center
+								g.rotate(Math.toRadians(t.worldRotation));
+								// Draw the image centered at (0,0) after translation
+								g.drawImage(image, -w/2, -h/2, w, h, null);
+
+								// Restore original transform
+								g.setTransform(oldTransform);
+						}
 
 
         }

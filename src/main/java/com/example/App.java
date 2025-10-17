@@ -39,17 +39,25 @@ public class App
 				keys[7] = Sprite.getSprite(sheet,0, 7);
 
 
+				GameObject gameObject = new GameObject(game.ecs);
+				gameObject.addComponent(new SpriteComponent(Sprite.getSprite(sheet, 0, 0)));
+				gameObject.transform.x = 100;
+				
+				
 				GameObject gameObject1 = new GameObject(game.ecs);
-				gameObject1.addComponent(new SpriteComponent(Sprite.getSprite(sheet,0,0)));
+				gameObject1.addComponent(new SpriteComponent(Sprite.getSprite(sheet, 0, 0)));
+				gameObject1.transform.x = 100;
+
+				gameObject1.addChild(gameObject);
 				
 				GameObject gameObject2 = new GameObject(game.ecs);
-				gameObject2.getComponent(Transform.class).x = 20;
-				gameObject2.getComponent(Transform.class).y = 0;
+				gameObject2.getComponent(Transform.class).worldRotation = 10;
+
 				gameObject2.addComponent(new ScriptComponent(new MyScript(gameObject2)));
 				gameObject2.addComponent(new SpriteComponent(keys[0]));
 				gameObject2.getComponent(SpriteComponent.class).inverted = true;
 
-
+				gameObject2.addChild(gameObject1);
 				
 				Animatable<Integer> transformAnim = new Animatable<Integer>() {
 								@Override
@@ -96,7 +104,7 @@ public class App
 			
 
 			if (Input.isKeyDown(Keys.D)) {
-				transform.x += 2;
+				transform.worldRotation += 2;
 				gameObject.getComponent(SpriteComponent.class).inverted = false;
 			}
 			
@@ -114,8 +122,8 @@ public class App
 			
 
 
-			transform.x = (int)Input.getMousePosition().x;
-			transform.y = (int) Input.getMousePosition().y;
+			transform.worldX = (int)Input.getMousePosition().x;
+			transform.worldY = (int) Input.getMousePosition().y;
 
 
 			

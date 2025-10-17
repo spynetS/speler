@@ -24,10 +24,15 @@ public class GameObject {
 		public <T extends Component> void addComponent(T comp){
 				ecs.addComponent(this.id,comp);
 		}
-		public <T extends Component> T getComponent(Class<T> componentClass){
-				return ecs.getComponent(this.id,componentClass);
+
+		public <T extends Component> T getComponent(Class<T> componentClass) {
+			return ecs.getComponent(this.id, componentClass);
 		}
-		
+
+
+		public void addChild(GameObject child) {
+			child.addComponent(new ParentComponent(this.id));
+		}
 
 
 }

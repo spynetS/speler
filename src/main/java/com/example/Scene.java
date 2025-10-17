@@ -27,7 +27,7 @@ public class Scene extends JPanel
 		public Scene(ECS ecs) {
 				this.ecs = ecs;
 				setBackground(new Color(40, 125, 255));
-				this.camera = new Camera(0, 0, 1);
+				this.camera = new Camera(0, 0, 2);
 				setDoubleBuffered(true); // helps prevent flickering
 				initInput();
 		}
