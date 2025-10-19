@@ -1,4 +1,4 @@
-package com.example.ecs;
+ package com.example.ecs;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -7,11 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import com.example.scripting.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.example.SerializableComponent;
 import com.example.animations.AnimationTrack;
 import com.example.ecs.UpdateSystem;
 
 
-public class ECS {
+public class ECS implements SerializableComponent {
     public Map<UUID, Map<Class<?>, Component>> components = new HashMap<>();
     public List<UUID> entities = new ArrayList<>();
     public List<UpdateSystem> updateSystems = new LinkedList<>();
@@ -37,82 +40,109 @@ public class ECS {
     }
 
     // Get a component from an entity
-		public <T> T getComponent(UUID id, Class<T> componentClass) { //
-																
-        Map<Class<?>, Component> entityComponents = components.get(id);
-        if (entityComponents == null) return null;
-        Component comp = entityComponents.get(componentClass);
-        if (componentClass.isInstance(comp)) return componentClass.cast(comp);
-        return null;
-    }
+	public <T> T getComponent(UUID id, Class<T> componentClass) { //
 
+		Map<Class<?>, Component> entityComponents = components.get(id);
+		if (entityComponents == null)
+			return null;
+		Component comp = entityComponents.get(componentClass);
+		if (componentClass.isInstance(comp))
+			return componentClass.cast(comp);
+		return null;
+	}
+
+	public List<Component> getComponents(UUID id) {
+			return new LinkedList<Component>(components.get(id).values());
+	}
+		
     // Get all entities
-    public List<UUID> getEntities() {
-        return entities;
-    }
+	public List<UUID> getEntities() {
+		return entities;
+	}
+
+	public void removeEntity(UUID id) {
+			//TODO: remove all components associated with id
+			entities.remove(id);
+	}
 
     // Main update loop: call all systems
-    public void update(float deltaTime) {
+	public void update(float deltaTime) {
         for (UpdateSystem system : updateSystems) {
             system.update(this, deltaTime);
         }
     }
 
 
+    @Override
+    public JsonObject serialize() {
+        JsonObject ecsJson = new JsonObject();
+        JsonArray entitiesArray = new JsonArray();
+
+        for (UUID id : entities) {
+            JsonObject entityJson = new JsonObject();
+            entityJson.addProperty("id", id.toString());
+
+            JsonArray componentsArray = new JsonArray();
+
+            Map<Class<?>, Component> entityComponents = components.get(id);
+            if (entityComponents != null) {
+                for (Component comp : entityComponents.values()) {
+                    JsonObject compJson = new JsonObject();
+                    compJson.addProperty("type", comp.getClass().getName());
+
+                    // Each component must implement SerializableComponent
+                    if (comp instanceof SerializableComponent serializable) {
+                        compJson.add("data", serializable.serialize());
+                    }
+
+                    componentsArray.add(compJson);
+                }
+            }
+
+            entityJson.add("components", componentsArray);
+            entitiesArray.add(entityJson);
+        }
+
+        ecsJson.add("entities", entitiesArray);
+        return ecsJson;
+    }
+
+    @Override
+    public void deserialize(JsonObject data) {
+        components.clear();
+        entities.clear();
+
+        JsonArray entitiesArray = data.getAsJsonArray("entities");
+        for (var e : entitiesArray) {
+            JsonObject entityJson = e.getAsJsonObject();
+            UUID id = UUID.fromString(entityJson.get("id").getAsString());
+            entities.add(id);
+
+            Map<Class<?>, Component> comps = new HashMap<>();
+            JsonArray componentsArray = entityJson.getAsJsonArray("components");
+
+            for (var c : componentsArray) {
+                JsonObject compJson = c.getAsJsonObject();
+                String type = compJson.get("type").getAsString();
+
+                try {
+                    Class<?> clazz = Class.forName(type);
+                    Object instance = clazz.getDeclaredConstructor().newInstance();
+
+                    if (instance instanceof SerializableComponent serializable) {
+                        serializable.deserialize(compJson.getAsJsonObject("data"));
+                        comps.put(clazz, (Component) instance);
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+
+            components.put(id, comps);
+        }
+    }
+
+
     public static interface Component {}
-
-    public static class Transform implements Component {
-				public int x = 0, y = 0;
-				public int w = 1, h = 1;
-				public float rotation = 0;
-
-
-				public int worldX, worldY;
-				public float worldRotation = 0;
-				public float worldW = 100, worldH = 100;
-				
-    }
-
-    public static class Renderable implements Component {
-        public String sprite = "";
-        public Renderable(String sprite) { this.sprite = sprite; }
-    }
-
-	public static class ScriptComponent implements Component {
-		public Script script;
-
-		public ScriptComponent(Script script) {
-			this.script = script;
-		}
-	}
-
-	public static class SpriteComponent implements Component {
-		public String image;
-		public boolean inverted = false;
-
-		public SpriteComponent(String image) {
-			this.image = image;
-		}
-	}
-
-	public static class AnimationComponent implements Component {
-		public List<AnimationTrack<?>> tracks;
-		public int currentTrack;
-
-		public AnimationComponent(List<AnimationTrack<?>> tracks) {
-			this.tracks = tracks;
-			currentTrack = 0;
-		}
-	}
-
-	public static class ParentComponent implements Component {
-
-		public UUID parentId;
-
-		public ParentComponent(UUID parentId) {
-			this.parentId = parentId;
-		}
-			
-	}
 
 }

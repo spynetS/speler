@@ -1,6 +1,11 @@
 package com.example.ecs;
 
-public class Camera {
+import com.example.SerializableComponent;
+import com.example.Vector2;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+
+public class Camera implements SerializableComponent {
     public float x, y;     // Camera position in world coordinates
     public float zoom;     // Zoom factor (1.0 = normal size)
 
@@ -26,7 +31,28 @@ public class Camera {
 				return y + (screenY - screenHeight / 2.0f) / zoom;
 		}
     // Convert world size to screen size (for scaling sprites)
-    public int worldToScreenSize(int size) {
-        return Math.round(size * zoom);
-    }
+	public int worldToScreenSize(int size) {
+		return Math.round(size * zoom);
+	}
+
+	public void centerOn(Vector2 worldPos, int screenWidth, int screenHeight) {
+		this.x = (int) worldPos.x - (screenWidth / 2f) / zoom;
+		this.y = (int) worldPos.y - (screenHeight / 2f) / zoom;
+	}
+
+		@Override
+		public JsonObject serialize() {
+			JsonObject ob = new JsonObject();
+			ob.add("x", new JsonPrimitive(x));
+			ob.add("y", new JsonPrimitive(y));
+			ob.add("zoom", new JsonPrimitive(zoom));
+			return ob;
+		}
+
+		@Override
+		public void deserialize(JsonObject data) {
+			x = data.get("x").getAsInt();
+			y = data.get("y").getAsInt();
+			zoom = data.get("zoom").getAsFloat();
+		}
 }

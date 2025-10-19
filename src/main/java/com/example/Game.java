@@ -15,10 +15,10 @@ public class Game implements Runnable {
 	private boolean running = true;
 
 
-		ResourceManager resourceManager;
-		GameWindow window;
-		Scene selectedScene;
-		ECS ecs;
+		protected ResourceManager resourceManager;
+		protected GameWindow window;
+		protected Scene selectedScene;
+		protected ECS ecs;
 
 		public Game() {
 				this.window = new GameWindow();
@@ -41,11 +41,13 @@ public class Game implements Runnable {
 		}
 
 		public void run() {
+
 				final double FPS =144.0;
 				final double TIME_PER_UPDATE = 1_000_000_000 / FPS; // nanoseconds per update
 				long lastTime = System.nanoTime();
 				double delta = 0;
 				while (running) {
+									selectedScene.requestFocus();
 						long now = System.nanoTime();
 						delta += (now - lastTime) / TIME_PER_UPDATE;
 						lastTime = now;
@@ -60,12 +62,12 @@ public class Game implements Runnable {
 		}
     
 		
-    private void update(double delta) {
+    protected void update(double delta) {
 		// 60fps
 				ecs.update((float)delta);
     }
 
-	private void render() {
+	protected void render() {
 		// repaint JPanel or use buffer strategy
 		selectedScene.repaint();
 	}

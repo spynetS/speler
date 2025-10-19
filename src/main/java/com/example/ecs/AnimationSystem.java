@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.example.animations.*;
-import com.example.ecs.ECS.AnimationComponent;
+import com.example.ecs.components.AnimationComponent;
 
 public class AnimationSystem implements UpdateSystem {
     private List<AnimationTrack<?>> activeTracks = new ArrayList<>();

@@ -9,7 +9,7 @@ public class Vector2 {
     public static Vector2 right = new Vector2(1,0);
     public static Vector2 left = new Vector2(-1,0);
     public static Vector2 zero = new Vector2(0,0);
-    public float x,y,z;
+    public double x,y,z;
 
     public Vector2() {
         x = 0;
@@ -17,12 +17,12 @@ public class Vector2 {
         z = 0;
     }
 
-    public Vector2(float x, float y, float z) {
+    public Vector2(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
-    public Vector2(float x, float y) {
+    public Vector2(double x, double y) {
         this.x = x;
         this.y = y;
         this.z = 0;
@@ -32,27 +32,27 @@ public class Vector2 {
         this.y = vector2.y;
         this.z = vector2.z;
     }
-    public float getX() {
+    public double getX() {
         return x;
     }
 
-    public void setX(float x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public float getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY(float y) {
+    public void setY(double y) {
         this.y = y;
     }
 
-    public float getZ() {
+    public double getZ() {
         return z;
     }
 
-    public void setZ(float z) {
+    public void setZ(double z) {
         this.z = z;
     }
 
@@ -61,7 +61,7 @@ public class Vector2 {
         return ("{x:{"+x+"} y:{"+y+"}}");
     }
 
-    public Vector2 multiply(float multiple) {
+    public Vector2 multiply(double multiple) {
         return new Vector2(x*multiple,y*multiple);
     }
 
@@ -73,8 +73,8 @@ public class Vector2 {
         return x == 0 || y == 0;
     }
 
-    public float getMagnitude (){
-        return (float) Math.sqrt((float) this.x * (float) this.x + (float) this.y * (float) this.y);
+    public double getMagnitude (){
+        return (double) Math.sqrt((double) this.x * (double) this.x + (double) this.y * (double) this.y);
     }
 
     /**
@@ -85,7 +85,7 @@ public class Vector2 {
         return new Vector2(y,x);
     }
 
-    public Vector2 divide(float a){
+    public Vector2 divide(double a){
         return new Vector2(x/a,y/a, z/a);
     }
     public Vector2 divide(Vector2 a){
@@ -94,13 +94,13 @@ public class Vector2 {
     public Vector2 add(Vector2 vector2) {
         return new Vector2(x+ vector2.x,y+ vector2.y);
     }
-    public Vector2 add(float a) {
+    public Vector2 add(double a) {
         return new Vector2(x+ a,y+ a);
     }
     public Vector2 subtract(Vector2 vector2) {
         return new Vector2(x - vector2.x,y - vector2.y);
     }
-    public Vector2 subtract(float value) {
+    public Vector2 subtract(double value) {
         return new Vector2( x- value,y - value);
     }
 
@@ -111,26 +111,26 @@ public class Vector2 {
         return Vector2.zero;
     }
 
-    private float getHighest() {
+    private double getHighest() {
         return Math.max(Math.abs(x), Math.abs(y));
     }
 
     /**
      * distance between this and param
      * @param vector2 next point
-     * @return distance as float
+     * @return distance as double
      */
-    public float getDistance(Vector2 vector2)
+    public double getDistance(Vector2 vector2)
     {
         double deltaX = vector2.getX() - getX();
         double deltaY = vector2.getY() - getY();
-        return (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        return (double) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 
-    public float getAngle()
+    public double getAngle()
     {
         //A = atan2(V.y, V.x)
-        return (float)(Math.toDegrees(Math.atan2(-y,-x)));
+        return (double)(Math.toDegrees(Math.atan2(-y,-x)));
     }
 
     @Override
@@ -138,11 +138,11 @@ public class Vector2 {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vector2 vector2 = (Vector2) o;
-        return Float.compare(vector2.x, x) == 0 && Float.compare(vector2.y, y) == 0;
+        return Double.compare(vector2.x, x) == 0 && Double.compare(vector2.y, y) == 0;
     }
-    public static Vector2 getDirection(float angle) {
-        float x = (float) Math.cos(Math.toRadians(angle));
-        float y = (float) Math.sin(Math.toRadians(angle));
+    public static Vector2 getDirection(double angle) {
+        double x = (double) Math.cos(Math.toRadians(angle));
+        double y = (double) Math.sin(Math.toRadians(angle));
         return new Vector2(x,y);
     }
     /**
@@ -150,20 +150,20 @@ public class Vector2 {
      @param toLookAt the vector to look at
      @return the degrees from this to the toLookAt vector
      **/
-    public float lookAtFloat(Vector2 toLookAt) {
-        float angle;
+    public double lookAtDouble(Vector2 toLookAt) {
+        double angle;
 
-        float b = getX()-toLookAt.getX();
-        float a = getY()-toLookAt.getY();
+        double b = getX()-toLookAt.getX();
+        double a = getY()-toLookAt.getY();
         //a/b=tan v
         //System.out.println("a; "+a+"b: "+b);
         if(b == 0)
             return 0;
 
         if (toLookAt.getX()>getX()){
-            angle = (float) Math.toDegrees(Math.atan(a/b));
+            angle = (double) Math.toDegrees(Math.atan(a/b));
         }else{
-            angle = (float) Math.toDegrees(Math.atan(a/b))+180;
+            angle = (double) Math.toDegrees(Math.atan(a/b))+180;
         }
         return angle;
     }
@@ -173,24 +173,24 @@ public class Vector2 {
      @return the degrees from this to the toLookAt vector
      **/
     public Vector2 lookAt(Vector2 toLookAt) {
-        float angle;
+        double angle;
 
-        float b = getX()-toLookAt.getX();
-        float a = getY()-toLookAt.getY();
+        double b = getX()-toLookAt.getX();
+        double a = getY()-toLookAt.getY();
         //a/b=tan v
         //System.out.println("a; "+a+"b: "+b);
         if(b == 0)
             return Vector2.zero;
 
         if (toLookAt.getX()>getX()){
-            angle = (float) Math.toDegrees(Math.atan(a/b));
+            angle = (double) Math.toDegrees(Math.atan(a/b));
         }else{
-            angle = (float) Math.toDegrees(Math.atan(a/b))+180;
+            angle = (double) Math.toDegrees(Math.atan(a/b))+180;
         }
         return Vector2.getDirection(angle);
     }
-    public static float angleFromOriginCounterClockwise(Vector2 a) {
-        float degrees = (float)Math.toDegrees(Math.atan(a.getY()/a.getX()));
+    public static double angleFromOriginCounterClockwise(Vector2 a) {
+        double degrees = (double)Math.toDegrees(Math.atan(a.getY()/a.getX()));
         if(a.getX() < 0.0) return degrees+180.0f;
         else if(a.getY() < 0.0) return degrees+360.0f;
         else return degrees;
@@ -218,7 +218,7 @@ public class Vector2 {
         return this;
     }
 
-    public void plusAssign(float i) {
+    public void plusAssign(double i) {
         this.x += i;
         this.y += i;
     }
@@ -228,7 +228,7 @@ public class Vector2 {
         this.y += vec.getY();
     }
 
-    public Vector2 times(float i) {
+    public Vector2 times(double i) {
         return this.multiply(i);
     }
     public Vector2 times(Vector2 vec) {
