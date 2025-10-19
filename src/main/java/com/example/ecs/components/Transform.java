@@ -9,7 +9,7 @@ public class Transform implements Component, SerializableComponent {
     public float w = 1, h = 1;
     public float rotation = 0;
 
-    public int worldX, worldY;
+    public float worldX, worldY;
     public float worldRotation = 0;
 	public float worldW = 100, worldH = 100;
 

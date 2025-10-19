@@ -24,8 +24,8 @@ public class EditorSystem implements RenderSystem, UpdateSystem {
 			for (UUID id : ecs.getEntities()) {
 				Transform t = ecs.getComponent(id, Transform.class);
 				
-				int objX = t.worldX;
-				int objY = t.worldY;
+				int objX = (int)t.worldX;
+				int objY = (int)t.worldY;
 				int objSize = 100;
 
 				// Draw gizmo only for selected entity
@@ -59,9 +59,9 @@ public class EditorSystem implements RenderSystem, UpdateSystem {
 
 
 					// Drag logic
-					if (Input.isKeyDown(Keys.SPACE)) {
+					if (Input.isMouseDown(Keys.LEFTCLICK)){
 						// Start dragging if mouse is near X arrow
-						if (!draggingX && Math.abs(mousePos.y - centerY) < 40 && mousePos.x > centerX
+						if (!draggingX && Math.abs(mousePos.y - centerY) < 10 && mousePos.x > centerX
 								&& mousePos.x < centerX + arrowSize) {
 							draggingX = true;
 

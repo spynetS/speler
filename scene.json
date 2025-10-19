@@ -2,8 +2,27 @@
   "ecs": {
     "entities": [
       {
-        "id": "8b316da7-98c4-4835-8868-b60a942fed79",
+        "id": "0ff0b5ac-8ff7-4564-b290-2cb799f1a090",
         "components": [
+          {
+            "type": "com.example.ecs.components.Renderable",
+            "data": {
+              "sprite": ""
+            }
+          },
+          {
+            "type": "com.example.ecs.components.ScriptComponent",
+            "data": {
+              "scriptName": "TEST"
+            }
+          },
+          {
+            "type": "com.example.ecs.components.SpriteComponent",
+            "data": {
+              "image": "/home/spy/Pictures/davve.png",
+              "inverted": false
+            }
+          },
           {
             "type": "com.example.ecs.components.Transform",
             "data": {
@@ -12,11 +31,22 @@
               "w": 1.0,
               "h": 1.0,
               "rotation": 0.0,
-              "worldX": 10,
-              "worldY": 0,
+              "worldX": -104.0,
+              "worldY": -103.0,
               "worldW": 100.0,
               "worldH": 100.0,
               "worldRotation": 0.0
+            }
+          }
+        ]
+      },
+      {
+        "id": "aeddb109-8ee4-488d-8f47-529009f6939d",
+        "components": [
+          {
+            "type": "com.example.ecs.components.ParentComponent",
+            "data": {
+              "parentId": "0ff0b5ac-8ff7-4564-b290-2cb799f1a090"
             }
           },
           {
@@ -28,23 +58,32 @@
           {
             "type": "com.example.ecs.components.SpriteComponent",
             "data": {
-              "image": "/home/spy/Pictures/davve.png",
+              "image": "/home/spy/Pictures/kevva.png",
               "inverted": false
             }
           },
           {
-            "type": "com.example.ecs.components.ScriptComponent",
+            "type": "com.example.ecs.components.Transform",
             "data": {
-              "scriptName": "TEST"
+              "x": 76,
+              "y": 0,
+              "w": 0.5,
+              "h": 0.5,
+              "rotation": 0.0,
+              "worldX": -28.0,
+              "worldY": -103.0,
+              "worldW": 50.0,
+              "worldH": 50.0,
+              "worldRotation": 0.0
             }
           }
         ]
-      },
+      }
     ]
   },
   "camera": {
-    "x": 48.5,
-    "y": 24.5,
+    "x": 0.0,
+    "y": 0.0,
     "zoom": 2.0
   }
 }

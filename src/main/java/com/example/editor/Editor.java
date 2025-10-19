@@ -20,25 +20,34 @@ public class Editor extends Game {
 
 		Inspector inspector = new Inspector();
 		HierarchyPanel hierarchyPanel = new HierarchyPanel(inspector);
+		JSplitPane rightSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		
     public Editor() {
 				super();
-        this.window.setTitle("Unity-like Editor");
-        this.window.setSize(1000, 700);
+        this.window.setTitle("speler");
+        this.window.setSize(1920-200,1080-200);
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.window.setLocationRelativeTo(null);
 
         // Menu Bar
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
-				fileMenu.add(new JMenuItem("New Scene"));
+				JMenuItem newScene = new JMenuItem("New Scene");
+				newScene.addActionListener(e->{
+								this.ecs = new ECS();
+								setSelectedScene(new EditorScene(ecs));
+								hierarchyPanel.update(ecs);
+								
+
+						});
+				fileMenu.add(newScene);
 				JMenuItem open = new JMenuItem("Open Scene");
 				open.addActionListener(e -> {
 								selectedScene = new EditorScene(ecs);
 								try{
 										selectedScene.loadScene("/home/spy/dev/playengine/scene.json");
 
-								}catch(Exception exception){}
+								}catch(Exception exception){exception.printStackTrace();}
 								hierarchyPanel.update(this.ecs);
 						});
 				fileMenu.add(open);
@@ -47,7 +56,7 @@ public class Editor extends Game {
 				item.addActionListener(e -> {
 								try{
 										selectedScene.saveScene("/home/spy/dev/playengine/scene.json");
-								}catch(Exception ex){}
+								}catch(Exception ex){ex.printStackTrace();}
 
 						});
         fileMenu.add(item);
@@ -61,7 +70,7 @@ public class Editor extends Game {
 
         
         // Right Split - Scene + Inspector
-        JSplitPane rightSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+       
         rightSplit.setDividerLocation(700);
 
         // Scene Panel
@@ -112,7 +121,7 @@ public class Editor extends Game {
         consolePanel.add(new JLabel("Console", SwingConstants.CENTER), BorderLayout.NORTH);
         consolePanel.setPreferredSize(new Dimension(1000, 100));
 
-				this.update(0);
+				hierarchyPanel.update(ecs);
         this.window.add(consolePanel, BorderLayout.SOUTH);
 				this.window.setVisible(true);
 
@@ -122,7 +131,7 @@ public class Editor extends Game {
 								}
 
 								// repaint scene panel
-								scenePanel.repaint();
+								selectedScene.repaint();
         });
         timer.start();
 				
@@ -131,15 +140,14 @@ public class Editor extends Game {
 
 		@Override
 		public void setSelectedScene(Scene scene) {
-				// TODO Auto-generated method stub
-				//		    super.setSelectedScene(scene);
+				selectedScene = scene;
+				if(rightSplit != null)
+						rightSplit.setLeftComponent(scene);
 		}
 
 		@Override
 		public void update(double delta) {
 				super.update(delta);
-				System.out.println("UPDATE");
-				hierarchyPanel.update(this.ecs);
 		}
 
 		@Override
@@ -147,5 +155,5 @@ public class Editor extends Game {
 				// TODO Auto-generated method stub
 				//		super.render();
 		}
-		
+
 }
