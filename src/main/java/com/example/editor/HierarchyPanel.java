@@ -4,7 +4,9 @@ import java.awt.BorderLayout;
 import java.util.UUID;
 
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
@@ -12,6 +14,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import com.example.ecs.ECS;
 import com.example.ecs.components.ParentComponent;
+import com.example.ecs.components.SpriteComponent;
+import com.example.resources.ResourceManager.Sprite;
 import com.example.scripting.GameObject;
 
 public class HierarchyPanel extends JPanel {
@@ -19,7 +23,7 @@ public class HierarchyPanel extends JPanel {
 
 		
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Scene");
-
+		private JPopupMenu nodeMenu;
 		JTree hierarchyTree = new JTree(root);
 		JScrollPane hierarchyScroll = new JScrollPane(hierarchyTree);
 		GameObject selectedGameObject;
@@ -47,7 +51,8 @@ public class HierarchyPanel extends JPanel {
 										
 										inspector.setGameObject(selectedGameObject);
 								}
-						});
+				});
+				    initPopupMenu();
 		}
 		private void addChildrenNodes(DefaultMutableTreeNode parentNode, GameObject parentObj) {
 				for (GameObject child : parentObj.getChildren()) {
@@ -61,33 +66,83 @@ public class HierarchyPanel extends JPanel {
 		}
 
 		public void update(ECS ecs) {
-				// Remove all nodes from the root first
-				root.removeAllChildren();
+			// Remove all nodes from the root first
+			root.removeAllChildren();
 
-				for (UUID id : ecs.getEntities()) {
-						GameObject gameObject = new GameObject(ecs, id);
+			for (UUID id : ecs.getEntities()) {
+				GameObject gameObject = new GameObject(ecs, id);
 
-						// Skip children, we'll attach them to parents
-						if (gameObject.getComponent(ParentComponent.class) != null)
-								continue;
+				// Skip children, we'll attach them to parents
+				if (gameObject.getComponent(ParentComponent.class) != null)
+					continue;
 
-						DefaultMutableTreeNode node = new DefaultMutableTreeNode(gameObject.id.toString());
-						node.setUserObject(gameObject);
+				DefaultMutableTreeNode node = new DefaultMutableTreeNode(gameObject.id.toString());
+				node.setUserObject(gameObject);
 
-						// Recursively add children
-						addChildrenNodes(node, gameObject);
+				// Recursively add children
+				addChildrenNodes(node, gameObject);
 
-						root.add(node);
-				}
+				root.add(node);
+			}
 
-				// Notify the tree model that it has changed
-				((javax.swing.tree.DefaultTreeModel) hierarchyTree.getModel()).reload();
+			// Notify the tree model that it has changed
+			((javax.swing.tree.DefaultTreeModel) hierarchyTree.getModel()).reload();
 
-				// Expand all rows (optional)
-				for (int i = 0; i < hierarchyTree.getRowCount(); i++) {
-						hierarchyTree.expandRow(i);
-				}
+			// Expand all rows (optional)
+			for (int i = 0; i < hierarchyTree.getRowCount(); i++) {
+				hierarchyTree.expandRow(i);
+			}
 		}
+
+		
+			
+		private void initPopupMenu() {
+    nodeMenu = new JPopupMenu();
+
+    JMenuItem createObjectItem = new JMenuItem("Create New GameObject");
+    createObjectItem.addActionListener(e -> {
+        DefaultMutableTreeNode selectedNode =
+                (DefaultMutableTreeNode) hierarchyTree.getLastSelectedPathComponent();
+        if (selectedNode == null) return;
+
+        Object obj = selectedNode.getUserObject();
+        if (obj instanceof GameObject parentObj) {
+            // Create a new GameObject
+            GameObject newObj = new GameObject(parentObj.getEcs());
+
+			newObj.addComponent(new ParentComponent(parentObj.id));
+			try{
+			newObj.addComponent(new SpriteComponent(Sprite.getSprite("/home/spy/Pictures/kevva.png")));
+			}catch(Exception ec){}
+			// Update hierarchy
+            update(parentObj.getEcs());
+        }
+    });
+
+    nodeMenu.add(createObjectItem);
+
+    // Attach mouse listener to the tree
+    hierarchyTree.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mousePressed(java.awt.event.MouseEvent e) {
+            showMenu(e);
+        }
+
+        @Override
+        public void mouseReleased(java.awt.event.MouseEvent e) {
+            showMenu(e);
+        }
+
+        private void showMenu(java.awt.event.MouseEvent e) {
+            if (e.isPopupTrigger()) {
+                int row = hierarchyTree.getClosestRowForLocation(e.getX(), e.getY());
+                hierarchyTree.setSelectionRow(row);
+                nodeMenu.show(e.getComponent(), e.getX(), e.getY());
+            }
+        }
+    });
+}
+		
 		public GameObject getSelectedGameObject() {
 		    return selectedGameObject;
 		}

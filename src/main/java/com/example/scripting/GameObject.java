@@ -64,4 +64,10 @@ public class GameObject {
 			return children;
 		}
 
+		public ECS getEcs() {
+			return ecs;
+		}
+		public UUID getId() {
+		    return id;
+		}
 }
