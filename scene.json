@@ -2,14 +2,8 @@
   "ecs": {
     "entities": [
       {
-        "id": "db1978e5-1b46-4930-9f76-e62ec1e3ad0f",
+        "id": "dcb1e12d-dab6-46b1-b5b8-f89bc5119f5b",
         "components": [
-          {
-            "type": "com.example.ecs.components.ScriptComponent",
-            "data": {
-              "scriptName": "TEST"
-            }
-          },
           {
             "type": "com.example.ecs.components.SpriteComponent",
             "data": {
@@ -25,8 +19,8 @@
               "w": 1.0,
               "h": 1.0,
               "rotation": 0.0,
-              "worldX": 10.0,
-              "worldY": 0.0,
+              "worldX": -190.0,
+              "worldY": -121.0,
               "worldW": 100.0,
               "worldH": 100.0,
               "worldRotation": 0.0
@@ -37,11 +31,17 @@
             "data": {
               "sprite": ""
             }
+          },
+          {
+            "type": "com.example.ecs.components.ScriptComponent",
+            "data": {
+              "scriptName": "MyScript"
+            }
           }
         ]
       },
       {
-        "id": "977a42a8-5d9c-486d-b387-8894518759b4",
+        "id": "f9ddee81-0ed6-41f7-b663-95040441b4a4",
         "components": [
           {
             "type": "com.example.ecs.components.SpriteComponent",
@@ -58,11 +58,17 @@
               "w": 1.0,
               "h": 1.0,
               "rotation": 0.0,
-              "worldX": 110.0,
-              "worldY": 0.0,
+              "worldX": -90.0,
+              "worldY": -121.0,
               "worldW": 100.0,
               "worldH": 100.0,
               "worldRotation": 0.0
+            }
+          },
+          {
+            "type": "com.example.ecs.components.ParentComponent",
+            "data": {
+              "parentId": "dcb1e12d-dab6-46b1-b5b8-f89bc5119f5b"
             }
           },
           {
@@ -70,20 +76,14 @@
             "data": {
               "sprite": ""
             }
-          },
-          {
-            "type": "com.example.ecs.components.ParentComponent",
-            "data": {
-              "parentId": "db1978e5-1b46-4930-9f76-e62ec1e3ad0f"
-            }
           }
         ]
       }
     ]
   },
   "camera": {
-    "x": -258.0,
-    "y": -164.5,
+    "x": 0.0,
+    "y": 0.0,
     "zoom": 2.0
   }
 }

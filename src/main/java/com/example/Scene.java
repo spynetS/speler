@@ -33,13 +33,18 @@ public class Scene extends JPanel implements SerializableComponent
 		protected Camera camera;
 		
 		public Scene(ECS ecs) {
-				this.ecs = ecs;
-				setBackground(new Color(40, 125, 255));
-				this.camera = new Camera(0, 0, 2);
-				setDoubleBuffered(true); // helps prevent flickering
-				initInput();
+			this.ecs = ecs;
+			setBackground(new Color(40, 125, 255));
+			this.camera = new Camera(0, 0, 2);
+			setDoubleBuffered(true); // helps prevent flickering
+			initInput();
+
 		}
 
+		public void removeInput() {
+				removeMouseListener(getMouseListeners()[0]);
+		}
+		
     @Override
     protected void paintComponent(Graphics g) {
 				super.paintComponent(g);

@@ -8,9 +8,11 @@ import com.example.Scene;
 import com.example.ecs.ECS;
 import com.example.ecs.components.*;
 import com.example.input.Input;
+import com.example.input.Keys;
 import com.example.resources.ResourceManager.Sprite;
 import com.example.scripting.GameObject;
 import com.example.scripting.Script;
+import com.example.scripting.ScriptManager;
 import com.example.ecs.*;
 
 import java.awt.*;
@@ -50,10 +52,8 @@ public class Editor extends Game {
 				fileMenu.add(newScene);
 				JMenuItem open = new JMenuItem("Open Scene");
 				open.addActionListener(e -> {
-								selectedScene = new EditorScene(ecs);
 								try{
 										selectedScene.loadScene("/home/spy/dev/playengine/scene.json");
-
 								}catch(Exception exception){exception.printStackTrace();}
 								hierarchyPanel.update(this.ecs);
 						});
@@ -72,14 +72,20 @@ public class Editor extends Game {
 				JMenu runMenu = new JMenu("Run");
 				JMenuItem run = new JMenuItem("Run scene");
 				run.addActionListener(e->{
+								
 								Game g = new Game();
+								g.getWindow().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+								
 								try{
 										selectedScene.saveScene("/home/spy/dev/playengine/scene.json");
 										g.getSelectedScene().loadScene("/home/spy/dev/playengine/scene.json");
-
+										//g.getSelectedScene().requestFocusInWindow();
+										
+										
+										
 								}catch(Exception er) {er.printStackTrace();}
 
-								new Thread(() -> run()).start();
+								new Thread(() -> g.run()).start();
 						});
 				runMenu.add(run);
 				
@@ -101,15 +107,7 @@ public class Editor extends Game {
         // Scene Panel
 				GameObject g = new GameObject(this.ecs);
 				g.transform.worldX = 10;
-				g.addComponent(new ScriptComponent(new Script(g,"TEST") {
-								@Override
-								public void update(float deltatime) {
-										// TODO Auto-generated method stub
-										super.update(deltatime);
-										g.transform.worldX = (int) Input.getMousePosition().x;
-										g.transform.worldY = (int) Input.getMousePosition().y;
-								}
-						}));
+				g.addComponent(new ScriptComponent(new MyScript()));
 				GameObject g2 = new GameObject(this.ecs);
 				g2.transform.x = 100;
 				g.addChild(g2);
@@ -184,4 +182,26 @@ public class Editor extends Game {
 		public GameObject getSelectedGameObject() {
 		    return selectedGameObject;
 		}
+
+		public static class MyScript extends Script {
+				public MyScript() {
+						this.scriptName = "MyScript";
+						ScriptManager.registerScript(scriptName, this.getClass());
+				}
+				@Override
+				public void update(float deltatime) {
+						if(Input.isKeyDown(Keys.D))
+								gameObject.transform.worldX++;
+						if(Input.isKeyDown(Keys.A))
+								gameObject.transform.worldX--;
+
+						if(Input.isKeyDown(Keys.S))
+								gameObject.transform.worldY++;
+						if(Input.isKeyDown(Keys.W))
+								gameObject.transform.worldY--;
+				}
+				
+		}
+		
+		
 }

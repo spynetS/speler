@@ -15,14 +15,13 @@ public class ScriptComponent implements Component, SerializableComponent {
     @Override
     public JsonObject serialize() {
         JsonObject obj = new JsonObject();
-        obj.addProperty("scriptName", script.getScriptName()); // or path
+				obj.addProperty("scriptName", script.getScriptName()); // or path
         return obj;
     }
 
     @Override
     public void deserialize(JsonObject obj) {
 		String name = obj.get("scriptName").getAsString();
-		// TODO FIX THIS
-				//        script = ScriptManager.getScript(name); // re-link script instance
+				script = ScriptManager.getScript(name);
     }
 }

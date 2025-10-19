@@ -8,11 +8,14 @@ import com.example.ecs.UpdateSystem;
 public abstract class Script {
 
 	public GameObject gameObject;
-	String scriptName;
+	protected String scriptName;
 
+		public Script(){}
+		
 		public Script(GameObject gameObject, String scriptName){
 			this.gameObject = gameObject;
 			this.scriptName = scriptName;
+			ScriptManager.registerScript(scriptName, this.getClass());
 		}
 		
 		public void update(float deltatime) {}
