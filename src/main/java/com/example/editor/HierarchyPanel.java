@@ -11,7 +11,7 @@ import javax.swing.SwingConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import com.example.ecs.ECS;
-import com.example.ecs.ECS.ParentComponent;
+import com.example.ecs.components.ParentComponent;
 import com.example.scripting.GameObject;
 
 public class HierarchyPanel extends JPanel {

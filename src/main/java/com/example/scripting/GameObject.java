@@ -6,7 +6,8 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.example.ecs.ECS;
-import com.example.ecs.ECS.*;
+import com.example.ecs.ECS.Component;
+import com.example.ecs.components.*;
 
 
 

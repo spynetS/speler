@@ -3,8 +3,8 @@ package com.example.ecs;
 import java.util.UUID;
 import java.util.concurrent.TransferQueue;
 
-import com.example.ecs.ECS.ParentComponent;
-import com.example.ecs.ECS.Transform;
+import com.example.ecs.components.ParentComponent;
+import com.example.ecs.components.Transform;
 
 public class ParentSystem implements UpdateSystem {
 

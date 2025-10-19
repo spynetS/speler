@@ -10,7 +10,7 @@ import com.example.ecs.Camera;
 import com.example.ecs.ECS;
 import com.example.ecs.RenderSystem;
 import com.example.ecs.UpdateSystem;
-import com.example.ecs.ECS.Transform;
+import com.example.ecs.components.Transform;
 
 public class EditorSystem implements RenderSystem, UpdateSystem {
 

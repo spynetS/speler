@@ -2,7 +2,7 @@ package com.example.ecs;
 
 import com.example.ecs.UpdateSystem;
 import com.example.ecs.ECS;
-import com.example.ecs.ECS.ScriptComponent;
+import com.example.ecs.components.*;
 import java.util.UUID;
 
 
