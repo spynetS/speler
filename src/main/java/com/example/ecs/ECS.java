@@ -56,9 +56,14 @@ public class ECS implements SerializableComponent {
 	}
 		
     // Get all entities
-    public List<UUID> getEntities() {
-        return entities;
-    }
+	public List<UUID> getEntities() {
+		return entities;
+	}
+
+	public void removeEntity(UUID id) {
+			//TODO: remove all components associated with id
+			entities.remove(id);
+	}
 
     // Main update loop: call all systems
 	public void update(float deltaTime) {

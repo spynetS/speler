@@ -18,27 +18,25 @@ import com.example.scripting.GameObject;
 
 public class Inspector extends JPanel {
 		
-	GameObject currentGameObject;
 
-		public Inspector() {
+	Editor editor;
+
+	public Inspector(Editor editor) {
+			this.editor = editor;
 				this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 		
-		public void setGameObject(GameObject gameObject) {
-				this.currentGameObject = gameObject;
-				updateInspector();
-		}
 
-		private void updateInspector() {
+		public void updateInspector() {
 			this.removeAll();
 
-			if (currentGameObject == null) {
+			if (this.editor.getSelectedGameObject() == null) {
 				this.revalidate();
 				this.repaint();
 				return;
 			}
 
-			for (Object component : currentGameObject.getComponents()) {
+			for (Object component : this.editor.getSelectedGameObject().getComponents()) {
 				Class<?> compClass = component.getClass();
 				JLabel compLabel = new JLabel(compClass.getSimpleName());
 				compLabel.setFont(compLabel.getFont().deriveFont(Font.BOLD));

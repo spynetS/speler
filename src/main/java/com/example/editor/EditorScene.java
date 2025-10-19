@@ -36,11 +36,9 @@ public class EditorScene extends Scene {
 				}
 			
 
-				if (ecs.getEntities().size()>0) {
-						system.setSelectedEntity(ecs.getEntities().getFirst());
-						system.render(this.ecs,(Graphics2D) g, camera, this.getWidth(), this.getHeight());
+				system.render(this.ecs,(Graphics2D) g, camera, this.getWidth(), this.getHeight());
+						
 
-				}
 		}
 		
 }

@@ -21,10 +21,11 @@ public class SpriteRenderSystem implements RenderSystem {
             SpriteComponent spriteComponent = ecs.getComponent(entityId, SpriteComponent.class);
 
             if (t != null && r != null) {
-                int x = camera.worldToScreenX(t.x, screenWidth);
-                int y = camera.worldToScreenY(t.y, screenHeight);
-                int size = camera.worldToScreenSize(10);
-                //g.fillOval(x - size / 2, y - size / 2, size, size);
+                int x = camera.worldToScreenX(t.worldX, screenWidth);
+                int y = camera.worldToScreenY(t.worldY, screenHeight);
+                int h = camera.worldToScreenSize((int)t.worldH);
+                int w = camera.worldToScreenSize((int)t.worldW);
+                g.fillRect(x - w / 2, y - h / 2, w, h);
             }
 
 						if (t != null && spriteComponent != null) {

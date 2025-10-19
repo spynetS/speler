@@ -10,6 +10,7 @@ import com.example.ecs.Camera;
 import com.example.ecs.ECS;
 import com.example.ecs.RenderSystem;
 import com.example.ecs.UpdateSystem;
+import com.example.ecs.components.ParentComponent;
 import com.example.ecs.components.Transform;
 
 public class EditorSystem implements RenderSystem, UpdateSystem {
@@ -23,15 +24,15 @@ public class EditorSystem implements RenderSystem, UpdateSystem {
 		public void render(ECS ecs, Graphics2D g, Camera camera, int screenWidth, int screenHeight) {
 			for (UUID id : ecs.getEntities()) {
 				Transform t = ecs.getComponent(id, Transform.class);
-				
+				ParentComponent parent = ecs.getComponent(id, ParentComponent.class);
 				int objX = (int)t.worldX;
 				int objY = (int)t.worldY;
 				int objSize = 100;
 
 				// Draw gizmo only for selected entity
 				if (selectedEntity != null && selectedEntity.equals(id)) {
-					int centerX = objX + objSize / 2;
-					int centerY = objY + objSize / 2;
+						int centerX = objX;// + objSize / 2;
+						int centerY = objY;// + objSize / 2;
 					int arrowSize = 40;
 
 					g.fillOval(camera.worldToScreenX(centerX,screenWidth), camera.worldToScreenY(centerY,screenHeight), 10, 10);
@@ -83,12 +84,21 @@ public class EditorSystem implements RenderSystem, UpdateSystem {
 
 					// Update transform while dragging
 					if (draggingX) {
-						t.worldX = (int) Math.round(mousePos.x + dragOffset.x);
-						System.out.println(mousePos.x + dragOffset.x);
+							if(parent==null)
+								t.worldX = (int) Math.round(mousePos.x + dragOffset.x);
+							else {
+									t.x = (int) Math.round(mousePos.x + dragOffset.x);
+							}
+
+
 					}
 
 					if (draggingY)
-						t.worldY = (int) (mousePos.y + dragOffset.y);
+							if(parent==null)
+								t.worldY = (int) Math.round(mousePos.y + dragOffset.y);
+							else
+									t.y = (int) Math.round(mousePos.y + dragOffset.y);
+
 				}
 			}
 		}

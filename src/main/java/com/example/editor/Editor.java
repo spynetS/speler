@@ -18,9 +18,11 @@ import java.util.UUID;
 public class Editor extends Game {
 
 
-		Inspector inspector = new Inspector();
-		HierarchyPanel hierarchyPanel = new HierarchyPanel(inspector);
+		Inspector inspector = new Inspector(this);
+		HierarchyPanel hierarchyPanel = new HierarchyPanel(this);
 		JSplitPane rightSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		GameObject selectedGameObject;
+
 		
     public Editor() {
 				super();
@@ -104,7 +106,6 @@ public class Editor extends Game {
 				selectedScene = scenePanel;
 
         // Inspector Panel
-				inspector.setGameObject(g);
 		
         rightSplit.setLeftComponent(scenePanel);
         rightSplit.setRightComponent(inspector);
@@ -156,4 +157,13 @@ public class Editor extends Game {
 				//		super.render();
 		}
 
+		public void setSelectedGameObject(GameObject selectedGameObject) {
+		    this.selectedGameObject = selectedGameObject;
+				this.inspector.updateInspector();
+				((EditorScene) selectedScene).system.setSelectedEntity(selectedGameObject.id);
+		}
+
+		public GameObject getSelectedGameObject() {
+		    return selectedGameObject;
+		}
 }
