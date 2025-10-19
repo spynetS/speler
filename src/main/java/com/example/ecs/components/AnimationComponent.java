@@ -11,8 +11,9 @@ import com.google.gson.JsonObject;
 
 public class AnimationComponent implements Component, SerializableComponent {
     public List<AnimationTrack<?>> tracks;
-    public int currentTrack;
+	public int currentTrack;
 
+		public AnimationComponent(){}
     public AnimationComponent(List<AnimationTrack<?>> tracks) {
         this.tracks = tracks;
         currentTrack = 0;
@@ -36,9 +37,9 @@ public class AnimationComponent implements Component, SerializableComponent {
         JsonArray array = obj.getAsJsonArray("tracks");
         tracks = new ArrayList<>();
         for (var e : array) {
-            AnimationTrack<?> track = new AnimationTrack<>();
-            track.deserialize(e.getAsJsonObject());
-            tracks.add(track);
+						//						AnimationTrack<?> track = new AnimationTrack<>();
+						//            track.deserialize(e.getAsJsonObject());
+						//            tracks.add(track);
         }
     }
 }

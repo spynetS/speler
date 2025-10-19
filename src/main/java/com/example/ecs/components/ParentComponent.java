@@ -7,8 +7,9 @@ import com.example.ecs.ECS.Component;
 import com.google.gson.JsonObject;
 
 public class ParentComponent implements Component, SerializableComponent {
-    public UUID parentId;
+	public UUID parentId;
 
+		public ParentComponent(){}
     public ParentComponent(UUID parentId) { this.parentId = parentId; }
 
     @Override

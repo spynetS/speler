@@ -5,8 +5,9 @@ import com.example.ecs.ECS.Component;
 import com.google.gson.JsonObject;
 
 public class Renderable implements Component, SerializableComponent {
-    public String sprite = "";
+		public String sprite = "";
 
+		public Renderable() {}
     public Renderable(String sprite) { this.sprite = sprite; }
 
     @Override

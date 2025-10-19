@@ -6,7 +6,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import com.example.Game;
 import com.example.Scene;
 import com.example.ecs.ECS;
-import com.example.ecs.ECS.*;
+import com.example.ecs.components.*;
 import com.example.input.Input;
 import com.example.resources.ResourceManager.Sprite;
 import com.example.scripting.GameObject;
@@ -31,9 +31,26 @@ public class Editor extends Game {
         // Menu Bar
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
-        fileMenu.add(new JMenuItem("New Scene"));
-        fileMenu.add(new JMenuItem("Open Scene"));
-        fileMenu.add(new JMenuItem("Save Scene"));
+				fileMenu.add(new JMenuItem("New Scene"));
+				JMenuItem open = new JMenuItem("Open Scene");
+				open.addActionListener(e -> {
+								selectedScene = new EditorScene(ecs);
+								try{
+										selectedScene.loadScene("/home/spy/dev/playengine/scene.json");
+
+								}catch(Exception exception){}
+								hierarchyPanel.update(this.ecs);
+						});
+				fileMenu.add(open);
+
+				JMenuItem item = new JMenuItem("Save Scene");
+				item.addActionListener(e -> {
+								try{
+										selectedScene.saveScene("/home/spy/dev/playengine/scene.json");
+								}catch(Exception ex){}
+
+						});
+        fileMenu.add(item);
         menuBar.add(fileMenu);
         this.window.setJMenuBar(menuBar);
 
@@ -50,7 +67,7 @@ public class Editor extends Game {
         // Scene Panel
 				GameObject g = new GameObject(this.ecs);
 				g.transform.worldX = 10;
-				g.addComponent(new ScriptComponent(new Script(g) {
+				g.addComponent(new ScriptComponent(new Script(g,"TEST") {
 								@Override
 								public void update(float deltatime) {
 										// TODO Auto-generated method stub

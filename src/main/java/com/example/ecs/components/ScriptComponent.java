@@ -7,20 +7,22 @@ import com.example.scripting.*;
 import com.google.gson.*;
 
 public class ScriptComponent implements Component, SerializableComponent {
-    public Script script;
+	public Script script;
 
+		public ScriptComponent(){}
     public ScriptComponent(Script script) { this.script = script; }
 
     @Override
     public JsonObject serialize() {
         JsonObject obj = new JsonObject();
-        obj.addProperty("scriptName", script.getName()); // or path
+        obj.addProperty("scriptName", script.getScriptName()); // or path
         return obj;
     }
 
     @Override
     public void deserialize(JsonObject obj) {
-        String name = obj.get("scriptName").getAsString();
-        script = ScriptManager.getScript(name); // re-link script instance
+		String name = obj.get("scriptName").getAsString();
+		// TODO FIX THIS
+				//        script = ScriptManager.getScript(name); // re-link script instance
     }
 }

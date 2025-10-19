@@ -26,7 +26,7 @@ public class HierarchyPanel extends JPanel {
 		Inspector inspector;
 		
 		public HierarchyPanel(Inspector inspector) {
-			this.inspector = inspector;
+				this.inspector = inspector;
 				setLayout(new BorderLayout());
 				this.add(new JLabel("Hierarchy", SwingConstants.CENTER), BorderLayout.NORTH);
 				this.add(hierarchyScroll, BorderLayout.CENTER);
@@ -49,24 +49,44 @@ public class HierarchyPanel extends JPanel {
 								}
 						});
 		}
+		private void addChildrenNodes(DefaultMutableTreeNode parentNode, GameObject parentObj) {
+				for (GameObject child : parentObj.getChildren()) {
+						DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child.id.toString());
+						childNode.setUserObject(child);
+						parentNode.add(childNode);
+
+						// Recursive call for grandchildren
+						addChildrenNodes(childNode, child);
+				}
+		}
 
 		public void update(ECS ecs) {
-			for (UUID id : ecs.getEntities()) {
-				GameObject gameObject = new GameObject(ecs, id);
+				// Remove all nodes from the root first
+				root.removeAllChildren();
 
-				if (gameObject.getComponent(ParentComponent.class) != null)
-					continue;
-				
-					DefaultMutableTreeNode node = new DefaultMutableTreeNode(id.toString());
-					node.setUserObject(gameObject);
-					for (GameObject child : gameObject.getChildren()) {
-						DefaultMutableTreeNode childN = new DefaultMutableTreeNode();
-						childN.setUserObject(child);
-						node.add(childN);
-					}
-					root.add(node);
+				for (UUID id : ecs.getEntities()) {
+						GameObject gameObject = new GameObject(ecs, id);
 
-			}
+						// Skip children, we'll attach them to parents
+						if (gameObject.getComponent(ParentComponent.class) != null)
+								continue;
+
+						DefaultMutableTreeNode node = new DefaultMutableTreeNode(gameObject.id.toString());
+						node.setUserObject(gameObject);
+
+						// Recursively add children
+						addChildrenNodes(node, gameObject);
+
+						root.add(node);
+				}
+
+				// Notify the tree model that it has changed
+				((javax.swing.tree.DefaultTreeModel) hierarchyTree.getModel()).reload();
+
+				// Expand all rows (optional)
+				for (int i = 0; i < hierarchyTree.getRowCount(); i++) {
+						hierarchyTree.expandRow(i);
+				}
 		}
 		public GameObject getSelectedGameObject() {
 		    return selectedGameObject;

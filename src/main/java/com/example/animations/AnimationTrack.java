@@ -1,15 +1,34 @@
 package com.example.animations;
 
+import com.example.SerializableComponent;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import java.util.ArrayList;
 import java.util.List;
 
-public class AnimationTrack<T> {
-    public static class Keyframe<T> {
+public class AnimationTrack<T> implements SerializableComponent {
+    public static class Keyframe<T> implements SerializableComponent {
         public float time;
         public T value;
 
         public Keyframe(float time, T value) {
             this.time = time;
             this.value = value;
+        }
+
+        @Override
+        public JsonObject serialize() {
+            JsonObject obj = new JsonObject();
+            obj.addProperty("time", time);
+            // Assuming value is Float for simplicity; extend for Vector2, Color, etc.
+            if (value instanceof Float f) obj.addProperty("value", f);
+            return obj;
+        }
+
+        @Override
+        public void deserialize(JsonObject obj) {
+            time = obj.get("time").getAsFloat();
+            if (value instanceof Float) value = (T) Float.valueOf(obj.get("value").getAsFloat());
         }
     }
 
@@ -24,13 +43,11 @@ public class AnimationTrack<T> {
     }
 
     public void apply(float elapsedTime) {
-		if (keyframes.size() == 0)
-			return;
+        if (keyframes.size() == 0) return;
 
         float totalDuration = keyframes.get(keyframes.size() - 1).time;
         float t = loop ? (elapsedTime % totalDuration) : Math.min(elapsedTime, totalDuration);
 
-        // Find current segment
         for (int i = 0; i < keyframes.size() - 1; i++) {
             Keyframe<T> k1 = keyframes.get(i);
             Keyframe<T> k2 = keyframes.get(i + 1);
@@ -46,12 +63,38 @@ public class AnimationTrack<T> {
 
     @SuppressWarnings("unchecked")
     private T interpolate(T v1, T v2, float alpha) {
-		if (v1 instanceof Float && v2 instanceof Float) {
-				Float v1f = (Float) v1;
-						Float v2f = (Float) v2;
-            return (T) Float.valueOf( v1f +  (v2f -  v1f) * alpha);
+        if (v1 instanceof Float && v2 instanceof Float) {
+            Float v1f = (Float) v1;
+            Float v2f = (Float) v2;
+            return (T) Float.valueOf(v1f + (v2f - v1f) * alpha);
         }
-        // You could add more interpolation logic for Vector2, Color, etc.
+        // Extend for Vector2, Color, etc.
         return v1;
+    }
+
+    // Serialization for the whole track
+    @Override
+    public JsonObject serialize() {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("loop", loop);
+
+        JsonArray array = new JsonArray();
+        for (Keyframe<T> kf : keyframes) {
+            array.add(kf.serialize());
+        }
+        obj.add("keyframes", array);
+        return obj;
+    }
+
+    @Override
+    public void deserialize(JsonObject obj) {
+        loop = obj.get("loop").getAsBoolean();
+        JsonArray array = obj.getAsJsonArray("keyframes");
+        keyframes = new ArrayList<>();
+        for (var e : array) {
+            Keyframe<T> kf = new Keyframe<>(0f, null); // initialize placeholder
+            kf.deserialize(e.getAsJsonObject());
+            keyframes.add(kf);
+        }
     }
 }

@@ -8,7 +8,7 @@ import com.example.*;
 
 import com.example.input.*;
 
-import com.example.ecs.ECS.*;
+import com.example.ecs.components.*;
 import com.example.ecs.*;
 import com.example.resources.*;
 

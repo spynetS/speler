@@ -1,0 +1,50 @@
+{
+  "ecs": {
+    "entities": [
+      {
+        "id": "8b316da7-98c4-4835-8868-b60a942fed79",
+        "components": [
+          {
+            "type": "com.example.ecs.components.Transform",
+            "data": {
+              "x": 0,
+              "y": 0,
+              "w": 1.0,
+              "h": 1.0,
+              "rotation": 0.0,
+              "worldX": 10,
+              "worldY": 0,
+              "worldW": 100.0,
+              "worldH": 100.0,
+              "worldRotation": 0.0
+            }
+          },
+          {
+            "type": "com.example.ecs.components.Renderable",
+            "data": {
+              "sprite": ""
+            }
+          },
+          {
+            "type": "com.example.ecs.components.SpriteComponent",
+            "data": {
+              "image": "/home/spy/Pictures/davve.png",
+              "inverted": false
+            }
+          },
+          {
+            "type": "com.example.ecs.components.ScriptComponent",
+            "data": {
+              "scriptName": "TEST"
+            }
+          }
+        ]
+      },
+    ]
+  },
+  "camera": {
+    "x": 48.5,
+    "y": 24.5,
+    "zoom": 2.0
+  }
+}
