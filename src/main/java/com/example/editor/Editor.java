@@ -11,6 +11,7 @@ import com.example.input.Input;
 import com.example.resources.ResourceManager.Sprite;
 import com.example.scripting.GameObject;
 import com.example.scripting.Script;
+import com.example.ecs.*;
 
 import java.awt.*;
 import java.util.UUID;
@@ -26,6 +27,9 @@ public class Editor extends Game {
 		
     public Editor() {
 				super();
+				ecs.updateSystems.clear();
+				ecs.addSystem(new ParentSystem());
+
         this.window.setTitle("speler");
         this.window.setSize(1920-200,1080-200);
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,6 +38,7 @@ public class Editor extends Game {
         // Menu Bar
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
+
 				JMenuItem newScene = new JMenuItem("New Scene");
 				newScene.addActionListener(e->{
 								this.ecs = new ECS();
@@ -63,6 +68,24 @@ public class Editor extends Game {
 						});
         fileMenu.add(item);
         menuBar.add(fileMenu);
+
+				JMenu runMenu = new JMenu("Run");
+				JMenuItem run = new JMenuItem("Run scene");
+				run.addActionListener(e->{
+								Game g = new Game();
+								try{
+										selectedScene.saveScene("/home/spy/dev/playengine/scene.json");
+										g.getSelectedScene().loadScene("/home/spy/dev/playengine/scene.json");
+
+								}catch(Exception er) {er.printStackTrace();}
+
+								new Thread(() -> run()).start();
+						});
+				runMenu.add(run);
+				
+				menuBar.add(runMenu);
+
+				
         this.window.setJMenuBar(menuBar);
 
         // Main Panels
@@ -83,8 +106,8 @@ public class Editor extends Game {
 								public void update(float deltatime) {
 										// TODO Auto-generated method stub
 										super.update(deltatime);
-										//g.transform.worldX = (int) Input.getMousePosition().x;
-										//								g.transform.worldY = (int) Input.getMousePosition().y;
+										g.transform.worldX = (int) Input.getMousePosition().x;
+										g.transform.worldY = (int) Input.getMousePosition().y;
 								}
 						}));
 				GameObject g2 = new GameObject(this.ecs);
@@ -134,7 +157,7 @@ public class Editor extends Game {
 								// repaint scene panel
 								selectedScene.repaint();
         });
-        timer.start();
+				timer.start();
 				
 
     }
@@ -144,11 +167,6 @@ public class Editor extends Game {
 				selectedScene = scene;
 				if(rightSplit != null)
 						rightSplit.setLeftComponent(scene);
-		}
-
-		@Override
-		public void update(double delta) {
-				super.update(delta);
 		}
 
 		@Override

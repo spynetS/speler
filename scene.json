@@ -2,14 +2,8 @@
   "ecs": {
     "entities": [
       {
-        "id": "0ff0b5ac-8ff7-4564-b290-2cb799f1a090",
+        "id": "db1978e5-1b46-4930-9f76-e62ec1e3ad0f",
         "components": [
-          {
-            "type": "com.example.ecs.components.Renderable",
-            "data": {
-              "sprite": ""
-            }
-          },
           {
             "type": "com.example.ecs.components.ScriptComponent",
             "data": {
@@ -31,22 +25,11 @@
               "w": 1.0,
               "h": 1.0,
               "rotation": 0.0,
-              "worldX": -104.0,
-              "worldY": -103.0,
+              "worldX": 10.0,
+              "worldY": 0.0,
               "worldW": 100.0,
               "worldH": 100.0,
               "worldRotation": 0.0
-            }
-          }
-        ]
-      },
-      {
-        "id": "aeddb109-8ee4-488d-8f47-529009f6939d",
-        "components": [
-          {
-            "type": "com.example.ecs.components.ParentComponent",
-            "data": {
-              "parentId": "0ff0b5ac-8ff7-4564-b290-2cb799f1a090"
             }
           },
           {
@@ -54,7 +37,12 @@
             "data": {
               "sprite": ""
             }
-          },
+          }
+        ]
+      },
+      {
+        "id": "977a42a8-5d9c-486d-b387-8894518759b4",
+        "components": [
           {
             "type": "com.example.ecs.components.SpriteComponent",
             "data": {
@@ -65,16 +53,28 @@
           {
             "type": "com.example.ecs.components.Transform",
             "data": {
-              "x": 76,
+              "x": 100,
               "y": 0,
-              "w": 0.5,
-              "h": 0.5,
+              "w": 1.0,
+              "h": 1.0,
               "rotation": 0.0,
-              "worldX": -28.0,
-              "worldY": -103.0,
-              "worldW": 50.0,
-              "worldH": 50.0,
+              "worldX": 110.0,
+              "worldY": 0.0,
+              "worldW": 100.0,
+              "worldH": 100.0,
               "worldRotation": 0.0
+            }
+          },
+          {
+            "type": "com.example.ecs.components.Renderable",
+            "data": {
+              "sprite": ""
+            }
+          },
+          {
+            "type": "com.example.ecs.components.ParentComponent",
+            "data": {
+              "parentId": "db1978e5-1b46-4930-9f76-e62ec1e3ad0f"
             }
           }
         ]
@@ -82,8 +82,8 @@
     ]
   },
   "camera": {
-    "x": 0.0,
-    "y": 0.0,
+    "x": -258.0,
+    "y": -164.5,
     "zoom": 2.0
   }
 }

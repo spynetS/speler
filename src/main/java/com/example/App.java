@@ -9,13 +9,14 @@ public class App
 {
 
     public static void main( String[] args ) throws Exception
-	{
+		{
 			try {
 				FlatDarculaLaf.setup();
-        } catch (Exception ex) {
-            System.err.println("Failed to initialize LaF");
-        }
-        SwingUtilities.invokeLater(Editor::new);
+			} catch (Exception ex) {
+				System.err.println("Failed to initialize LaF");
+			}
+
+			SwingUtilities.invokeLater(Editor::new);
 		}
 		
 }

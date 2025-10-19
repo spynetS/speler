@@ -41,11 +41,13 @@ public class Game implements Runnable {
 		}
 
 		public void run() {
+
 				final double FPS =144.0;
 				final double TIME_PER_UPDATE = 1_000_000_000 / FPS; // nanoseconds per update
 				long lastTime = System.nanoTime();
 				double delta = 0;
 				while (running) {
+									selectedScene.requestFocus();
 						long now = System.nanoTime();
 						delta += (now - lastTime) / TIME_PER_UPDATE;
 						lastTime = now;

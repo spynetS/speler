@@ -21,24 +21,20 @@ public class EditorScene extends Scene {
 		boolean d = false;		
 		@Override
 		public void paintComponent(Graphics g) {
-				super.paintComponent(g);
-			
-				if (Input.isMouseDown(Keys.RIGHTCLICK)) {
-						if (!d) {
-								start = Input.getMousePosition();
-								d = true;
-						}
-						camera.x += start.subtract(Input.getMousePosition()).x;
-						camera.y += start.subtract(Input.getMousePosition()).y;
-				}
-				else if (d) {
-						d = false;
-				}
-			
+			super.paintComponent(g);
 
-				system.render(this.ecs,(Graphics2D) g, camera, this.getWidth(), this.getHeight());
-						
+			if (Input.isMouseDown(Keys.RIGHTCLICK)) {
+				if (!d) {
+					start = Input.getMousePosition();
+					d = true;
+				}
+				camera.x += start.subtract(Input.getMousePosition()).x;
+				camera.y += start.subtract(Input.getMousePosition()).y;
+			} else if (d) {
+				d = false;
+			}
 
+			system.render(this.ecs, (Graphics2D) g, camera, this.getWidth(), this.getHeight());
 		}
 		
 }
