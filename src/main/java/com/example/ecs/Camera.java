@@ -1,5 +1,7 @@
 package com.example.ecs;
 
+import com.example.Vector2;
+
 public class Camera {
     public float x, y;     // Camera position in world coordinates
     public float zoom;     // Zoom factor (1.0 = normal size)
@@ -26,7 +28,13 @@ public class Camera {
 				return y + (screenY - screenHeight / 2.0f) / zoom;
 		}
     // Convert world size to screen size (for scaling sprites)
-    public int worldToScreenSize(int size) {
-        return Math.round(size * zoom);
-    }
+	public int worldToScreenSize(int size) {
+		return Math.round(size * zoom);
+	}
+
+		public void centerOn(Vector2 worldPos, int screenWidth, int screenHeight) {
+				this.x = (int)worldPos.x - (screenWidth / 2f) / zoom;
+				this.y = (int)worldPos.y - (screenHeight / 2f) / zoom;
+		}
+
 }

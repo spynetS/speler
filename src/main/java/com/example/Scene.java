@@ -3,6 +3,7 @@ package com.example;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -10,19 +11,22 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
+import java.util.List;
+import java.util.LinkedList;
+
 import com.example.input.*;
 
 import javax.swing.JPanel;
 import com.example.ecs.*;
+import com.example.editor.EditorSystem;
 import com.example.Vector2;
 
 
 
 public class Scene extends JPanel
 {
-		private RenderSystem renderer;
-		private ECS ecs;
-		private Camera camera;
+		protected ECS ecs;
+		protected Camera camera;
 		
 		public Scene(ECS ecs) {
 				this.ecs = ecs;
@@ -45,20 +49,14 @@ public class Scene extends JPanel
 																					 camera.screenToWorldX(x, getWidth()),
 																					 camera.screenToWorldY(y, getHeight())
 																					 ));
-
-
+				Graphics2D graphics2D =  (Graphics2D) g;
+				graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 				
-				renderer = new RenderSystem(ecs, (Graphics2D) g,camera, this.getWidth(), this.getHeight());
-        renderer.render();
+				RenderSystem renderer = new SpriteRenderSystem();
+				renderer.render(ecs,graphics2D ,camera, this.getWidth(), this.getHeight());
     }
 
-		public RenderSystem getRenderer() {
-				return renderer;
-		}
-
-		public void setRenderer(RenderSystem renderer) {
-				this.renderer = renderer;
-		}
 
 		public ECS getEcs() {
 				return ecs;

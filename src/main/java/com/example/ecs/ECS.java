@@ -1,4 +1,4 @@
-package com.example.ecs;
+ package com.example.ecs;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -37,22 +37,28 @@ public class ECS {
     }
 
     // Get a component from an entity
-		public <T> T getComponent(UUID id, Class<T> componentClass) { //
-																
-        Map<Class<?>, Component> entityComponents = components.get(id);
-        if (entityComponents == null) return null;
-        Component comp = entityComponents.get(componentClass);
-        if (componentClass.isInstance(comp)) return componentClass.cast(comp);
-        return null;
-    }
+	public <T> T getComponent(UUID id, Class<T> componentClass) { //
 
+		Map<Class<?>, Component> entityComponents = components.get(id);
+		if (entityComponents == null)
+			return null;
+		Component comp = entityComponents.get(componentClass);
+		if (componentClass.isInstance(comp))
+			return componentClass.cast(comp);
+		return null;
+	}
+
+	public List<Component> getComponents(UUID id) {
+			return new LinkedList<Component>(components.get(id).values());
+	}
+		
     // Get all entities
     public List<UUID> getEntities() {
         return entities;
     }
 
     // Main update loop: call all systems
-    public void update(float deltaTime) {
+	public void update(float deltaTime) {
         for (UpdateSystem system : updateSystems) {
             system.update(this, deltaTime);
         }
@@ -63,7 +69,7 @@ public class ECS {
 
     public static class Transform implements Component {
 				public int x = 0, y = 0;
-				public int w = 1, h = 1;
+				public float w = 1, h = 1;
 				public float rotation = 0;
 
 

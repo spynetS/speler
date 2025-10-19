@@ -60,12 +60,12 @@ public class Game implements Runnable {
 		}
     
 		
-    private void update(double delta) {
+    protected void update(double delta) {
 		// 60fps
 				ecs.update((float)delta);
     }
 
-	private void render() {
+	protected void render() {
 		// repaint JPanel or use buffer strategy
 		selectedScene.repaint();
 	}

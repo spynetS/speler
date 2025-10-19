@@ -7,16 +7,19 @@ import com.example.Game;
 import com.example.Scene;
 import com.example.ecs.ECS;
 import com.example.ecs.ECS.*;
+import com.example.input.Input;
 import com.example.resources.ResourceManager.Sprite;
 import com.example.scripting.GameObject;
+import com.example.scripting.Script;
 
 import java.awt.*;
 import java.util.UUID;
 
 public class Editor extends Game {
 
-		HierarchyPanel hierarchyPanel = new HierarchyPanel();	
-		JPanel inspectorPanel = new JPanel();
+
+		Inspector inspector = new Inspector();
+		HierarchyPanel hierarchyPanel = new HierarchyPanel(inspector);
 		
     public Editor() {
 				super();
@@ -46,28 +49,39 @@ public class Editor extends Game {
 
         // Scene Panel
 				GameObject g = new GameObject(this.ecs);
+				g.transform.worldX = 10;
+				g.addComponent(new ScriptComponent(new Script(g) {
+								@Override
+								public void update(float deltatime) {
+										// TODO Auto-generated method stub
+										super.update(deltatime);
+										//g.transform.worldX = (int) Input.getMousePosition().x;
+										//								g.transform.worldY = (int) Input.getMousePosition().y;
+								}
+						}));
 				GameObject g2 = new GameObject(this.ecs);
+				g2.transform.x = 100;
 				g.addChild(g2);
+
+				
+				
 				try{
 						g.addComponent(new SpriteComponent(Sprite.getSprite("/home/spy/Pictures/davve.png")));
+						g2.addComponent(new SpriteComponent(Sprite.getSprite("/home/spy/Pictures/kevva.png")));
+
 				}
-				catch(Exception e)
-						{e.printStackTrace();
+				catch (Exception e) {
+						e.printStackTrace();
 				}
 				
-        JPanel scenePanel = new Scene(ecs);
-				//        scenePanel.setBackground(Color.DARK_GRAY);
-				//        scenePanel.setLayout(new BorderLayout());
-				//        scenePanel.add(new JLabel("Scene View", SwingConstants.CENTER), BorderLayout.CENTER);
+				EditorScene scenePanel = new EditorScene(ecs);
+				selectedScene = scenePanel;
 
         // Inspector Panel
-
-        inspectorPanel.setBackground(Color.GRAY);
-        inspectorPanel.setLayout(new BorderLayout());
-        inspectorPanel.add(new JLabel("Inspector", SwingConstants.CENTER), BorderLayout.NORTH);
-
+				inspector.setGameObject(g);
+		
         rightSplit.setLeftComponent(scenePanel);
-        rightSplit.setRightComponent(inspectorPanel);
+        rightSplit.setRightComponent(inspector);
 
         horizontalSplit.setLeftComponent(hierarchyPanel);
         horizontalSplit.setRightComponent(rightSplit);
@@ -81,20 +95,40 @@ public class Editor extends Game {
         consolePanel.add(new JLabel("Console", SwingConstants.CENTER), BorderLayout.NORTH);
         consolePanel.setPreferredSize(new Dimension(1000, 100));
 
-				this.update();
+				this.update(0);
         this.window.add(consolePanel, BorderLayout.SOUTH);
-        this.window.setVisible(true);
+				this.window.setVisible(true);
+
+				Timer timer = new Timer(16, e -> {
+								if (selectedScene != null) {
+										ecs.update(1 / 60);
+								}
+
+								// repaint scene panel
+								scenePanel.repaint();
+        });
+        timer.start();
 				
+
     }
 
 		@Override
 		public void setSelectedScene(Scene scene) {
-		    // TODO Auto-generated method stub
+				// TODO Auto-generated method stub
 				//		    super.setSelectedScene(scene);
 		}
 
-		public void update(){
+		@Override
+		public void update(double delta) {
+				super.update(delta);
+				System.out.println("UPDATE");
 				hierarchyPanel.update(this.ecs);
+		}
+
+		@Override
+		protected void render() {
+				// TODO Auto-generated method stub
+				//		super.render();
 		}
 		
 }
