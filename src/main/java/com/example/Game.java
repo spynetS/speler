@@ -15,10 +15,10 @@ public class Game implements Runnable {
 	private boolean running = true;
 
 
-		ResourceManager resourceManager;
-		GameWindow window;
-		Scene selectedScene;
-		ECS ecs;
+		protected ResourceManager resourceManager;
+		protected GameWindow window;
+		protected Scene selectedScene;
+		protected ECS ecs;
 
 		public Game() {
 				this.window = new GameWindow();
