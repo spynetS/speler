@@ -2,15 +2,8 @@
   "ecs": {
     "entities": [
       {
-        "id": "dcb1e12d-dab6-46b1-b5b8-f89bc5119f5b",
+        "id": "eb3f3e96-3116-4152-9036-470999f86efb",
         "components": [
-          {
-            "type": "com.example.ecs.components.SpriteComponent",
-            "data": {
-              "image": "/home/spy/Pictures/davve.png",
-              "inverted": false
-            }
-          },
           {
             "type": "com.example.ecs.components.Transform",
             "data": {
@@ -19,56 +12,18 @@
               "w": 1.0,
               "h": 1.0,
               "rotation": 0.0,
-              "worldX": -190.0,
-              "worldY": -121.0,
+              "worldX": 10.0,
+              "worldY": 0.0,
               "worldW": 100.0,
               "worldH": 100.0,
               "worldRotation": 0.0
             }
           },
-          {
-            "type": "com.example.ecs.components.Renderable",
-            "data": {
-              "sprite": ""
-            }
-          },
-          {
-            "type": "com.example.ecs.components.ScriptComponent",
-            "data": {
-              "scriptName": "MyScript"
-            }
-          }
-        ]
-      },
-      {
-        "id": "f9ddee81-0ed6-41f7-b663-95040441b4a4",
-        "components": [
           {
             "type": "com.example.ecs.components.SpriteComponent",
             "data": {
-              "image": "/home/spy/Pictures/kevva.png",
+              "image": "/home/spy/Pictures/davve.png",
               "inverted": false
-            }
-          },
-          {
-            "type": "com.example.ecs.components.Transform",
-            "data": {
-              "x": 100,
-              "y": 0,
-              "w": 1.0,
-              "h": 1.0,
-              "rotation": 0.0,
-              "worldX": -90.0,
-              "worldY": -121.0,
-              "worldW": 100.0,
-              "worldH": 100.0,
-              "worldRotation": 0.0
-            }
-          },
-          {
-            "type": "com.example.ecs.components.ParentComponent",
-            "data": {
-              "parentId": "dcb1e12d-dab6-46b1-b5b8-f89bc5119f5b"
             }
           },
           {

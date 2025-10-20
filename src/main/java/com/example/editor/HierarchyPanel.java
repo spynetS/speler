@@ -121,11 +121,7 @@ public class HierarchyPanel extends JPanel {
 						update(parentObj.getEcs());
 					}
 					else if (selectedNode == root) {
-						GameObject newObj = new GameObject(this.editor.getEcs());
-									try {
-							newObj.addComponent(new SpriteComponent(Sprite.getSprite("/home/spy/Pictures/davve.png")));
-						} catch (Exception ec) {
-						}
+						GameObject newObj = new GameObject(this.editor.getEcs());						
 						update(this.editor.getEcs());
 					}
 

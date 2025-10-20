@@ -48,6 +48,9 @@ public class GameObject {
 			child.addComponent(new ParentComponent(this.id));
 		}
 
+		public <T extends Component> void removeComponent(Class<T> compClass) {
+				ecs.removeComponent(this.id,compClass);
+		}
 
 		public List<GameObject> getChildren() {
 			List<GameObject> children = new ArrayList<>();

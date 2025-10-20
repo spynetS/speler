@@ -31,6 +31,9 @@ public class ECS implements SerializableComponent {
 				updateSystems.add(system);
 		}
 
+		public <T extends Component> void removeComponent(UUID id, Class<T> compClass) {
+			components.get(id).remove(compClass);
+		}
 
 
     // Add a component to an entity

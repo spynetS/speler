@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.lang.reflect.Field;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,6 +15,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import com.example.ecs.ECS.Component;
 import com.example.scripting.GameObject;
 
 public class Inspector extends JPanel {
@@ -103,13 +105,19 @@ public class Inspector extends JPanel {
 						} else {
 							fieldPanel.add(new JLabel(value != null ? value.toString() : "null"));
 						}
-
 						this.add(fieldPanel);
 					} catch (IllegalAccessException e) {
 						e.printStackTrace();
 					}
 				}
+				JButton delete = new JButton("DELETE");
+				delete.addActionListener(e->{
+					this.editor.getSelectedGameObject().removeComponent(((Component) component).getClass());
+					updateInspector();
+				});
+				this.add(delete);
 
+				
 				this.add(new JSeparator(SwingConstants.HORIZONTAL));
 			}
 
