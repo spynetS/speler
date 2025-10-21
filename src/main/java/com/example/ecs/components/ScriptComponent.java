@@ -7,7 +7,7 @@ import com.example.scripting.*;
 import com.google.gson.*;
 
 public class ScriptComponent implements Component, SerializableComponent {
-	public Script script;
+		public Script script;
 
 		public ScriptComponent(){}
     public ScriptComponent(Script script) { this.script = script; }

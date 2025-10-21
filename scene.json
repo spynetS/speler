@@ -2,7 +2,7 @@
   "ecs": {
     "entities": [
       {
-        "id": "eb3f3e96-3116-4152-9036-470999f86efb",
+        "id": "ca3d9539-b8ed-497f-841d-fac7973dc005",
         "components": [
           {
             "type": "com.example.ecs.components.Transform",
@@ -12,8 +12,8 @@
               "w": 1.0,
               "h": 1.0,
               "rotation": 0.0,
-              "worldX": 10.0,
-              "worldY": 0.0,
+              "worldX": -172.0,
+              "worldY": -68.0,
               "worldW": 100.0,
               "worldH": 100.0,
               "worldRotation": 0.0
@@ -24,6 +24,51 @@
             "data": {
               "image": "/home/spy/Pictures/davve.png",
               "inverted": false
+            }
+          },
+          {
+            "type": "com.example.ecs.components.Renderable",
+            "data": {
+              "sprite": ""
+            }
+          },
+          {
+            "type": "com.example.ecs.components.ScriptComponent",
+            "data": {
+              "scriptName": "MyScript"
+            }
+          }
+        ]
+      },
+      {
+        "id": "135c20c7-a083-40be-b0cc-4ca62ed3b6a1",
+        "components": [
+          {
+            "type": "com.example.ecs.components.Transform",
+            "data": {
+              "x": 155,
+              "y": 0,
+              "w": 1.0,
+              "h": 1.0,
+              "rotation": 0.0,
+              "worldX": -17.0,
+              "worldY": -68.0,
+              "worldW": 100.0,
+              "worldH": 100.0,
+              "worldRotation": 0.0
+            }
+          },
+          {
+            "type": "com.example.ecs.components.SpriteComponent",
+            "data": {
+              "image": "/home/spy/Pictures/kevva.png",
+              "inverted": false
+            }
+          },
+          {
+            "type": "com.example.ecs.components.ParentComponent",
+            "data": {
+              "parentId": "ca3d9539-b8ed-497f-841d-fac7973dc005"
             }
           },
           {

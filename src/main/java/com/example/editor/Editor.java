@@ -44,7 +44,7 @@ public class Editor extends Game {
 				JMenuItem newScene = new JMenuItem("New Scene");
 				newScene.addActionListener(e->{
 								this.ecs = new ECS();
-								setSelectedScene(new EditorScene(ecs));
+								setSelectedScene(new EditorScene(this,ecs));
 								hierarchyPanel.update(ecs);
 								
 
@@ -102,7 +102,7 @@ public class Editor extends Game {
         
         // Right Split - Scene + Inspector
        
-        rightSplit.setDividerLocation(700);
+        rightSplit.setDividerLocation(1920-200-500);
 
         // Scene Panel
 				GameObject g = new GameObject(this.ecs);
@@ -123,7 +123,7 @@ public class Editor extends Game {
 						e.printStackTrace();
 				}
 				
-				EditorScene scenePanel = new EditorScene(ecs);
+				EditorScene scenePanel = new EditorScene(this,ecs);
 				selectedScene = scenePanel;
 
         // Inspector Panel
@@ -147,7 +147,7 @@ public class Editor extends Game {
         this.window.add(consolePanel, BorderLayout.SOUTH);
 				this.window.setVisible(true);
 
-				Timer timer = new Timer(16, e -> {
+				Timer timer = new Timer(8, e -> {
 								if (selectedScene != null) {
 										ecs.update(1 / 60);
 								}
@@ -200,7 +200,6 @@ public class Editor extends Game {
 						if(Input.isKeyDown(Keys.W))
 								gameObject.transform.worldY--;
 				}
-				
 		}
 		
 		

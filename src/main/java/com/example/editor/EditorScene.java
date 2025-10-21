@@ -13,9 +13,10 @@ import com.example.input.Keys;
 public class EditorScene extends Scene {
 
 		EditorSystem system = new EditorSystem();
-		
-		public EditorScene(ECS ecs) {
-				super(ecs);
+		Editor editor;
+		public EditorScene(Editor editor,ECS ecs) {
+			super(ecs);
+			this.editor = editor;
 		}
 
 		Vector2 start = new Vector2();
@@ -31,11 +32,14 @@ public class EditorScene extends Scene {
 						}
 						camera.x += start.subtract(Input.getMousePosition()).x;
 						camera.y += start.subtract(Input.getMousePosition()).y;
-				} else if (d) {
+					} else if (d) {
 						d = false;
-				}
+					}
+
+				
+				
 				drawGrid((Graphics2D)g);
-				system.render(this.ecs, (Graphics2D) g, camera, this.getWidth(), this.getHeight());
+				system.render(editor,this.ecs, (Graphics2D) g, camera, this.getWidth(), this.getHeight());
 		}
 		private void drawGrid(Graphics2D g2) {
 				int width = getWidth();
