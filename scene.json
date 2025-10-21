@@ -2,38 +2,38 @@
   "ecs": {
     "entities": [
       {
-        "id": "ca3d9539-b8ed-497f-841d-fac7973dc005",
+        "id": "c0422405-6291-40b0-abd2-196863d4119c",
         "components": [
           {
-            "type": "com.example.ecs.components.Transform",
+            "type": "com.example.speler.ecs.components.Transform",
             "data": {
               "x": 0,
               "y": 0,
               "w": 1.0,
               "h": 1.0,
               "rotation": 0.0,
-              "worldX": -172.0,
-              "worldY": -68.0,
+              "worldX": -65.0,
+              "worldY": -12.0,
               "worldW": 100.0,
               "worldH": 100.0,
               "worldRotation": 0.0
             }
           },
           {
-            "type": "com.example.ecs.components.SpriteComponent",
+            "type": "com.example.speler.ecs.components.Renderable",
+            "data": {
+              "sprite": ""
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.SpriteComponent",
             "data": {
               "image": "/home/spy/Pictures/davve.png",
               "inverted": false
             }
           },
           {
-            "type": "com.example.ecs.components.Renderable",
-            "data": {
-              "sprite": ""
-            }
-          },
-          {
-            "type": "com.example.ecs.components.ScriptComponent",
+            "type": "com.example.speler.ecs.components.ScriptComponent",
             "data": {
               "scriptName": "MyScript"
             }
@@ -41,40 +41,73 @@
         ]
       },
       {
-        "id": "135c20c7-a083-40be-b0cc-4ca62ed3b6a1",
+        "id": "c8fd8d0b-dfdc-4a08-a811-b5a6f205a479",
         "components": [
           {
-            "type": "com.example.ecs.components.Transform",
+            "type": "com.example.speler.ecs.components.Transform",
             "data": {
-              "x": 155,
-              "y": 0,
+              "x": 113,
+              "y": -88,
               "w": 1.0,
               "h": 1.0,
               "rotation": 0.0,
-              "worldX": -17.0,
-              "worldY": -68.0,
+              "worldX": 48.0,
+              "worldY": -100.0,
               "worldW": 100.0,
               "worldH": 100.0,
               "worldRotation": 0.0
             }
           },
           {
-            "type": "com.example.ecs.components.SpriteComponent",
+            "type": "com.example.speler.ecs.components.ParentComponent",
+            "data": {
+              "parentId": "c0422405-6291-40b0-abd2-196863d4119c"
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.Renderable",
+            "data": {
+              "sprite": ""
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.SpriteComponent",
             "data": {
               "image": "/home/spy/Pictures/kevva.png",
               "inverted": false
             }
-          },
+          }
+        ]
+      },
+      {
+        "id": "d3963d12-cb86-47cd-9fce-46da49dc20ba",
+        "components": [
           {
-            "type": "com.example.ecs.components.ParentComponent",
+            "type": "com.example.speler.ecs.components.Transform",
             "data": {
-              "parentId": "ca3d9539-b8ed-497f-841d-fac7973dc005"
+              "x": 0,
+              "y": 0,
+              "w": 1.0,
+              "h": 1.0,
+              "rotation": 0.0,
+              "worldX": -65.0,
+              "worldY": -12.0,
+              "worldW": 100.0,
+              "worldH": 100.0,
+              "worldRotation": 0.0
             }
           },
           {
-            "type": "com.example.ecs.components.Renderable",
+            "type": "com.example.speler.ecs.components.Renderable",
             "data": {
               "sprite": ""
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.SpriteComponent",
+            "data": {
+              "image": "/home/spy/Pictures/davve.png",
+              "inverted": false
             }
           }
         ]
