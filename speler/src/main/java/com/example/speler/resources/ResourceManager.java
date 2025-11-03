@@ -18,6 +18,17 @@ import java.security.MessageDigest;
 public class ResourceManager {
 
 	private static Map<String, BufferedImage> images = new HashMap<>();
+
+	public static void loadFolder(File folder) {
+			for (final File fileEntry : folder.listFiles()) {
+					if (fileEntry.isDirectory()) {
+							loadFolder(fileEntry);
+					} else {
+						System.out.println(fileEntry.getName());
+						loadImage(fileEntry.getPath());
+					}
+			}
+	}
 		
     public static BufferedImage loadImage(String path) {
         if (!images.containsKey(path)) {

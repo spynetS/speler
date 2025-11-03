@@ -12,6 +12,7 @@ import com.google.gson.JsonObject;
 import com.example.speler.SerializableComponent;
 import com.example.speler.animations.AnimationTrack;
 import com.example.speler.ecs.UpdateSystem;
+import com.example.speler.ecs.components.ParentComponent;
 
 
 public class ECS implements SerializableComponent {
@@ -63,10 +64,27 @@ public class ECS implements SerializableComponent {
 		return entities;
 	}
 
-	public void removeEntity(UUID id) {
-			//TODO: remove all components associated with id
-			entities.remove(id);
-	}
+		public void removeEntity(UUID id) {
+
+				for (UUID uid : entities) {
+						if (uid.equals(id))
+								continue;
+						ParentComponent p = getComponent(uid, ParentComponent.class);
+
+						if(p != null && p.parentId.equals(id))
+								removeEntity(uid);
+				}
+		
+				entities.remove(id);
+
+				List<Component> components = getComponents(id);
+				for (Component comp : components) {
+						removeComponent(id, comp.getClass());
+				}
+
+
+
+		}
 
     // Main update loop: call all systems
 	public void update(float deltaTime) {

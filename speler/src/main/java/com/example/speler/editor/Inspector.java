@@ -135,11 +135,8 @@ public class Inspector extends JPanel {
 		    private void showAddComponentDialog(GameObject gameObject) {
         // Example: You can customize this list to fit your engine’s components
         String[] availableComponents = {
-            "TransformComponent",
-            "SpriteRenderer",
-            "RigidBody",
-            "BoxCollider",
-            "CameraComponent"
+				"SpriteComponent",
+				"Renderable",
         };
 
         String choice = (String) JOptionPane.showInputDialog(
@@ -155,7 +152,7 @@ public class Inspector extends JPanel {
         if (choice != null) {
             try {
                 // Assuming components live under "com.example.ecs.components"
-                String className = "com.example.ecs.components." + choice;
+                String className = "com.example.speler.ecs.components." + choice;
                 Class<?> clazz = Class.forName(className);
                 Component newComponent = (Component) clazz.getDeclaredConstructor().newInstance();
                 gameObject.addComponent(newComponent);

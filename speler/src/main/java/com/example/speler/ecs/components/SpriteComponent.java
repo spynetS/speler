@@ -5,7 +5,7 @@ import com.example.speler.ecs.ECS.Component;
 import com.google.gson.JsonObject;
 
 public class SpriteComponent implements Component, SerializableComponent {
-    public String image;
+    public String image = "";
 	public boolean inverted = false;
 
 		public SpriteComponent(){}

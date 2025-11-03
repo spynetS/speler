@@ -16,6 +16,7 @@ import com.example.speler.scripting.ScriptManager;
 import com.example.speler.ecs.*;
 
 import java.awt.*;
+import java.io.File;
 import java.util.UUID;
 
 public class Editor extends Game {
@@ -67,7 +68,25 @@ public class Editor extends Game {
 
 						});
         fileMenu.add(item);
-        menuBar.add(fileMenu);
+
+
+		JMenuItem loadResources = new JMenuItem("Load resources");
+		loadResources.addActionListener(e->{
+						JFileChooser j = new JFileChooser();
+						j.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+						int r = j.showSaveDialog(null);
+						if (r == JFileChooser.APPROVE_OPTION) {
+								File folder = new File(j.getSelectedFile().getAbsolutePath());
+								System.out.println("Load resources in, " + j.getSelectedFile().getAbsolutePath());
+								this.resourceManager.loadFolder(folder);
+						}
+				});
+        
+
+		fileMenu.add(loadResources);
+
+		menuBar.add(fileMenu);		
 
 				JMenu runMenu = new JMenu("Run");
 				JMenuItem run = new JMenuItem("Run scene");
@@ -102,27 +121,9 @@ public class Editor extends Game {
         
         // Right Split - Scene + Inspector
        
-        rightSplit.setDividerLocation(1920-200-500);
+        rightSplit.setDividerLocation(1000);
 
-        // Scene Panel
-				GameObject g = new GameObject(this.ecs);
-				g.transform.worldX = 10;
-				g.addComponent(new ScriptComponent(new MyScript()));
-				GameObject g2 = new GameObject(this.ecs);
-				g2.transform.x = 100;
-				g.addChild(g2);
-
-				
-				
-				try{
-						g.addComponent(new SpriteComponent(Sprite.getSprite("/home/spy/Pictures/davve.png")));
-						g2.addComponent(new SpriteComponent(Sprite.getSprite("/home/spy/Pictures/kevva.png")));
-
-				}
-				catch (Exception e) {
-						e.printStackTrace();
-				}
-				
+     		
 				EditorScene scenePanel = new EditorScene(this,ecs);
 				selectedScene = scenePanel;
 

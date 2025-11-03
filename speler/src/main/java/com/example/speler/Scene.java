@@ -110,7 +110,7 @@ public class Scene extends JPanel implements SerializableComponent
 										Input.addMouseButton(e);
 										Input.setMouseEvent(e);
 										Input.setMousePressed(e.getButton());
-										requestFocus();
+										//										requestFocus();
 								}
 
 								@Override
@@ -136,7 +136,7 @@ public class Scene extends JPanel implements SerializableComponent
 										Input.setMousePositionOnCanvas(
 																									 new Vector2((float) e.getPoint().getX(), (float) e.getPoint().getY()));
 										Input.setMouseEvent(e);
-										requestFocus();
+										//requestFocus();
 								}
 
 								@Override

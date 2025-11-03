@@ -50,7 +50,7 @@ public class Game implements Runnable {
 				long lastTime = System.nanoTime();
 				double delta = 0;
 				while (running) {
-									selectedScene.requestFocus();
+						//selectedScene.requestFocus();
 						long now = System.nanoTime();
 						delta += (now - lastTime) / TIME_PER_UPDATE;
 						lastTime = now;

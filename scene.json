@@ -2,7 +2,7 @@
   "ecs": {
     "entities": [
       {
-        "id": "c0422405-6291-40b0-abd2-196863d4119c",
+        "id": "fe0c3c51-f051-4774-89d0-78f484ebb889",
         "components": [
           {
             "type": "com.example.speler.ecs.components.Transform",
@@ -12,101 +12,17 @@
               "w": 1.0,
               "h": 1.0,
               "rotation": 0.0,
-              "worldX": -65.0,
-              "worldY": -12.0,
+              "worldX": -100.0,
+              "worldY": -50.0,
               "worldW": 100.0,
               "worldH": 100.0,
               "worldRotation": 0.0
             }
           },
           {
-            "type": "com.example.speler.ecs.components.Renderable",
-            "data": {
-              "sprite": ""
-            }
-          },
-          {
             "type": "com.example.speler.ecs.components.SpriteComponent",
             "data": {
-              "image": "/home/spy/Pictures/davve.png",
-              "inverted": false
-            }
-          },
-          {
-            "type": "com.example.speler.ecs.components.ScriptComponent",
-            "data": {
-              "scriptName": "MyScript"
-            }
-          }
-        ]
-      },
-      {
-        "id": "c8fd8d0b-dfdc-4a08-a811-b5a6f205a479",
-        "components": [
-          {
-            "type": "com.example.speler.ecs.components.Transform",
-            "data": {
-              "x": 113,
-              "y": -88,
-              "w": 1.0,
-              "h": 1.0,
-              "rotation": 0.0,
-              "worldX": 48.0,
-              "worldY": -100.0,
-              "worldW": 100.0,
-              "worldH": 100.0,
-              "worldRotation": 0.0
-            }
-          },
-          {
-            "type": "com.example.speler.ecs.components.ParentComponent",
-            "data": {
-              "parentId": "c0422405-6291-40b0-abd2-196863d4119c"
-            }
-          },
-          {
-            "type": "com.example.speler.ecs.components.Renderable",
-            "data": {
-              "sprite": ""
-            }
-          },
-          {
-            "type": "com.example.speler.ecs.components.SpriteComponent",
-            "data": {
-              "image": "/home/spy/Pictures/kevva.png",
-              "inverted": false
-            }
-          }
-        ]
-      },
-      {
-        "id": "d3963d12-cb86-47cd-9fce-46da49dc20ba",
-        "components": [
-          {
-            "type": "com.example.speler.ecs.components.Transform",
-            "data": {
-              "x": 0,
-              "y": 0,
-              "w": 1.0,
-              "h": 1.0,
-              "rotation": 0.0,
-              "worldX": -65.0,
-              "worldY": -12.0,
-              "worldW": 100.0,
-              "worldH": 100.0,
-              "worldRotation": 0.0
-            }
-          },
-          {
-            "type": "com.example.speler.ecs.components.Renderable",
-            "data": {
-              "sprite": ""
-            }
-          },
-          {
-            "type": "com.example.speler.ecs.components.SpriteComponent",
-            "data": {
-              "image": "/home/spy/Pictures/davve.png",
+              "image": "/home/spy/images/icon.png",
               "inverted": false
             }
           }

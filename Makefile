@@ -2,8 +2,6 @@
 
 
 run: compile
-	export _JAVA_AWT_WM_NONREPARENTING=1; mvn exec:java -Dexec.mainClass="com.example.App"
-test:
-	export _JAVA_AWT_WM_NONREPARENTING=1; mvn test
+	export _JAVA_AWT_WM_NONREPARENTING=1; cd testgame; mvn exec:java -Dexec.mainClass="com.example.Main"
 compile:
-	mvn -B clean install;
+	mvn clean install;

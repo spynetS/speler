@@ -1,3 +1,4 @@
+
 package com.example.testgame;
 
 import com.example.speler.Game;
@@ -6,27 +7,28 @@ import com.example.speler.editor.Editor;
 import com.example.speler.editor.Editor.MyScript;
 import com.example.speler.scripting.GameObject;
 import com.example.speler.scripting.Script;
+import com.formdev.flatlaf.FlatDarculaLaf;
 
 public class Main {
 	public static void main(String[] args) {
 
-
+			try{
+					FlatDarculaLaf.setup();
+			}
+			catch(Exception e){}
+			
 			Game game = new Editor();
-			GameObject g = new GameObject(game.getEcs());
-			g.addComponent(new SpriteComponent("/home/spy/Pictures/davve.png"));
-			//			g.addComponent(new ScriptComponent(new MyScript()));
 
+			//			game.setSelectedScene(new MyScene(game.getEcs()));
+			try {
+				game.getSelectedScene().loadScene("/home/spy/dev/playengine/scene.json");
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
 			game.run();
     }
 
 
-		public static class MyScript extends Script {
-				@Override
-				public void update(float deltatime) {
-				    // TODO Auto-generated method stub
-				    super.update(deltatime);
-						gameObject.transform.worldX ++;
-				}
-		}
 		
 }
