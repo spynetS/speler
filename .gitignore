@@ -24,7 +24,8 @@ Thumbs.db
 
 # Ignore generated files (optional, if any)
 /out/
-/target/
+/speler/target/
+/testgame/target/
 
 # Ignore libs if you don't want to commit dependencies
 /lib/
