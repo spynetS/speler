@@ -30,7 +30,9 @@ public class Game implements Runnable {
 				ecs.addSystem(new ParentSystem());
 				ecs.addSystem(new ScriptSystem());
 				ecs.addSystem(new AnimationSystem());
-				ecs.addSystem(new ColliderSystem());
+				ColliderSystem cs = new ColliderSystem();
+				ecs.listeners.add(cs);
+				ecs.addSystem(cs);
 
 				Sprite.game = this;
 

@@ -6,10 +6,11 @@ import com.example.speler.ecs.ECS.Component;
 import java.util.UUID;
 
 import com.example.speler.SerializableComponent;
+import com.example.speler.ecs.CollisionEvent;
 import com.example.speler.ecs.CollisionListener;
 import com.example.speler.ecs.UpdateSystem;
 
-public abstract class Script implements CollisionListener {
+public abstract class Script {
 
 	public GameObject gameObject;
 	protected String scriptName;
@@ -33,8 +34,6 @@ public abstract class Script implements CollisionListener {
 		return scriptName;
 	}
 
-
-		@Override
-		public void onCollision(UUID a, UUID b) {
-		}
+	public void onCollision(CollisionEvent event) {
+	}
 }

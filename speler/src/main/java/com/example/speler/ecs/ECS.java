@@ -19,6 +19,7 @@ public class ECS implements SerializableComponent {
     public Map<UUID, Map<Class<?>, Component>> components = new HashMap<>();
     public List<UUID> entities = new ArrayList<>();
     public List<UpdateSystem> updateSystems = new LinkedList<>();
+    public List<EntityListener> listeners = new LinkedList<>();
 
     // Create a new entity
     public UUID instantiate() {
@@ -38,9 +39,12 @@ public class ECS implements SerializableComponent {
 
 
     // Add a component to an entity
-    public <T extends Component> void addComponent(UUID entityId, T component) {
-        components.computeIfAbsent(entityId, id -> new HashMap<>())
-						.put(component.getClass(), component);
+	public <T extends Component> void addComponent(UUID entityId, T component) {
+
+			for(EntityListener listener: listeners) listener.onComponentAdded(entityId, component);
+			
+			components.computeIfAbsent(entityId, id -> new HashMap<>())
+					.put(component.getClass(), component);
     }
 
     // Get a component from an entity

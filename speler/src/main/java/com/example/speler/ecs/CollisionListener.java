@@ -4,6 +4,6 @@ import java.util.UUID;
 
 public interface CollisionListener {
 
-	public void onCollision(UUID entityA, UUID entityB);
+	public void onCollision(CollisionEvent event);
 	
 }

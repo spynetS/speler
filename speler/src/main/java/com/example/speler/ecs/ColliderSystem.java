@@ -5,13 +5,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.example.speler.ecs.ECS.Component;
 import com.example.speler.ecs.components.*;
 
-public class ColliderSystem implements UpdateSystem {
-
-
+public class ColliderSystem implements UpdateSystem, EntityListener {
 
 		public static List<CollisionListener> onCollisioners = new LinkedList<>();
+
+		// if ecs gets a new component and its a collision listener add it to
+		// our listeners
+		@Override
+		public void onComponentAdded(UUID id, Component component) {
+				if(component instanceof CollisionListener){
+						onCollisioners.add((CollisionListener)component);
+				}
+		}
 		
 		@Override
 		public void update(ECS ecs, float dt) {
@@ -39,8 +47,14 @@ public class ColliderSystem implements UpdateSystem {
 			}
 		}
 
-		private void onCollision(UUID a, UUID b) {
-				for(CollisionListener listener : onCollisioners) listener.onCollision(a, b);
+		private void onCollision(UUID a, Transform ta, ColliderComponent ca,
+														 UUID b, Transform tb, ColliderComponent cb) {
+
+				CollisionEvent event = new CollisionEvent(a, b, ta, ca, tb, cb);
+
+				for (CollisionListener listener : onCollisioners) {
+						listener.onCollision(event);
+				}
 		}
 
 		
@@ -50,40 +64,16 @@ public class ColliderSystem implements UpdateSystem {
 				boolean aCircle = ca.circle;
 				boolean bCircle = cb.circle;
 
-				// Circle vs Circle
-				if (aCircle && bCircle) {
-						if (circleCircle(ta, ca, tb, cb)) {
-								onCollision(a, b);
-						}
-				}
 				// Circle vs Rectangle
-				else if (aCircle && !bCircle) {
+				if (aCircle && !bCircle) {
 						if (circleRect(ta, ca, tb, cb)) {
-								onCollision(a, b);
+								onCollision(a, ta, ca, b, tb, cb);
 						}
 				} else if (!aCircle && bCircle) {
 						if (circleRect(tb, cb, ta, ca)) { // reverse args
-								onCollision(a, b);
+								onCollision(a, ta, ca,b, tb, cb);
 						}
 				}
-				// Rectangle vs Rectangle
-				else {
-						if (rectRect(ta, ca, tb, cb)) {
-								onCollision(a, b);
-						}
-				}
-		}
-
-		private boolean circleCircle(Transform ta, ColliderComponent ca,
-																 Transform tb, ColliderComponent cb) {
-
-				float dx = tb.worldX - ta.worldX;
-				float dy = tb.worldY - ta.worldY;
-				float distSq = dx * dx + dy * dy;
-
-				float r = ca.radius + cb.radius;
-
-				return distSq <= r * r;
 		}
 
 		private boolean circleRect(Transform tc, ColliderComponent cc,
@@ -91,7 +81,7 @@ public class ColliderSystem implements UpdateSystem {
 
 				float cx = tc.worldX;
 				float cy = tc.worldY;
-				float r = cc.radius;
+				float r = tc.worldW/2;
 
 				float rx = tr.worldX;
 				float ry = tr.worldY;
@@ -109,12 +99,6 @@ public class ColliderSystem implements UpdateSystem {
 				return dx * dx + dy * dy <= r * r;
 		}
 
-		private boolean rectRect(Transform ta, ColliderComponent ca,
-														 Transform tb, ColliderComponent cb) {
-
-				return Math.abs(ta.worldX - tb.worldX) * 2 < (ca.width + cb.width) &&
-						Math.abs(ta.worldY - tb.worldY) * 2 < (ca.height + cb.height);
-		}
 		@Override
 		public void start() {
 				// TODO Auto-generated method stub
