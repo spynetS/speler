@@ -1,6 +1,8 @@
 
 package com.example.testgame;
 
+import java.util.UUID;
+
 import com.example.speler.Vector2;
 import com.example.speler.scripting.Script;
 
@@ -14,5 +16,10 @@ public class MyScript extends Script {
 			this.gameObject.transform.worldX += acceleration.getX();
 			this.gameObject.transform.worldY += acceleration.getY();
 		}
-	
+
+		@Override
+		public void onCollision(UUID a, UUID b) {
+				System.out.println("COLLISION");
+		}
+		
 }

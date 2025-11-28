@@ -8,10 +8,11 @@ import java.util.UUID;
 import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.ECS.Component;
 import com.example.speler.ecs.components.*;
+import com.example.speler.ecs.CollisionListener;
 
 
 
-public class GameObject {
+public class GameObject implements CollisionListener {
 
 		public UUID id;
 		ECS ecs;
@@ -70,7 +71,18 @@ public class GameObject {
 		public ECS getEcs() {
 			return ecs;
 		}
+
 		public UUID getId() {
-		    return id;
+			return id;
 		}
+
+		@Override
+		public void onCollision(UUID entityA, UUID entityB) {
+			for (Component comp : getComponents()) {
+				if (comp instanceof ScriptComponent) {
+						((ScriptComponent) comp).script.onCollision(entityA, entityB);
+					}
+				}
+		}
+		
 }

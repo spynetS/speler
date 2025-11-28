@@ -1,5 +1,7 @@
 package com.example.speler.ecs;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -8,7 +10,8 @@ import com.example.speler.ecs.components.*;
 public class ColliderSystem implements UpdateSystem {
 
 
-		public static Map<
+
+		public static List<CollisionListener> onCollisioners = new LinkedList<>();
 		
 		@Override
 		public void update(ECS ecs, float dt) {
@@ -37,7 +40,7 @@ public class ColliderSystem implements UpdateSystem {
 		}
 
 		private void onCollision(UUID a, UUID b) {
-				System.out.println(a+" "+b);
+				for(CollisionListener listener : onCollisioners) listener.onCollision(a, b);
 		}
 
 		

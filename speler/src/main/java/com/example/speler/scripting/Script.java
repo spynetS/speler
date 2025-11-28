@@ -2,29 +2,39 @@ package com.example.speler.scripting;
 
 import com.example.speler.scripting.GameObject;
 import com.example.speler.ecs.ECS.Component;
+
+import java.util.UUID;
+
 import com.example.speler.SerializableComponent;
+import com.example.speler.ecs.CollisionListener;
 import com.example.speler.ecs.UpdateSystem;
 
-public abstract class Script {
+public abstract class Script implements CollisionListener {
 
 	public GameObject gameObject;
 	protected String scriptName;
 
-		public Script(){}
-		
-		public Script(GameObject gameObject, String scriptName){
-			this.gameObject = gameObject;
-			this.scriptName = scriptName;
-			ScriptManager.registerScript(scriptName, this.getClass());
-		}
-		
-		public void update(float deltatime) {}
+	public Script() {
+	}
 
-		public void start() {
-		}
+	public Script(GameObject gameObject, String scriptName) {
+		this.gameObject = gameObject;
+		this.scriptName = scriptName;
+		ScriptManager.registerScript(scriptName, this.getClass());
+	}
 
-		public String getScriptName() {
-		    return scriptName;
+	public void update(float deltatime) {
+	}
+
+	public void start() {
+	}
+
+	public String getScriptName() {
+		return scriptName;
+	}
+
+
+		@Override
+		public void onCollision(UUID a, UUID b) {
 		}
-		
 }
