@@ -16,20 +16,32 @@ public class Main {
 			
 			Game game = new Game();
 
-			int w = 200;
+			int w = 240;
 			int o = -100;
 			
-			//			new Wall(game.getEcs(), new Vector2(0,0+o),new Vector2(w,1));
-			//			new Wall(game.getEcs(), new Vector2(0,w+o),new Vector2(w,1));
-			//			new Wall(game.getEcs(), new Vector2(-w/2,w/2+o),new Vector2(1,w));
-			new Wall(game.getEcs(), new Vector2(w/2,w/2+o),new Vector2(1,w));
+			new Wall(game.getEcs(), new Vector2(0,0+o),new Vector2(w,40));
+			new Wall(game.getEcs(), new Vector2(0,w+o),new Vector2(w,40));
+			new Wall(game.getEcs(), new Vector2(-w/2,w/2+o),new Vector2(40,w));
+			new Wall(game.getEcs(), new Vector2(w/2,w/2+o),new Vector2(40,w));
 			
 			
 			GameObject ob = new GameObject(game.getEcs());
+			ob.transform.worldW = 20;
+			ob.transform.worldH = 20;
+			
 			ob.addComponent(new ScriptComponent(new MyScript()));
 			ColliderComponent c = new ColliderComponent();
 			c.circle = true;
 			ob.addComponent(c);
+
+			GameObject ob1 = new GameObject(game.getEcs());
+			ob1.transform.worldW = 20;
+			ob1.transform.worldH = 20;
+			ob1.transform.worldX = 10;
+			ob1.addComponent(new ScriptComponent(new MyScript()));
+			ColliderComponent c1 = new ColliderComponent();
+			c1.circle = true;
+			ob1.addComponent(c1);
 
 			
 			game.run();

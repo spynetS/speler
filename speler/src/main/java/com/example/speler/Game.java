@@ -49,7 +49,7 @@ public class Game implements Runnable {
 
 		public void run() {
 
-				final double FPS =144.0;
+				final double FPS = 60.0;
 				final double TIME_PER_UPDATE = 1_000_000_000 / FPS; // nanoseconds per update
 				long lastTime = System.nanoTime();
 				double delta = 0;
@@ -59,7 +59,9 @@ public class Game implements Runnable {
 						delta += (now - lastTime) / TIME_PER_UPDATE;
 						lastTime = now;
 
+						
 						while (delta >= 1) {
+								System.out.println(delta);
 								update(1/FPS); // update game logic
 								delta--;
 						}
@@ -70,7 +72,6 @@ public class Game implements Runnable {
     
 		
     protected void update(double delta) {
-		// 60fps
 				ecs.update((float)delta);
     }
 

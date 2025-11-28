@@ -61,8 +61,8 @@ public class Scene extends JPanel implements SerializableComponent
 																					 camera.screenToWorldY(y, getHeight())
 																					 ));
 				Graphics2D graphics2D =  (Graphics2D) g;
-				graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+				//				graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+				//        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 				
 				RenderSystem renderer = new SpriteRenderSystem();
 				renderer.render(ecs, graphics2D, camera, this.getWidth(), this.getHeight());

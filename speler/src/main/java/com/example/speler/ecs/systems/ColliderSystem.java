@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.example.speler.ecs.CollisionEvent;
+import com.example.speler.ecs.CollisionManifold;
 import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.ECS.Component;
 import com.example.speler.ecs.components.*;
@@ -28,7 +29,7 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 		@Override
 		public void update(ECS ecs, float dt) {
 			var entities = ecs.getEntities();
-
+			
 			for (UUID a : entities) {
 				Transform ta = ecs.getComponent(a, Transform.class);
 				ColliderComponent ca = ecs.getComponent(a, ColliderComponent.class);
@@ -52,11 +53,15 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 		}
 
 		private void onCollision(UUID a, Transform ta, ColliderComponent ca,
-														 UUID b, Transform tb, ColliderComponent cb) {
-
-				CollisionEvent event = new CollisionEvent(a, b, ta, ca, tb, cb);
+														 UUID b, Transform tb, ColliderComponent cb,
+																 CollisionManifold manifold) {
+			if (!manifold.collides)
+				return;
+			
+				CollisionEvent event = new CollisionEvent(a, b, ta, ca, tb, cb,manifold);
 
 				for (CollisionListener listener : onCollisioners) {
+
 						listener.onCollision(event);
 				}
 		}
@@ -70,17 +75,16 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 
 				// Circle vs Rectangle
 				if (aCircle && !bCircle) {
-						if (circleRect(ta, ca, tb, cb)) {
-								onCollision(a, ta, ca, b, tb, cb);
-						}
+					var m = circleRect(ta, ca, tb, cb);
+					onCollision(a, ta, ca, b, tb, cb,m);
+					
 				} else if (!aCircle && bCircle) {
-						if (circleRect(tb, cb, ta, ca)) { // reverse args
-								onCollision(a, ta, ca,b, tb, cb);
-						}
+					var m = circleRect(tb, cb, ta, ca);
+					onCollision(a, ta, ca,b, tb, cb,m);
 				}
 		}
 
-		private boolean circleRect(Transform tc, ColliderComponent cc,
+		private CollisionManifold circleRect(Transform tc, ColliderComponent cc,
 															 Transform tr, ColliderComponent rc) {
 
 				float cx = tc.worldX;
@@ -90,8 +94,8 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 				float rx = tr.worldX;
 				float ry = tr.worldY;
 				
-				float halfW = rc.width * 0.5f;
-				float halfH = rc.height * 0.5f;
+				float halfW = (tr.worldW + rc.width) * 0.5f;
+				float halfH = (tr.worldH + rc.height) * 0.5f;
 
 				// Find closest point on rectangle to the circle center
 				float closestX = Math.max(rx - halfW, Math.min(cx, rx + halfW));
@@ -100,7 +104,34 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 				float dx = closestX - cx;
 				float dy = closestY - cy;
 
-				return dx * dx + dy * dy <= r * r;
+				float distSq = dx * dx + dy * dy;
+				if (distSq > r * r) {
+						return CollisionManifold.none();
+				}
+
+				CollisionManifold m = new CollisionManifold(true);
+
+				float dist = (float)Math.sqrt(distSq);
+
+				if (dist != 0) {
+						m.normalX = dx / dist;
+						m.normalY = dy / dist;
+						m.penetrationDepth = r - dist;
+				} else {
+						// Circle is inside rectangle center
+						// Pick a normal pointing outward
+						if (Math.abs(dx) > Math.abs(dy)) {
+								m.normalX = dx < 0 ? -1 : 1;
+								m.normalY = 0;
+								m.penetrationDepth = r;
+						} else {
+								m.normalX = 0;
+								m.normalY = dy < 0 ? -1 : 1;
+								m.penetrationDepth = r;
+						}
+				}
+
+				return m;
 		}
 
 		@Override
