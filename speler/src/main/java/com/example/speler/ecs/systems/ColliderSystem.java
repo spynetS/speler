@@ -1,12 +1,16 @@
-package com.example.speler.ecs;
+package com.example.speler.ecs.systems;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.example.speler.ecs.CollisionEvent;
+import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.ECS.Component;
 import com.example.speler.ecs.components.*;
+import com.example.speler.ecs.listeners.CollisionListener;
+import com.example.speler.ecs.listeners.EntityListener;
 
 public class ColliderSystem implements UpdateSystem, EntityListener {
 

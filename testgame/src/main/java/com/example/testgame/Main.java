@@ -3,7 +3,7 @@ package com.example.testgame;
 
 import com.example.speler.Game;
 import com.example.speler.Vector2;
-import com.example.speler.ecs.ColliderSystem;
+import com.example.speler.ecs.systems.ColliderSystem;
 import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.components.ColliderComponent;
 import com.example.speler.ecs.components.ScriptComponent;

@@ -9,8 +9,8 @@ import com.example.speler.scripting.GameObject;
 import com.example.speler.Vector2;
 import com.example.speler.ecs.Camera;
 import com.example.speler.ecs.ECS;
-import com.example.speler.ecs.RenderSystem;
-import com.example.speler.ecs.UpdateSystem;
+import com.example.speler.ecs.systems.RenderSystem;
+import com.example.speler.ecs.systems.UpdateSystem;
 import com.example.speler.ecs.components.ParentComponent;
 import com.example.speler.ecs.components.Transform;
 

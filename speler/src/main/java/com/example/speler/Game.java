@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import com.example.speler.GameWindow;
 import com.example.speler.Scene;
 import com.example.speler.ecs.*;
+import com.example.speler.ecs.systems.*;
 import com.example.speler.resources.*;
 import com.example.speler.resources.ResourceManager.Sprite;
 import com.example.speler.scripting.ScriptManager;

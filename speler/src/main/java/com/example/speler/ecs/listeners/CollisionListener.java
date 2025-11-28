@@ -1,6 +1,8 @@
-package com.example.speler.ecs;
+package com.example.speler.ecs.listeners;
 
 import java.util.UUID;
+
+import com.example.speler.ecs.CollisionEvent;
 
 public interface CollisionListener {
 

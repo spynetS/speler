@@ -6,9 +6,11 @@ import com.example.speler.ecs.ECS.Component;
 import java.util.UUID;
 
 import com.example.speler.SerializableComponent;
+
 import com.example.speler.ecs.CollisionEvent;
-import com.example.speler.ecs.CollisionListener;
-import com.example.speler.ecs.UpdateSystem;
+import com.example.speler.ecs.listeners.CollisionListener;
+import com.example.speler.ecs.systems.UpdateSystem;
+
 
 public abstract class Script {
 

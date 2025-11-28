@@ -1,7 +1,7 @@
 package com.example.speler.ecs.components;
 
 import com.example.speler.ecs.CollisionEvent;
-import com.example.speler.ecs.CollisionListener;
+import com.example.speler.ecs.listeners.*;
 import com.example.speler.ecs.ECS.*;
 
 import java.util.UUID;
