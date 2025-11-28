@@ -63,7 +63,7 @@ public class Scene extends JPanel implements SerializableComponent
         graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 				
 				RenderSystem renderer = new SpriteRenderSystem();
-				renderer.render(ecs,graphics2D ,camera, this.getWidth(), this.getHeight());
+				renderer.render(ecs, graphics2D, camera, this.getWidth(), this.getHeight());
     }
 
 

@@ -27,9 +27,10 @@ public class Game implements Runnable {
 				setSelectedScene(new Scene(ecs));
 
 				// add systems
+				ecs.addSystem(new ParentSystem());
 				ecs.addSystem(new ScriptSystem());
 				ecs.addSystem(new AnimationSystem());
-				ecs.addSystem(new ParentSystem());
+				ecs.addSystem(new ColliderSystem());
 
 				Sprite.game = this;
 

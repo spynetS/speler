@@ -12,7 +12,6 @@ public class ParentSystem implements UpdateSystem {
 		@Override
 		public void start() {
 				// TODO Auto-generated method stub
-		
 		}
 
 		@Override

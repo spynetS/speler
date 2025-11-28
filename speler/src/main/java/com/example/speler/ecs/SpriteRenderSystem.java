@@ -1,6 +1,8 @@
 package com.example.speler.ecs;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.UUID;
@@ -19,6 +21,7 @@ public class SpriteRenderSystem implements RenderSystem {
             Transform t = ecs.getComponent(entityId, Transform.class);
             Renderable r = ecs.getComponent(entityId, Renderable.class);
             SpriteComponent spriteComponent = ecs.getComponent(entityId, SpriteComponent.class);
+						ColliderComponent colliderComponent = ecs.getComponent(entityId, ColliderComponent.class);
 
             if (t != null && r != null) {
                 int x = camera.worldToScreenX(t.worldX, screenWidth);
@@ -54,6 +57,21 @@ public class SpriteRenderSystem implements RenderSystem {
 								g.setTransform(oldTransform);
 						}
 
+						
+					// DEBUG
+					if (colliderComponent != null) {
+							int x = camera.worldToScreenX(t.worldX, screenWidth);
+							int y = camera.worldToScreenY(t.worldY, screenHeight);
+							int h = camera.worldToScreenSize((int)t.worldH);
+							int w = camera.worldToScreenSize((int) t.worldW);
+							Color color = g.getColor();
+							g.setColor(Color.GREEN);
+							if(colliderComponent.circle)
+								g.drawOval(x - w / 2, y - h / 2, w, h);
+							else
+									g.drawRect(x - w / 2, y - h / 2, w, h);
+							g.setColor(color);
+					}
 
         }
     }

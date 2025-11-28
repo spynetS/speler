@@ -12,8 +12,8 @@
               "w": 1.0,
               "h": 1.0,
               "rotation": 0.0,
-              "worldX": -100.0,
-              "worldY": -50.0,
+              "worldX": 0.0,
+              "worldY": 0.0,
               "worldW": 100.0,
               "worldH": 100.0,
               "worldRotation": 0.0
