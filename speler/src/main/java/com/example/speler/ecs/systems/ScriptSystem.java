@@ -1,6 +1,6 @@
-package com.example.speler.ecs;
+package com.example.speler.ecs.systems;
 
-import com.example.speler.ecs.UpdateSystem;
+import com.example.speler.ecs.systems.UpdateSystem;
 import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.components.*;
 import com.example.speler.scripting.GameObject;

@@ -1,8 +1,9 @@
-package com.example.speler.ecs;
+package com.example.speler.ecs.systems;
 
 import java.util.UUID;
 import java.util.concurrent.TransferQueue;
 
+import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.components.ParentComponent;
 import com.example.speler.ecs.components.Transform;
 

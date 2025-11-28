@@ -11,7 +11,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.example.speler.SerializableComponent;
 import com.example.speler.animations.AnimationTrack;
-import com.example.speler.ecs.UpdateSystem;
+import com.example.speler.ecs.systems.UpdateSystem;
 import com.example.speler.ecs.components.ParentComponent;
 
 

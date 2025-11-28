@@ -13,7 +13,7 @@ import com.example.speler.resources.ResourceManager.Sprite;
 import com.example.speler.scripting.GameObject;
 import com.example.speler.scripting.Script;
 import com.example.speler.scripting.ScriptManager;
-import com.example.speler.ecs.*;
+import com.example.speler.ecs.systems.*;
 
 import java.awt.*;
 import java.io.File;

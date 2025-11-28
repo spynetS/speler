@@ -1,10 +1,10 @@
-
-package com.example.speler.ecs;
+package com.example.speler.ecs.systems;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import com.example.speler.animations.*;
+import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.components.AnimationComponent;
 
 public class AnimationSystem implements UpdateSystem {

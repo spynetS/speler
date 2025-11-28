@@ -1,4 +1,6 @@
-package com.example.speler.ecs;
+package com.example.speler.ecs.systems;
+
+import com.example.speler.ecs.ECS;
 
 public interface UpdateSystem {
 		void update(ECS ecs, float deltaTime);
