@@ -37,7 +37,7 @@ public class Main {
 			GameObject ob1 = new GameObject(game.getEcs());
 			ob1.transform.worldW = 20;
 			ob1.transform.worldH = 20;
-			ob1.transform.worldX = 10;
+			ob1.transform.worldX = 50;
 			ob1.addComponent(new ScriptComponent(new MyScript()));
 			ColliderComponent c1 = new ColliderComponent();
 			c1.circle = true;

@@ -61,7 +61,6 @@ public class Game implements Runnable {
 
 						
 						while (delta >= 1) {
-								System.out.println(delta);
 								update(1/FPS); // update game logic
 								delta--;
 						}
