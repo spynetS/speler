@@ -11,7 +11,7 @@ import com.example.speler.scripting.*;
 
 import com.google.gson.*;
 
-public class ScriptComponent implements Component, SerializableComponent, CollisionListener {
+public class ScriptComponent implements Component, SerializableComponent {
 		public Script script;
 
 		public ScriptComponent(){}
@@ -21,12 +21,6 @@ public class ScriptComponent implements Component, SerializableComponent, Collis
 		}
 
 		
-		@Override
-		public void onCollision(CollisionEvent event) {
-			if (script != null) {
-					script.onCollision(event);
-			}
-		}
 		
     @Override
     public JsonObject serialize() {

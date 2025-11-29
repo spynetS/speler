@@ -25,6 +25,15 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 						onCollisioners.add((CollisionListener)component);
 				}
 		}
+
+		// if ecs gets a new system and its a collision listener add it to
+		// our listeners
+		@Override
+		public void onSystemAdded(UpdateSystem system) {
+				if(system instanceof CollisionListener){
+						onCollisioners.add((CollisionListener)system);
+				}
+		}
 		
 		@Override
 		public void update(ECS ecs, float dt) {
@@ -47,18 +56,18 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 					if (cb == null)
 						continue;
 
-					handleCollision(a, ta, ca, b, tb, cb);
+					handleCollision(a, ta, ca, b, tb, cb,ecs);
 				}
 			}
 		}
 
 		private void onCollision(UUID a, Transform ta, ColliderComponent ca,
 														 UUID b, Transform tb, ColliderComponent cb,
-																 CollisionManifold manifold) {
+														 CollisionManifold manifold, ECS ecs) {
 			if (!manifold.collides)
 				return;
 			
-				CollisionEvent event = new CollisionEvent(a, b, ta, ca, tb, cb,manifold);
+			CollisionEvent event = new CollisionEvent(a, b, ta, ca, tb, cb, manifold, ecs);
 
 				for (CollisionListener listener : onCollisioners) {
 
@@ -68,7 +77,7 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 
 		
 		private void handleCollision(UUID a, Transform ta, ColliderComponent ca,
-																 UUID b, Transform tb, ColliderComponent cb) {
+																 UUID b, Transform tb, ColliderComponent cb, ECS ecs) {
 
 				boolean aCircle = ca.circle;
 				boolean bCircle = cb.circle;
@@ -76,14 +85,14 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 				// Circle vs Rectangle
 				if (aCircle && !bCircle) {
 					var m = circleRect(ta, ca, tb, cb);
-					onCollision(a, ta, ca, b, tb, cb,m);
+					onCollision(a, ta, ca, b, tb, cb,m,ecs);
 					
 				} else if (!aCircle && bCircle) {
-					var m = circleRect(tb, cb, ta, ca);
-					onCollision(a, ta, ca,b, tb, cb,m);
+						var m  = circleRect(tb, cb, ta, ca);
+						onCollision(a, ta, ca,b, tb, cb,m,ecs);
 				} else if (aCircle && bCircle) {
 						var m = circleCircle(tb,cb,ta,ca);
-						onCollision(a, ta, ca,b, tb, cb,m);
+						onCollision(a, ta, ca,b, tb, cb,m,ecs);
 				}
 				
 				

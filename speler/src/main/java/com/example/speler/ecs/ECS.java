@@ -30,8 +30,9 @@ public class ECS implements SerializableComponent {
     }
 
     // Add a system
-		public void addSystem(UpdateSystem system) {
-				updateSystems.add(system);
+	public void addSystem(UpdateSystem system) {
+			for(EntityListener listener: listeners) listener.onSystemAdded(system);
+			updateSystems.add(system);
 		}
 
 		public <T extends Component> void removeComponent(UUID id, Class<T> compClass) {
