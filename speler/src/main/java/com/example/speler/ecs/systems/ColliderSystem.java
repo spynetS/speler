@@ -81,8 +81,51 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 				} else if (!aCircle && bCircle) {
 					var m = circleRect(tb, cb, ta, ca);
 					onCollision(a, ta, ca,b, tb, cb,m);
+				} else if (aCircle && bCircle) {
+						var m = circleCircle(tb,cb,ta,ca);
+						onCollision(a, ta, ca,b, tb, cb,m);
 				}
+				
+				
+				
 		}
+
+		private CollisionManifold circleCircle(Transform at, ColliderComponent ac, Transform bt, ColliderComponent bc) {
+			float ax = at.worldX;
+			float ay = at.worldY;
+			float ar = at.worldW / 2;
+
+			float bx = bt.worldX;
+			float by = bt.worldY;
+			float br = bt.worldW / 2;
+
+			float dx = ax - bx;
+			float dy = ay - by;
+
+			float distanceSq = dx * dx + dy * dy;
+			float r = ar+br;
+
+			if (distanceSq > r * r)
+        return CollisionManifold.none();
+
+			CollisionManifold m = new CollisionManifold(true);
+			float distance = (float) Math.sqrt(distanceSq);
+			
+			if (distance != 0) {
+
+					m.normalX = dx / distance;
+					m.normalY = dy / distance;
+					m.penetrationDepth = r - distance;
+			} else {
+					// circles are directly on top of each other
+					m.normalX = 1;
+					m.normalY = 0;
+					m.penetrationDepth = r;
+			}
+
+			return m;
+		}
+		
 
 		private CollisionManifold circleRect(Transform tc, ColliderComponent cc,
 															 Transform tr, ColliderComponent rc) {
@@ -140,4 +183,3 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 		}
 
 }
-

@@ -23,13 +23,25 @@ public class MyScript extends Script {
 			// acceleration.y *= 0.998;
 
 			
-			if (Input.isKeyDown(Keys.A) && Math.abs(acceleration.x) < 10)
-					acceleration.x += -0.1;
-			if (Input.isKeyDown(Keys.D) && Math.abs(acceleration.x) < 10)
-				acceleration.x += 0.1;
+			if (Input.isKeyDown(Keys.A)){
+					//					this.gameObject.transform.worldX-=1;
+		acceleration.x += -0.1;
+			}
+					
+			if (Input.isKeyDown(Keys.D)){
+					//					this.gameObject.transform.worldX+=1;
+					acceleration.x += 0.1;
+			}
 
-			if (Input.isKeyPressed(Keys.W) && Math.abs(acceleration.y) < 10)
-					acceleration.y -= 5;
+
+			if (Input.isKeyDown(Keys.W)){
+					//					this.gameObject.transform.worldY-=1;
+					acceleration.y -= 0.1;
+			}
+			if (Input.isKeyDown(Keys.S)){
+					//					this.gameObject.transform.worldY+=1;
+					acceleration.y -= 0.1;
+			}
 			
 			this.gameObject.transform.worldX += acceleration.getX();
 			this.gameObject.transform.worldY += acceleration.getY();
@@ -43,6 +55,9 @@ public class MyScript extends Script {
 						this.gameObject.transform.worldX -= event.penetrationDepth * event.normalX;
 						this.gameObject.transform.worldY -= event.penetrationDepth * event.normalY;
 
+						//						acceleration.x *= event.normalX;
+						//						acceleration.y *= event.normalY;
+						
 						acceleration.x -= event.penetrationDepth * event.normalX * 2;
 						acceleration.y -= event.penetrationDepth * event.normalY * 2;
 
