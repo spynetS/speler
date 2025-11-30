@@ -9,7 +9,7 @@ import com.example.speler.ecs.listeners.CollisionListener;
 import com.example.speler.scripting.GameObject;
 import java.util.UUID;
 
-
+// we listen to collision events and act on them based on our rigibidbody
 public class RigidbodySystem implements UpdateSystem, CollisionListener {
 
 		@Override

@@ -9,7 +9,8 @@ import com.example.speler.scripting.GameObject;
 
 import java.util.UUID;
 
-
+// we listen for collisions and send them to the user scripts so they get
+// collision events
 public class ScriptSystem implements UpdateSystem, CollisionListener {
 
 		

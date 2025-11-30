@@ -13,18 +13,12 @@ import com.example.speler.ecs.components.*;
 import com.example.speler.ecs.listeners.CollisionListener;
 import com.example.speler.ecs.listeners.EntityListener;
 
+import jdk.jshell.spi.ExecutionControl.NotImplementedException;
+
 public class ColliderSystem implements UpdateSystem, EntityListener {
 
+		// When we detect a collision we send that event to all the collisionListeners
 		public static List<CollisionListener> onCollisioners = new LinkedList<>();
-
-		// if ecs gets a new component and its a collision listener add it to
-		// our listeners
-		@Override
-		public void onComponentAdded(UUID id, Component component) {
-				if(component instanceof CollisionListener){
-						onCollisioners.add((CollisionListener)component);
-				}
-		}
 
 		// if ecs gets a new system and its a collision listener add it to
 		// our listeners
@@ -195,4 +189,7 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 				// TODO Auto-generated method stub
 		}
 
+		@Override
+		public void onComponentAdded(UUID id, Component component) {} // not used
 }
+
