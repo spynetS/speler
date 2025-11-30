@@ -16,7 +16,7 @@ public class Main {
 	public static void main(String[] args) {
 
 			
-			Game game = new Editor();
+			Game game = new Game();
 
 			int w = 240;
 			int o = -100;
