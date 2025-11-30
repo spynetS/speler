@@ -10,7 +10,6 @@ import com.example.speler.input.Keys;
 import com.example.speler.scripting.Script;
 
 public class MyScript extends Script {
-
 		Rigidbody rb;
 		
 		@Override
@@ -18,6 +17,7 @@ public class MyScript extends Script {
 				// TODO Auto-generated method stub
 				super.start();
 				System.out.println("START SCRIPT");
+
 				rb = gameObject.getComponent(Rigidbody.class);
 				this.scriptName  = "myscript";
 		}
@@ -25,6 +25,7 @@ public class MyScript extends Script {
 		@Override
 		public void update(float deltatime) {
 			super.update(deltatime);
+
 
 			if (Input.isKeyDown(Keys.A)){
 					//					this.gameObject.transform.worldX-=1;

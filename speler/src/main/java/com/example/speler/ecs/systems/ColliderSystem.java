@@ -63,8 +63,8 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 			
 			CollisionEvent event = new CollisionEvent(a, b, ta, ca, tb, cb, manifold, ecs);
 
-			// event.transformB.worldX -= event.penetrationDepth * event.normalX;
-			// event.transformB.worldY -= event.penetrationDepth * event.normalY;
+			// event.transformB.worldPosition.x -= event.penetrationDepth * event.normalX;
+			// event.transformB.worldPosition.y -= event.penetrationDepth * event.normalY;
 
 			
 			for (CollisionListener listener : onCollisioners) {
@@ -98,13 +98,13 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 		}
 
 		private CollisionManifold circleCircle(Transform at, ColliderComponent ac, Transform bt, ColliderComponent bc) {
-			float ax = at.worldX;
-			float ay = at.worldY;
-			float ar = at.worldW / 2;
+			float ax = at.worldPosition.x;
+			float ay = at.worldPosition.y;
+			float ar = at.worldScale.x / 2;
 
-			float bx = bt.worldX;
-			float by = bt.worldY;
-			float br = bt.worldW / 2;
+			float bx = bt.worldPosition.x;
+			float by = bt.worldPosition.y;
+			float br = bt.worldScale.x / 2;
 
 			float dx = ax - bx;
 			float dy = ay - by;
@@ -137,15 +137,15 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 		private CollisionManifold circleRect(Transform tc, ColliderComponent cc,
 															 Transform tr, ColliderComponent rc) {
 
-				float cx = tc.worldX;
-				float cy = tc.worldY;
-				float r = tc.worldW/2;
+				float cx = tc.worldPosition.x;
+				float cy = tc.worldPosition.y;
+				float r = tc.worldScale.x/2;
 
-				float rx = tr.worldX;
-				float ry = tr.worldY;
+				float rx = tr.worldPosition.x;
+				float ry = tr.worldPosition.y;
 				
-				float halfW = (tr.worldW + rc.width) * 0.5f;
-				float halfH = (tr.worldH + rc.height) * 0.5f;
+				float halfW = (tr.worldScale.x + rc.width) * 0.5f;
+				float halfH = (tr.worldScale.y + rc.height) * 0.5f;
 
 				// Find closest point on rectangle to the circle center
 				float closestX = Math.max(rx - halfW, Math.min(cx, rx + halfW));

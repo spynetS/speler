@@ -24,20 +24,20 @@ public class SpriteRenderSystem implements RenderSystem {
 						ColliderComponent colliderComponent = ecs.getComponent(entityId, ColliderComponent.class);
 
             if (t != null && r != null) {
-                int x = camera.worldToScreenX(t.worldX, screenWidth);
-                int y = camera.worldToScreenY(t.worldY, screenHeight);
-                int h = camera.worldToScreenSize((int)t.worldH);
-                int w = camera.worldToScreenSize((int)t.worldW);
+                int x = camera.worldToScreenX(t.worldPosition.x, screenWidth);
+                int y = camera.worldToScreenY(t.worldPosition.y, screenHeight);
+                int h = camera.worldToScreenSize((int)t.worldScale.y);
+                int w = camera.worldToScreenSize((int)t.worldScale.x);
                 g.fillRect(x - w / 2, y - h / 2, w, h);
             }
 
 						if (t != null && spriteComponent != null) {
 								BufferedImage image = ResourceManager.getImage(spriteComponent.image);
 
-								int screenX = camera.worldToScreenX(t.worldX, screenWidth);
-								int screenY = camera.worldToScreenY(t.worldY, screenHeight);
-								int w = camera.worldToScreenSize((int)t.worldW);
-								int h = camera.worldToScreenSize((int)t.worldH);
+								int screenX = camera.worldToScreenX(t.worldPosition.x, screenWidth);
+								int screenY = camera.worldToScreenY(t.worldPosition.y, screenHeight);
+								int w = camera.worldToScreenSize((int)t.worldScale.x);
+								int h = camera.worldToScreenSize((int)t.worldScale.y);
 
 								// Handle horizontal flip
 								int flip = spriteComponent.inverted ? -1 : 1;
@@ -60,10 +60,10 @@ public class SpriteRenderSystem implements RenderSystem {
 						
 					// DEBUG
 					if (colliderComponent != null) {
-							int x = camera.worldToScreenX(t.worldX, screenWidth);
-							int y = camera.worldToScreenY(t.worldY, screenHeight);
-							int h = camera.worldToScreenSize((int)t.worldH);
-							int w = camera.worldToScreenSize((int) t.worldW);
+							int x = camera.worldToScreenX(t.worldPosition.x, screenWidth);
+							int y = camera.worldToScreenY(t.worldPosition.y, screenHeight);
+							int h = camera.worldToScreenSize((int)t.worldScale.y);
+							int w = camera.worldToScreenSize((int) t.worldScale.x);
 							Color color = g.getColor();
 							g.setColor(Color.GREEN);
 							if(colliderComponent.circle)

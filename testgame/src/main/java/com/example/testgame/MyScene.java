@@ -22,15 +22,4 @@ public class MyScene extends Scene {
 
 
 	}
-
-		public static class MyScript extends Script {
-				@Override
-				public void update(float deltatime) {
-				    // TODO Auto-generated method stub
-				    super.update(deltatime);
-						gameObject.transform.worldX ++;
-				}
-		}
-
-	
 }
