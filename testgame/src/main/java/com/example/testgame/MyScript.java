@@ -19,6 +19,7 @@ public class MyScript extends Script {
 				super.start();
 				System.out.println("START SCRIPT");
 				rb = gameObject.getComponent(Rigidbody.class);
+				this.scriptName  = "myscript";
 		}
 		
 		@Override

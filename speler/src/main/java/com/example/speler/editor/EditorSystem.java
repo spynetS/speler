@@ -30,7 +30,7 @@ public class EditorSystem implements RenderSystem, UpdateSystem {
 				if (Input.isMouseDown() && rectRect((float)mousePos.x,(float) mousePos.y, 10, 10, t.worldX-t.worldW/2, t.worldY-t.worldH/2, t.worldW, t.worldH)) {
 					editor.setSelectedGameObject(new GameObject(ecs, id));
 				}
-				renderArrows(ecs, id, g, camera, screenWidth, screenHeight);
+				//renderArrows(ecs, id, g, camera, screenWidth, screenHeight);
 			}
 		}
 

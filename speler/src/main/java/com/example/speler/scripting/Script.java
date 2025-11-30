@@ -18,6 +18,7 @@ public abstract class Script {
 	protected String scriptName;
 
 	public Script() {
+			
 	}
 
 	public Script(GameObject gameObject, String scriptName) {

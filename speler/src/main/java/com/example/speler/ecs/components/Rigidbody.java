@@ -13,10 +13,11 @@ public class Rigidbody implements Component, SerializableComponent {
 		
 		public Rigidbody(){}
 
-
+		//TODO Serilize correct
     @Override
     public JsonObject serialize() {
-        JsonObject obj = new JsonObject();
+		JsonObject obj = new JsonObject();
+
         return obj;
     }
 

@@ -19,8 +19,8 @@ public class RigidbodySystem implements UpdateSystem, CollisionListener {
 						event.transformA.worldX -= event.penetrationDepth * event.normalX;
 						event.transformA.worldY -= event.penetrationDepth * event.normalY;
 
-						rb1.acceleration.x -= event.penetrationDepth * event.normalX * 2f;
-						rb1.acceleration.y -= event.penetrationDepth * event.normalY * 2f;
+						rb1.acceleration.x -= event.penetrationDepth * event.normalX * 1.5f;
+						rb1.acceleration.y -= event.penetrationDepth * event.normalY * 1.5f;
 						
 				}
 		}

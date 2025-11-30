@@ -87,9 +87,6 @@ public class ECS implements SerializableComponent {
 				for (Component comp : components) {
 						removeComponent(id, comp.getClass());
 				}
-
-
-
 		}
 
 		public void start() {

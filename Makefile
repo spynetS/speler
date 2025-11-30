@@ -1,7 +1,4 @@
-
-
-
 run: compile
 	export _JAVA_AWT_WM_NONREPARENTING=1; cd testgame; mvn exec:java -Dexec.mainClass="com.example.Main"
 compile:
-	mvn -T 1C compile -DskipTests
+	mvn install

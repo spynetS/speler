@@ -15,14 +15,16 @@ public class ColliderComponent implements Component, SerializableComponent {
 		
 		public ColliderComponent(){}
 
-
+		//TODO Serilize correct
     @Override
     public JsonObject serialize() {
-        JsonObject obj = new JsonObject();
+				JsonObject obj = new JsonObject();
+				obj.addProperty("circle", circle);
         return obj;
     }
 
     @Override
-    public void deserialize(JsonObject obj) {
+		public void deserialize(JsonObject obj) {
+				this.circle = obj.get("circle").getAsBoolean();
     }
 }
