@@ -27,7 +27,7 @@ public class EditorSystem implements RenderSystem, UpdateSystem {
 				Vector2 mousePos = Input.getMousePosition();
 				Transform t = ecs.getComponent(id, Transform.class);
 
-				if (Input.isMouseDown() && rectRect((float)mousePos.x,(float) mousePos.y, 10, 10, t.worldX-t.worldW/2, t.worldY-t.worldH/2, t.worldW, t.worldH)) {
+				if (Input.isMouseDown() && rectRect((float)mousePos.x,(float) mousePos.y, 10, 10, t.worldPosition.x-t.worldScale.x/2, t.worldPosition.y-t.worldScale.y/2, t.worldScale.x, t.worldScale.y)) {
 					editor.setSelectedGameObject(new GameObject(ecs, id));
 				}
 				renderArrows(ecs, id, g, camera, screenWidth, screenHeight);
@@ -49,8 +49,8 @@ public class EditorSystem implements RenderSystem, UpdateSystem {
 		public void renderArrows(ECS ecs, UUID id, Graphics2D g, Camera camera, int screenWidth, int screenHeight) {
 				Transform t = ecs.getComponent(id, Transform.class);
 				ParentComponent parent = ecs.getComponent(id, ParentComponent.class);
-				int objX = (int) t.worldX;
-				int objY = (int) t.worldY;
+				int objX = (int) t.worldPosition.x;
+				int objY = (int) t.worldPosition.y;
 				int objSize = 100;
 
 				// Draw gizmo only for selected entity
@@ -103,7 +103,7 @@ public class EditorSystem implements RenderSystem, UpdateSystem {
 										&& mousePos.x < centerX + arrowSize) {
 										draggingX = true;
 
-										dragOffset.x = ((float) t.worldX) - mousePos.x;
+										dragOffset.x = ((float) t.worldPosition.x) - mousePos.x;
 										System.out.println(dragOffset);
 								}
 
@@ -122,18 +122,18 @@ public class EditorSystem implements RenderSystem, UpdateSystem {
 						// Update transform while dragging
 						if (draggingX) {
 								if (parent == null)
-										t.worldX = (int) Math.round(mousePos.x + dragOffset.x);
+										t.worldPosition.x = (int) Math.round(mousePos.x + dragOffset.x);
 								else {
-										t.x = (int) Math.round(mousePos.x + dragOffset.x);
+										t.position.x = (int) Math.round(mousePos.x + dragOffset.x);
 								}
 
 						}
 
 						if (draggingY)
 								if (parent == null)
-										t.worldY = (int) Math.round(mousePos.y + dragOffset.y);
+										t.worldPosition.y = (int) Math.round(mousePos.y + dragOffset.y);
 								else
-										t.y = (int) Math.round(mousePos.y + dragOffset.y);
+										t.position.y = (int) Math.round(mousePos.y + dragOffset.y);
 
 				}
 			

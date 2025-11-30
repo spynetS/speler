@@ -184,24 +184,5 @@ public class Editor extends Game {
 		    return selectedGameObject;
 		}
 
-		public static class MyScript extends Script {
-				public MyScript() {
-						this.scriptName = "MyScript";
-						ScriptManager.registerScript(scriptName, this.getClass());
-				}
-				@Override
-				public void update(float deltatime) {
-						if(Input.isKeyDown(Keys.D))
-								gameObject.transform.worldX++;
-						if(Input.isKeyDown(Keys.A))
-								gameObject.transform.worldX--;
-
-						if(Input.isKeyDown(Keys.S))
-								gameObject.transform.worldY++;
-						if(Input.isKeyDown(Keys.W))
-								gameObject.transform.worldY--;
-				}
-		}
-		
 		
 }

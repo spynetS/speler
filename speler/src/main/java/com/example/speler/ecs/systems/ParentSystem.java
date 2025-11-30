@@ -20,21 +20,23 @@ public class ParentSystem implements UpdateSystem {
 		public void update(ECS ecs, float deltaTime) {
 				for (UUID id : ecs.getEntities()) {
 						ParentComponent pc = ecs.getComponent(id, ParentComponent.class);
-						if (pc == null)
-								continue;
-
-			
 						Transform child = ecs.getComponent(id, Transform.class);
+						if (pc == null) {
+								// if we are parent we should set the world position to be the child position
+								child.worldPosition = child.position;
+							continue;
+						}
+
 						Transform parent = ecs.getComponent(pc.parentId, Transform.class);
 						if (parent != null) {
 
-								// Local offset
-								float ox = child.x;
-								float oy = child.y;
+								// Local offset1
+								float ox = child.position.x;
+								float oy = child.position.y;
 
 								// Parent world position
-								float px = parent.worldX;
-								float py = parent.worldY;
+								float px = parent.worldPosition.x;
+								float py = parent.worldPosition.y;
 
 								// Apply parent rotation to offset
 								float angleRad = (float) Math.toRadians(parent.worldRotation);
@@ -42,15 +44,15 @@ public class ParentSystem implements UpdateSystem {
 								float rotatedY = (float) (ox * Math.sin(angleRad) + oy * Math.cos(angleRad));
 
 								// Child world position = parent position + rotated offset
-								child.worldX = (int)(px + rotatedX);
-								child.worldY = (int) (py + rotatedY);
+								child.worldPosition.x = (int)(px + rotatedX);
+								child.worldPosition.y = (int) (py + rotatedY);
 
 								// Child world rotation = parent rotation + local rotation
 								child.worldRotation = parent.worldRotation + child.rotation;
 
 								// Optional: scale can be multiplied similarly
-								child.worldW = parent.worldW * child.w;
-								child.worldH = parent.worldH * child.h;
+								child.worldScale.x = parent.worldScale.x * child.scale.x;
+								child.worldScale.y = parent.worldScale.y * child.scale.y;
 					
 						}
 			
