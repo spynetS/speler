@@ -22,7 +22,9 @@ public class SpriteRenderSystem implements RenderSystem {
             Renderable r = ecs.getComponent(entityId, Renderable.class);
             SpriteComponent spriteComponent = ecs.getComponent(entityId, SpriteComponent.class);
 						ColliderComponent colliderComponent = ecs.getComponent(entityId, ColliderComponent.class);
-
+						if (t == null)
+								continue;
+						
             if (t != null && r != null) {
                 int x = camera.worldToScreenX(t.worldPosition.x, screenWidth);
                 int y = camera.worldToScreenY(t.worldPosition.y, screenHeight);

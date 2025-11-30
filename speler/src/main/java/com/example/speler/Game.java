@@ -51,28 +51,50 @@ public class Game implements Runnable {
 		}
 
 		public void run() {
-				ecs.start();
-				
-				
-				final double FPS = 60.0;
-				final double TIME_PER_UPDATE = 1_000_000_000 / FPS; // nanoseconds per update
-				long lastTime = System.nanoTime();
-				double delta = 0;
-				while (running) {
-						//selectedScene.requestFocus();
-						long now = System.nanoTime();
-						delta += (now - lastTime) / TIME_PER_UPDATE;
-						lastTime = now;
+    ecs.start();
 
-						
-						while (delta >= 1) {
-								update(1/FPS); // update game logic
-								delta--;
+    final double FPS = 144.0;
+    final double TIME_PER_UPDATE = 1_000_000_000 / FPS; // nanoseconds per update
+		final double TIME_PER_FRAME = 1_000_000_000 / FPS;
+    long lastTime = System.nanoTime();
+    double delta = 0;
+
+    long timer = System.currentTimeMillis(); // for FPS counting
+    int frames = 0; // rendered frames
+
+    while (running) {
+        long now = System.nanoTime();
+        delta += (now - lastTime) / TIME_PER_UPDATE;
+        lastTime = now;
+
+        while (delta >= 1) {
+            update(1 / FPS); // update game logic
+            delta--;
+        }
+
+        render(); // draw the current state
+				frames++;
+
+				// Sleep to cap render FPS
+				long frameTime = System.nanoTime() - now;
+				long sleepTime = (long) TIME_PER_FRAME - frameTime;
+				if (sleepTime > 0) {
+						try {
+								Thread.sleep(sleepTime / 1_000_000, (int) (sleepTime % 1_000_000));
+						} catch (InterruptedException e) {
+								e.printStackTrace();
 						}
-
-						render(); // draw the current state
 				}
-		}
+				
+        // Print FPS every second
+        // if (System.currentTimeMillis() - timer >= 1000) {
+        //     System.out.println("FPS: " + frames + " dt: "+1/FPS);
+        //     frames = 0;
+        //     timer += 1000;
+        //}
+    }
+}
+
     
 		
     protected void update(double delta) {

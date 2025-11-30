@@ -30,13 +30,13 @@ public class RigidbodySystem implements UpdateSystem, CollisionListener {
 				for (UUID entity : ecs.getEntities()) {
 						Rigidbody rb = ecs.getComponent(entity, Rigidbody.class);
 						if(rb != null){
-								rb.acceleration.multiply(new Vector2(rb.friction,rb.friction));
-								
+								rb.acceleration = rb.acceleration.multiply(new Vector2(rb.friction, rb.friction));
+							
 								Transform transform = ecs.getComponent(entity, Transform.class);
-								transform.worldPosition.x += rb.acceleration.x;
-								transform.worldPosition.y += rb.acceleration.y;
+								transform.worldPosition.x += rb.acceleration.x * deltaTime;
+								transform.worldPosition.y += rb.acceleration.y * deltaTime;
 
-								rb.acceleration.y += 9.82 * 0.005;
+								rb.acceleration.y += 9.82f * 0.5f;
 						}
 
 				}
