@@ -92,6 +92,11 @@ public class ECS implements SerializableComponent {
 
 		}
 
+		public void start() {
+        for (UpdateSystem system : updateSystems) {
+            system.start(this);
+        }
+		}
     // Main update loop: call all systems
 	public void update(float deltaTime) {
         for (UpdateSystem system : updateSystems) {

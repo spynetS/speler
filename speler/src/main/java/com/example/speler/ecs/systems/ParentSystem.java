@@ -11,7 +11,7 @@ public class ParentSystem implements UpdateSystem {
 
 
 		@Override
-		public void start() {
+		public void start(ECS ecs) {
 				// TODO Auto-generated method stub
 		}
 

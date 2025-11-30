@@ -144,7 +144,7 @@ public class EditorSystem implements RenderSystem, UpdateSystem {
 		}
 
 		@Override
-		public void start() {
+		public void start(ECS ecs) {
 				// TODO Auto-generated method stub
 		
 		}

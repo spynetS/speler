@@ -7,6 +7,7 @@ import com.example.speler.ecs.systems.ColliderSystem;
 import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.components.ColliderComponent;
 import com.example.speler.ecs.components.ScriptComponent;
+import com.example.speler.ecs.components.Rigidbody;
 import com.example.speler.scripting.GameObject;
 import com.example.testgame.MyScript;
 
@@ -33,15 +34,17 @@ public class Main {
 			ColliderComponent c = new ColliderComponent();
 			c.circle = true;
 			ob.addComponent(c);
+			ob.addComponent(new Rigidbody());
 
 			GameObject ob1 = new GameObject(game.getEcs());
 			ob1.transform.worldW = 20;
 			ob1.transform.worldH = 20;
 			ob1.transform.worldX = 50;
-			ob1.addComponent(new ScriptComponent(new MyScript()));
+			//			ob1.addComponent(new ScriptComponent(new MyScript()));
 			ColliderComponent c1 = new ColliderComponent();
 			c1.circle = true;
 			ob1.addComponent(c1);
+			ob1.addComponent(new Rigidbody());
 
 			
 			game.run();

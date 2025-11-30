@@ -30,11 +30,13 @@ public class Game implements Runnable {
 				// add systems
 				ColliderSystem cs = new ColliderSystem(); // collider first because other systems needs them
 				ecs.listeners.add(cs);
-				ecs.addSystem(cs);
-
+				ecs.addSystem(new RigidbodySystem());
+				
 				ecs.addSystem(new ParentSystem());
 				ecs.addSystem(new ScriptSystem());
 				ecs.addSystem(new AnimationSystem());
+				ecs.addSystem(cs);
+				
 
 				Sprite.game = this;
 
@@ -49,7 +51,9 @@ public class Game implements Runnable {
 		}
 
 		public void run() {
-
+				ecs.start();
+				
+				
 				final double FPS = 60.0;
 				final double TIME_PER_UPDATE = 1_000_000_000 / FPS; // nanoseconds per update
 				long lastTime = System.nanoTime();

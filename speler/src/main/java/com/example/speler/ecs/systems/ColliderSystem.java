@@ -69,10 +69,14 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 			
 			CollisionEvent event = new CollisionEvent(a, b, ta, ca, tb, cb, manifold, ecs);
 
-				for (CollisionListener listener : onCollisioners) {
+			// event.transformB.worldX -= event.penetrationDepth * event.normalX;
+			// event.transformB.worldY -= event.penetrationDepth * event.normalY;
 
-						listener.onCollision(event);
-				}
+			
+			for (CollisionListener listener : onCollisioners) {
+					
+					listener.onCollision(event);
+			}
 		}
 
 		
@@ -187,7 +191,7 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 		}
 
 		@Override
-		public void start() {
+		public void start(ECS ecs) {
 				// TODO Auto-generated method stub
 		}
 
