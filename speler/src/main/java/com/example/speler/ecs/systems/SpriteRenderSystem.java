@@ -67,6 +67,13 @@ public class SpriteRenderSystem implements RenderSystem {
 							int h = camera.worldToScreenSize((int)t.worldScale.y);
 							int w = camera.worldToScreenSize((int) t.worldScale.x);
 							Color color = g.getColor();
+
+							Rigidbody b = ecs.getComponent(entityId, Rigidbody.class);
+							if(b != null)
+									g.drawString(b.acceleration.toString(), x, y - 30);
+							
+
+							
 							g.setColor(Color.GREEN);
 							if(colliderComponent.circle)
 								g.drawOval(x - w / 2, y - h / 2, w, h);

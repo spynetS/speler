@@ -2,8 +2,14 @@
   "ecs": {
     "entities": [
       {
-        "id": "064b31a7-71cc-4368-af51-bb78435cdba5",
+        "id": "ee1efb74-1eb6-40aa-874f-d2c2a002353c",
         "components": [
+          {
+            "type": "com.example.speler.ecs.components.Renderable",
+            "data": {
+              "sprite": ""
+            }
+          },
           {
             "type": "com.example.speler.ecs.components.ColliderComponent",
             "data": {
@@ -13,23 +19,21 @@
           {
             "type": "com.example.speler.ecs.components.Transform",
             "data": {
-              "x": 0,
-              "y": 0,
-              "w": 1.0,
-              "h": 1.0,
               "rotation": 0.0,
-              "worldX": 0.0,
-              "worldY": -120.0,
-              "worldW": 280.0,
-              "worldH": 40.0,
               "worldRotation": 0.0
             }
           }
         ]
       },
       {
-        "id": "f27951ca-4de6-4325-9ce8-fdeb06b913be",
+        "id": "51234ae9-60b1-440d-9d83-1287ef3b790c",
         "components": [
+          {
+            "type": "com.example.speler.ecs.components.Renderable",
+            "data": {
+              "sprite": ""
+            }
+          },
           {
             "type": "com.example.speler.ecs.components.ColliderComponent",
             "data": {
@@ -39,23 +43,21 @@
           {
             "type": "com.example.speler.ecs.components.Transform",
             "data": {
-              "x": 0,
-              "y": 0,
-              "w": 1.0,
-              "h": 1.0,
               "rotation": 0.0,
-              "worldX": 0.0,
-              "worldY": 160.0,
-              "worldW": 280.0,
-              "worldH": 40.0,
               "worldRotation": 0.0
             }
           }
         ]
       },
       {
-        "id": "0092438b-3292-49bb-be9d-385f80a0521e",
+        "id": "965f8de2-e35c-41ee-badb-f2566b5922c2",
         "components": [
+          {
+            "type": "com.example.speler.ecs.components.Renderable",
+            "data": {
+              "sprite": ""
+            }
+          },
           {
             "type": "com.example.speler.ecs.components.ColliderComponent",
             "data": {
@@ -65,23 +67,21 @@
           {
             "type": "com.example.speler.ecs.components.Transform",
             "data": {
-              "x": 0,
-              "y": 0,
-              "w": 1.0,
-              "h": 1.0,
               "rotation": 0.0,
-              "worldX": -120.0,
-              "worldY": 20.0,
-              "worldW": 40.0,
-              "worldH": 240.0,
               "worldRotation": 0.0
             }
           }
         ]
       },
       {
-        "id": "69524de6-e9b8-4921-b6b7-fb9a512cec42",
+        "id": "6ca25a89-4639-4441-b1cf-b841ae727c49",
         "components": [
+          {
+            "type": "com.example.speler.ecs.components.Renderable",
+            "data": {
+              "sprite": ""
+            }
+          },
           {
             "type": "com.example.speler.ecs.components.ColliderComponent",
             "data": {
@@ -91,23 +91,21 @@
           {
             "type": "com.example.speler.ecs.components.Transform",
             "data": {
-              "x": 0,
-              "y": 0,
-              "w": 1.0,
-              "h": 1.0,
               "rotation": 0.0,
-              "worldX": 120.0,
-              "worldY": 20.0,
-              "worldW": 40.0,
-              "worldH": 240.0,
               "worldRotation": 0.0
             }
           }
         ]
       },
       {
-        "id": "ce94f0b1-f2aa-45a3-bf7c-5c99dedbc1b9",
+        "id": "bac21cfa-ee30-41a9-b334-8cf0fe9d1825",
         "components": [
+          {
+            "type": "com.example.speler.ecs.components.Renderable",
+            "data": {
+              "sprite": ""
+            }
+          },
           {
             "type": "com.example.speler.ecs.components.ColliderComponent",
             "data": {
@@ -127,15 +125,35 @@
           {
             "type": "com.example.speler.ecs.components.Transform",
             "data": {
-              "x": 0,
-              "y": 0,
-              "w": 1.0,
-              "h": 1.0,
               "rotation": 0.0,
-              "worldX": 0.0,
-              "worldY": 0.0,
-              "worldW": 20.0,
-              "worldH": 20.0,
+              "worldRotation": 0.0
+            }
+          }
+        ]
+      },
+      {
+        "id": "bfa58ad9-ebd5-4f72-add3-8d21a16034a8",
+        "components": [
+          {
+            "type": "com.example.speler.ecs.components.Renderable",
+            "data": {
+              "sprite": ""
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.ColliderComponent",
+            "data": {
+              "circle": true
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.Rigidbody",
+            "data": {}
+          },
+          {
+            "type": "com.example.speler.ecs.components.Transform",
+            "data": {
+              "rotation": 0.0,
               "worldRotation": 0.0
             }
           }

@@ -24,7 +24,7 @@ public class Main {
 
 			int w = 240;
 			int o = -100;
-			
+
 			new Wall(game.getEcs(), new Vector2(0,0+o),new Vector2(w,40));
 			new Wall(game.getEcs(), new Vector2(0,w+o),new Vector2(w,40));
 			new Wall(game.getEcs(), new Vector2(-w/2,w/2+o),new Vector2(40,w));
@@ -47,7 +47,7 @@ public class Main {
 			ob1.transform.worldScale.x = 20;
 			ob1.transform.worldScale.y = 20;
 			ob1.transform.position.x = 50;
-			//			ob1.addComponent(new ScriptComponent(new MyScript()));
+			//ob1.addComponent(new ScriptComponent(new MyScript()));
 			ColliderComponent c1 = new ColliderComponent();
 			c1.circle = true;
 			ob1.addComponent(c1);

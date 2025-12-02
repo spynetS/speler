@@ -7,8 +7,8 @@ import com.google.gson.JsonObject;
 
 public class Rigidbody implements Component, SerializableComponent {
 
-		public Vector2 acceleration = new Vector2(0,1);
-		public float friction = 0.98f;
+		public Vector2 acceleration = new Vector2(0f,1f);
+		public Vector2 friction = new Vector2(0.98f,1f);
 		
 		
 		public Rigidbody(){}

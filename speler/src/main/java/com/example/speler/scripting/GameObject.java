@@ -20,6 +20,7 @@ public class GameObject {
 			this.id = ecs.instantiate();
 			transform = new Transform();
 			this.ecs.addComponent(this.id, transform);
+			this.ecs.addComponent(this.id, new Renderable());
 		}
 
 		public GameObject(ECS ecs, UUID id){

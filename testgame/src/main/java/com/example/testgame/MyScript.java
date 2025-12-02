@@ -28,25 +28,20 @@ public class MyScript extends Script {
 
 
 			if (Input.isKeyDown(Keys.A)){
-					//					this.gameObject.transform.worldX-=1;
-					rb.acceleration.x += -0.1;
+					rb.acceleration.x += -5;
 			}
 					
 			if (Input.isKeyDown(Keys.D)){
-					//					this.gameObject.transform.worldX+=1;
-					rb.acceleration.x += 0.1;
+					rb.acceleration.x += 5;
 			}
-
 
 			if (Input.isKeyDown(Keys.W)){
-					//					this.gameObject.transform.worldY-=1;
-					rb.acceleration.y -= 0.1;
+					rb.acceleration.y -= 10;
 			}
 			if (Input.isKeyDown(Keys.S)){
-					//					this.gameObject.transform.worldY+=1;
-					rb.acceleration.y += 0.1;
+					rb.acceleration.y += 5;
 			}
-			
+				 
 			//			this.gameObject.transform.worldX += rb.acceleration.getX();
 			//			this.gameObject.transform.worldY += rb.acceleration.getY();
 		}
