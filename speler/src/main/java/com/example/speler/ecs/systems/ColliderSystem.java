@@ -36,7 +36,7 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 			for (UUID a : entities) {
 				Transform ta = ecs.getComponent(a, Transform.class);
 				ColliderComponent ca = ecs.getComponent(a, ColliderComponent.class);
-
+				
 				if (ca == null)
 					continue;
 
@@ -91,10 +91,10 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 				} else if (aCircle && bCircle) {
 						var m = circleCircle(tb,cb,ta,ca);
 						onCollision(a, ta, ca,b, tb, cb,m,ecs);
+				} else if (!aCircle && !bCircle) {
+						var m = rectRect(ta,ca,tb,cb);
+						onCollision(a, ta, ca,b, tb, cb,m,ecs);
 				}
-				
-				
-				
 		}
 
 		private CollisionManifold circleCircle(Transform at, ColliderComponent ac, Transform bt, ColliderComponent bc) {
@@ -135,55 +135,101 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 		
 
 		private CollisionManifold circleRect(Transform tc, ColliderComponent cc,
-															 Transform tr, ColliderComponent rc) {
+				Transform tr, ColliderComponent rc) {
 
-				float cx = tc.worldPosition.x;
-				float cy = tc.worldPosition.y;
-				float r = tc.worldScale.x/2;
+			float cx = tc.worldPosition.x;
+			float cy = tc.worldPosition.y;
+			float r = tc.worldScale.x / 2;
 
-				float rx = tr.worldPosition.x;
-				float ry = tr.worldPosition.y;
-				
-				float halfW = (tr.worldScale.x + rc.width) * 0.5f;
-				float halfH = (tr.worldScale.y + rc.height) * 0.5f;
+			float rx = tr.worldPosition.x;
+			float ry = tr.worldPosition.y;
 
-				// Find closest point on rectangle to the circle center
-				float closestX = Math.max(rx - halfW, Math.min(cx, rx + halfW));
-				float closestY = Math.max(ry - halfH, Math.min(cy, ry + halfH));
+			float halfW = (tr.worldScale.x + rc.width) * 0.5f;
+			float halfH = (tr.worldScale.y + rc.height) * 0.5f;
 
-				float dx = closestX - cx;
-				float dy = closestY - cy;
+			// Find closest point on rectangle to the circle center
+			float closestX = Math.max(rx - halfW, Math.min(cx, rx + halfW));
+			float closestY = Math.max(ry - halfH, Math.min(cy, ry + halfH));
 
-				float distSq = dx * dx + dy * dy;
-				if (distSq > r * r) {
-						return CollisionManifold.none();
-				}
+			float dx = closestX - cx;
+			float dy = closestY - cy;
 
-				CollisionManifold m = new CollisionManifold(true);
+			float distSq = dx * dx + dy * dy;
+			if (distSq > r * r) {
+				return CollisionManifold.none();
+			}
 
-				float dist = (float)Math.sqrt(distSq);
+			CollisionManifold m = new CollisionManifold(true);
 
-				if (dist != 0) {
-						m.normalX = dx / dist;
-						m.normalY = dy / dist;
-						m.penetrationDepth = r - dist;
+			float dist = (float) Math.sqrt(distSq);
+
+			if (dist != 0) {
+				m.normalX = dx / dist;
+				m.normalY = dy / dist;
+				m.penetrationDepth = r - dist;
+			} else {
+				// Circle is inside rectangle center
+				// Pick a normal pointing outward
+				if (Math.abs(dx) > Math.abs(dy)) {
+					m.normalX = dx < 0 ? -1 : 1;
+					m.normalY = 0;
+					m.penetrationDepth = r;
 				} else {
-						// Circle is inside rectangle center
-						// Pick a normal pointing outward
-						if (Math.abs(dx) > Math.abs(dy)) {
-								m.normalX = dx < 0 ? -1 : 1;
-								m.normalY = 0;
-								m.penetrationDepth = r;
-						} else {
-								m.normalX = 0;
-								m.normalY = dy < 0 ? -1 : 1;
-								m.penetrationDepth = r;
-						}
+					m.normalX = 0;
+					m.normalY = dy < 0 ? -1 : 1;
+					m.penetrationDepth = r;
 				}
+			}
 
-				return m;
+			return m;
 		}
 
+		public CollisionManifold rectRect(Transform tr1, ColliderComponent cr1,
+				Transform tr2, ColliderComponent cr2) {
+			float halfW1 = (tr1.worldScale.x + cr1.width) * 0.5f;
+			float halfH1 = (tr1.worldScale.y + cr1.height) * 0.5f;
+			float minX1 = tr1.worldPosition.x - halfW1;
+			float maxX1 = tr1.worldPosition.x + halfW1;
+			float minY1 = tr1.worldPosition.y - halfH1;
+			float maxY1 = tr1.worldPosition.y + halfH1;
+
+			float halfW2 = (tr2.worldScale.x + cr2.width) * 0.5f;
+			float halfH2 = (tr2.worldScale.y + cr2.height) * 0.5f;
+			float minX2 = tr2.worldPosition.x - halfW2;
+			float maxX2 = tr2.worldPosition.x + halfW2;
+			float minY2 = tr2.worldPosition.y - halfH2;
+			float maxY2 = tr2.worldPosition.y + halfH2;
+
+			// Check for no overlap (using Separating Axis Theorem for AABBs)
+			if (maxX1 < minX2 || minX1 > maxX2 || maxY1 < minY2 || minY1 > maxY2) {
+				return CollisionManifold.none();
+			}
+
+			// Collision detected, calculate manifold
+			CollisionManifold m = new CollisionManifold(true);
+
+			// Vector from center of rect1 to center of rect2
+			float dx = tr2.worldPosition.x - tr1.worldPosition.x;
+			float dy = tr2.worldPosition.y - tr1.worldPosition.y;
+
+			// Calculate overlap on each axis
+			float overlapX = (halfW1 + halfW2) - Math.abs(dx);
+			float overlapY = (halfH1 + halfH2) - Math.abs(dy);
+
+			// The axis of minimum penetration is the collision axis
+			if (overlapX < overlapY) {
+				m.penetrationDepth = overlapX;
+				m.normalX = dx > 0 ? 1 : -1;
+				m.normalY = 0;
+			} else {
+				m.penetrationDepth = overlapY;
+				m.normalX = 0;
+				m.normalY = dy > 0 ? 1 : -1;
+			}
+
+			return m;
+		}
+		
 		@Override
 		public void start(ECS ecs) {
 				// TODO Auto-generated method stub
@@ -192,4 +238,5 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 		@Override
 		public void onComponentAdded(UUID id, Component component) {} // not used
 }
+
 

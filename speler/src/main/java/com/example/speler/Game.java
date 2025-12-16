@@ -39,9 +39,6 @@ public class Game implements Runnable {
 				
 
 				Sprite.game = this;
-
-				//				ScriptManager.loadScripts("scripts/");
-				
 				resourceManager = new ResourceManager();
 		}
 				
