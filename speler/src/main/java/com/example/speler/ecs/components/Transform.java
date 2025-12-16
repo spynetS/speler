@@ -23,30 +23,31 @@ public class Transform implements Component, SerializableComponent {
     @Override
     public JsonObject serialize() {
         JsonObject obj = new JsonObject();
-        // obj.addProperty("x", x);
-        // obj.addProperty("y", y);
-        // obj.addProperty("w", w);
-        // obj.addProperty("h", h);
+        obj.add("position", position.serialize());
+        obj.add("scale", scale.serialize());
+				obj.add("worldPosition", worldPosition.serialize());
+        obj.add("worldScale", worldScale.serialize());
         obj.addProperty("rotation", rotation);
-        // obj.addProperty("worldX", worldX);
-        // obj.addProperty("worldY", worldY);
-        // obj.addProperty("worldW", worldW);
-        // obj.addProperty("worldH", worldH);
-        obj.addProperty("worldRotation", worldRotation);
         return obj;
     }
 
     @Override
     public void deserialize(JsonObject obj) {
-        // x = obj.get("x").getAsInt();
-        // y = obj.get("y").getAsInt();
-        // w = obj.get("w").getAsFloat();
-        // h = obj.get("h").getAsFloat();
-        // rotation = obj.get("rotation").getAsFloat();
-        // worldX = obj.get("worldX").getAsInt();
-        // worldY = obj.get("worldY").getAsInt();
-        // worldW = obj.get("worldW").getAsFloat();
-        // worldH = obj.get("worldH").getAsFloat();
-        worldRotation = obj.get("worldRotation").getAsFloat();
-    }
+        if (obj.has("position")) {
+            position.deserialize(obj.getAsJsonObject("position"));
+        }
+        if (obj.has("scale")) {
+            scale.deserialize(obj.getAsJsonObject("scale"));
+        }
+        if (obj.has("rotation")) {
+            rotation = obj.get("rotation").getAsFloat();
+        }
+        if (obj.has("worldPosition")) {
+            worldPosition.deserialize(obj.getAsJsonObject("worldPosition"));
+        }
+				if (obj.has("worldScale")) {
+            worldScale.deserialize(obj.getAsJsonObject("worldScale"));
+        }
+
+		}
 }

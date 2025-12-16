@@ -14,7 +14,7 @@ import com.example.speler.scripting.ScriptManager;
 
 
 public class Game implements Runnable {
-	private boolean running = true;
+		private boolean running = true;
 
 
 		protected ResourceManager resourceManager;
@@ -48,49 +48,49 @@ public class Game implements Runnable {
 		}
 
 		public void run() {
-    ecs.start();
+				ecs.start();
 
-    final double FPS = 144.0;
-    final double TIME_PER_UPDATE = 1_000_000_000 / FPS; // nanoseconds per update
-		final double TIME_PER_FRAME = 1_000_000_000 / FPS;
-    long lastTime = System.nanoTime();
-    double delta = 0;
+				final double FPS = 144.0;
+				final double TIME_PER_UPDATE = 1_000_000_000 / FPS; // nanoseconds per update
+				final double TIME_PER_FRAME = 1_000_000_000 / FPS;
+				long lastTime = System.nanoTime();
+				double delta = 0;
 
-    long timer = System.currentTimeMillis(); // for FPS counting
-    int frames = 0; // rendered frames
+				long timer = System.currentTimeMillis(); // for FPS counting
+				int frames = 0; // rendered frames
 
-    while (running) {
-        long now = System.nanoTime();
-        delta += (now - lastTime) / TIME_PER_UPDATE;
-        lastTime = now;
+				while (running) {
+						long now = System.nanoTime();
+						delta += (now - lastTime) / TIME_PER_UPDATE;
+						lastTime = now;
 
-        while (delta >= 1) {
-            update(1 / FPS); // update game logic
-            delta--;
-        }
-
-        render(); // draw the current state
-				frames++;
-
-				// Sleep to cap render FPS
-				long frameTime = System.nanoTime() - now;
-				long sleepTime = (long) TIME_PER_FRAME - frameTime;
-				if (sleepTime > 0) {
-						try {
-								Thread.sleep(sleepTime / 1_000_000, (int) (sleepTime % 1_000_000));
-						} catch (InterruptedException e) {
-								e.printStackTrace();
+						while (delta >= 1) {
+								update(1 / FPS); // update game logic
+								delta--;
 						}
-				}
+
+						render(); // draw the current state
+						frames++;
+
+						// Sleep to cap render FPS
+						long frameTime = System.nanoTime() - now;
+						long sleepTime = (long) TIME_PER_FRAME - frameTime;
+						if (sleepTime > 0) {
+								try {
+										Thread.sleep(sleepTime / 1_000_000, (int) (sleepTime % 1_000_000));
+								} catch (InterruptedException e) {
+										e.printStackTrace();
+								}
+						}
 				
-        // Print FPS every second
-        // if (System.currentTimeMillis() - timer >= 1000) {
-        //     System.out.println("FPS: " + frames + " dt: "+1/FPS);
-        //     frames = 0;
-        //     timer += 1000;
-        //}
-    }
-}
+						// Print FPS every second
+						// if (System.currentTimeMillis() - timer >= 1000) {
+						//     System.out.println("FPS: " + frames + " dt: "+1/FPS);
+						//     frames = 0;
+						//     timer += 1000;
+						//}
+				}
+		}
 
     
 		
@@ -98,46 +98,46 @@ public class Game implements Runnable {
 				ecs.update((float)delta);
     }
 
-	protected void render() {
-		// repaint JPanel or use buffer strategy
-		selectedScene.repaint();
-	}
+		protected void render() {
+				// repaint JPanel or use buffer strategy
+				selectedScene.repaint();
+		}
 
 
 		public boolean isRunning() {
-			return running;
+				return running;
 		}
 
 		public void setRunning(boolean running) {
-			this.running = running;
+				this.running = running;
 		}
 
 		public ResourceManager getResourceManager() {
-			return resourceManager;
+				return resourceManager;
 		}
 
 		public void setResourceManager(ResourceManager resourceManager) {
-			this.resourceManager = resourceManager;
+				this.resourceManager = resourceManager;
 		}
 
 		public GameWindow getWindow() {
-			return window;
+				return window;
 		}
 
 		public void setWindow(GameWindow window) {
-			this.window = window;
+				this.window = window;
 		}
 
 		public Scene getSelectedScene() {
-			return selectedScene;
+				return selectedScene;
 		}
 
 		public ECS getEcs() {
-			return ecs;
+				return ecs;
 		}
 
 		public void setEcs(ECS ecs) {
-			this.ecs = ecs;
+				this.ecs = ecs;
 		}
 
 		

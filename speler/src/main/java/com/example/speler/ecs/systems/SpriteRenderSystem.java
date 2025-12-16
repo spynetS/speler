@@ -35,7 +35,7 @@ public class SpriteRenderSystem implements RenderSystem {
 
 						if (t != null && spriteComponent != null) {
 								BufferedImage image = ResourceManager.getImage(spriteComponent.image);
-
+						
 								int screenX = camera.worldToScreenX(t.worldPosition.x, screenWidth);
 								int screenY = camera.worldToScreenY(t.worldPosition.y, screenHeight);
 								int w = camera.worldToScreenSize((int)t.worldScale.x);

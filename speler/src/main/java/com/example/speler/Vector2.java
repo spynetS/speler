@@ -1,8 +1,11 @@
 package com.example.speler;
 
+import com.example.speler.SerializableComponent;
+import com.google.gson.JsonObject;
+
 import java.util.Objects;
 
-public class Vector2 {
+public class Vector2 implements SerializableComponent {
 
     public static Vector2 up = new Vector2(0,-1);
     public static Vector2 down = new Vector2(0,1);
@@ -234,4 +237,23 @@ public class Vector2 {
     public Vector2 times(Vector2 vec) {
         return this.multiply(vec);
     }
+
+		@Override
+		public JsonObject serialize() {
+				JsonObject obj = new JsonObject();
+				obj.addProperty("x", x);
+				obj.addProperty("y", y);
+				return obj;
+		}
+
+		@Override
+		public void deserialize(JsonObject obj) {
+				if (obj.has("x")) {
+						this.x = obj.get("x").getAsFloat();
+				}
+				if (obj.has("y")) {
+						this.y = obj.get("y").getAsFloat();
+				}
+		}
+
 }

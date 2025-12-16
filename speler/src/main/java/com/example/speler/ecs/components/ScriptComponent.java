@@ -19,14 +19,12 @@ public class ScriptComponent implements Component, SerializableComponent {
 		public ScriptComponent(Script script) {
 			this.script = script;
 		}
-
-		
 		
     @Override
     public JsonObject serialize() {
 		JsonObject obj = new JsonObject();
 				System.out.println("SERILIZE script");
-				obj.addProperty("scriptName", "test"); // or path
+				obj.addProperty("scriptName", this.script.getScriptName()); // or path
         return obj;
     }
 

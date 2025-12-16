@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 
 public class SpriteComponent implements Component, SerializableComponent {
     public String image = "";
-	public boolean inverted = false;
+		public boolean inverted = false;
 
 		public SpriteComponent(){}
     public SpriteComponent(String image) { this.image = image; }

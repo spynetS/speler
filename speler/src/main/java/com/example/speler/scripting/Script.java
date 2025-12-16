@@ -24,7 +24,6 @@ public abstract class Script {
 	public Script(GameObject gameObject, String scriptName) {
 		this.gameObject = gameObject;
 		this.scriptName = scriptName;
-		ScriptManager.registerScript(scriptName, this.getClass());
 	}
 
 	public void update(float deltatime) {
@@ -32,7 +31,10 @@ public abstract class Script {
 
 	public void start() {
 	}
-
+		public void setScriptName(String scriptName){
+				this.scriptName = scriptName;
+				ScriptManager.registerScript(scriptName, this.getClass());
+		}
 	public String getScriptName() {
 		return scriptName;
 	}

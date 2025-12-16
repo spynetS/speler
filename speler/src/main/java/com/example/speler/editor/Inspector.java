@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import com.example.speler.Vector2;
 import com.example.speler.ecs.ECS.Component;
 import com.example.speler.scripting.GameObject;
 
@@ -94,7 +95,44 @@ public class Inspector extends JPanel {
 						});
 						fieldPanel.add(fieldInput);
 
-					} else if (field.getType() == boolean.class) {
+					} else if (field.getType() == Vector2.class) { // Check for your Vector class
+						Vector2 vec = (Vector2) value;
+						final Vector2 finalVec = vec; // Final reference for listener
+
+						JTextField xField = new JTextField(String.valueOf(vec.x), 4);
+						JTextField yField = new JTextField(String.valueOf(vec.y), 4);
+						JTextField zField = new JTextField(String.valueOf(vec.z), 4);
+
+						// A single listener to update the vector from all three fields
+						DocumentListener listener = new DocumentListener() {
+							private void updateVector() {
+								try {
+									// Modify the fields of the original vector object directly
+									finalVec.x = Float.parseFloat(xField.getText());
+									finalVec.y = Float.parseFloat(yField.getText());
+									finalVec.z = Float.parseFloat(zField.getText());
+								} catch (NumberFormatException ex) {
+									// Ignore invalid input for now
+								}
+							}
+							@Override public void insertUpdate(DocumentEvent e) { updateVector(); }
+							@Override public void removeUpdate(DocumentEvent e) { updateVector(); }
+							@Override public void changedUpdate(DocumentEvent e) { updateVector(); }
+						};
+
+						xField.getDocument().addDocumentListener(listener);
+						yField.getDocument().addDocumentListener(listener);
+						zField.getDocument().addDocumentListener(listener);
+
+						fieldPanel.add(new JLabel("X:"));
+						fieldPanel.add(xField);
+						fieldPanel.add(new JLabel(" Y:"));
+						fieldPanel.add(yField);
+						fieldPanel.add(new JLabel(" Z:"));
+						fieldPanel.add(zField);
+
+					}
+					else if (field.getType() == boolean.class) {
 						JCheckBox checkBox = new JCheckBox();
 						checkBox.setSelected((boolean) value);
 						checkBox.addItemListener(e -> {
@@ -137,6 +175,8 @@ public class Inspector extends JPanel {
         String[] availableComponents = {
 				"SpriteComponent",
 				"Renderable",
+				"Rigidbody",
+				"ColliderComponent"
         };
 
         String choice = (String) JOptionPane.showInputDialog(

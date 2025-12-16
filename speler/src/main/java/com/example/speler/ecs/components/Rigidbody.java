@@ -9,9 +9,11 @@ public class Rigidbody implements Component, SerializableComponent {
 
 		public Vector2 acceleration = new Vector2(0f,1f);
 		public Vector2 friction = new Vector2(0.98f,1f);
+		public boolean useGravity = true;
 		
 		
 		public Rigidbody(){}
+		public Rigidbody(boolean useGravity){ this.useGravity = useGravity;}
 
 		//TODO Serilize correct
     @Override
