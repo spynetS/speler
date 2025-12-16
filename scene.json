@@ -2,28 +2,159 @@
   "ecs": {
     "entities": [
       {
-        "id": "fe0c3c51-f051-4774-89d0-78f484ebb889",
+        "id": "ee1efb74-1eb6-40aa-874f-d2c2a002353c",
         "components": [
           {
-            "type": "com.example.speler.ecs.components.Transform",
+            "type": "com.example.speler.ecs.components.Renderable",
             "data": {
-              "x": 0,
-              "y": 0,
-              "w": 1.0,
-              "h": 1.0,
-              "rotation": 0.0,
-              "worldX": -100.0,
-              "worldY": -50.0,
-              "worldW": 100.0,
-              "worldH": 100.0,
-              "worldRotation": 0.0
+              "sprite": ""
             }
           },
           {
-            "type": "com.example.speler.ecs.components.SpriteComponent",
+            "type": "com.example.speler.ecs.components.ColliderComponent",
             "data": {
-              "image": "/home/spy/images/icon.png",
-              "inverted": false
+              "circle": false
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.Transform",
+            "data": {
+              "rotation": 0.0,
+              "worldRotation": 0.0
+            }
+          }
+        ]
+      },
+      {
+        "id": "51234ae9-60b1-440d-9d83-1287ef3b790c",
+        "components": [
+          {
+            "type": "com.example.speler.ecs.components.Renderable",
+            "data": {
+              "sprite": ""
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.ColliderComponent",
+            "data": {
+              "circle": false
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.Transform",
+            "data": {
+              "rotation": 0.0,
+              "worldRotation": 0.0
+            }
+          }
+        ]
+      },
+      {
+        "id": "965f8de2-e35c-41ee-badb-f2566b5922c2",
+        "components": [
+          {
+            "type": "com.example.speler.ecs.components.Renderable",
+            "data": {
+              "sprite": ""
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.ColliderComponent",
+            "data": {
+              "circle": false
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.Transform",
+            "data": {
+              "rotation": 0.0,
+              "worldRotation": 0.0
+            }
+          }
+        ]
+      },
+      {
+        "id": "6ca25a89-4639-4441-b1cf-b841ae727c49",
+        "components": [
+          {
+            "type": "com.example.speler.ecs.components.Renderable",
+            "data": {
+              "sprite": ""
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.ColliderComponent",
+            "data": {
+              "circle": false
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.Transform",
+            "data": {
+              "rotation": 0.0,
+              "worldRotation": 0.0
+            }
+          }
+        ]
+      },
+      {
+        "id": "bac21cfa-ee30-41a9-b334-8cf0fe9d1825",
+        "components": [
+          {
+            "type": "com.example.speler.ecs.components.Renderable",
+            "data": {
+              "sprite": ""
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.ColliderComponent",
+            "data": {
+              "circle": true
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.Rigidbody",
+            "data": {}
+          },
+          {
+            "type": "com.example.speler.ecs.components.ScriptComponent",
+            "data": {
+              "scriptName": "test"
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.Transform",
+            "data": {
+              "rotation": 0.0,
+              "worldRotation": 0.0
+            }
+          }
+        ]
+      },
+      {
+        "id": "bfa58ad9-ebd5-4f72-add3-8d21a16034a8",
+        "components": [
+          {
+            "type": "com.example.speler.ecs.components.Renderable",
+            "data": {
+              "sprite": ""
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.ColliderComponent",
+            "data": {
+              "circle": true
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.Rigidbody",
+            "data": {}
+          },
+          {
+            "type": "com.example.speler.ecs.components.Transform",
+            "data": {
+              "rotation": 0.0,
+              "worldRotation": 0.0
             }
           }
         ]

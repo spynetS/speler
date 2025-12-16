@@ -9,8 +9,6 @@ import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.ECS.Component;
 import com.example.speler.ecs.components.*;
 
-
-
 public class GameObject {
 
 		public UUID id;
@@ -22,8 +20,7 @@ public class GameObject {
 			this.id = ecs.instantiate();
 			transform = new Transform();
 			this.ecs.addComponent(this.id, transform);
-			this.ecs.addComponent(this.id, new Renderable(""));
-			
+			this.ecs.addComponent(this.id, new Renderable());
 		}
 
 		public GameObject(ECS ecs, UUID id){
@@ -70,7 +67,8 @@ public class GameObject {
 		public ECS getEcs() {
 			return ecs;
 		}
+
 		public UUID getId() {
-		    return id;
+			return id;
 		}
 }

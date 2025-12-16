@@ -13,12 +13,14 @@ import com.example.speler.SerializableComponent;
 import com.example.speler.animations.AnimationTrack;
 import com.example.speler.ecs.systems.UpdateSystem;
 import com.example.speler.ecs.components.ParentComponent;
+import com.example.speler.ecs.listeners.EntityListener;
 
 
 public class ECS implements SerializableComponent {
     public Map<UUID, Map<Class<?>, Component>> components = new HashMap<>();
     public List<UUID> entities = new ArrayList<>();
     public List<UpdateSystem> updateSystems = new LinkedList<>();
+    public List<EntityListener> listeners = new LinkedList<>();
 
     // Create a new entity
     public UUID instantiate() {
@@ -28,8 +30,9 @@ public class ECS implements SerializableComponent {
     }
 
     // Add a system
-		public void addSystem(UpdateSystem system) {
-				updateSystems.add(system);
+	public void addSystem(UpdateSystem system) {
+			for(EntityListener listener: listeners) listener.onSystemAdded(system);
+			updateSystems.add(system);
 		}
 
 		public <T extends Component> void removeComponent(UUID id, Class<T> compClass) {
@@ -38,9 +41,12 @@ public class ECS implements SerializableComponent {
 
 
     // Add a component to an entity
-    public <T extends Component> void addComponent(UUID entityId, T component) {
-        components.computeIfAbsent(entityId, id -> new HashMap<>())
-						.put(component.getClass(), component);
+	public <T extends Component> void addComponent(UUID entityId, T component) {
+
+			for(EntityListener listener: listeners) listener.onComponentAdded(entityId, component);
+			
+			components.computeIfAbsent(entityId, id -> new HashMap<>())
+					.put(component.getClass(), component);
     }
 
     // Get a component from an entity
@@ -81,11 +87,13 @@ public class ECS implements SerializableComponent {
 				for (Component comp : components) {
 						removeComponent(id, comp.getClass());
 				}
-
-
-
 		}
 
+		public void start() {
+        for (UpdateSystem system : updateSystems) {
+            system.start(this);
+        }
+		}
     // Main update loop: call all systems
 	public void update(float deltaTime) {
         for (UpdateSystem system : updateSystems) {

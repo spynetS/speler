@@ -30,7 +30,7 @@ public class EditorSystem implements RenderSystem, UpdateSystem {
 				if (Input.isMouseDown() && rectRect((float)mousePos.x,(float) mousePos.y, 10, 10, t.worldPosition.x-t.worldScale.x/2, t.worldPosition.y-t.worldScale.y/2, t.worldScale.x, t.worldScale.y)) {
 					editor.setSelectedGameObject(new GameObject(ecs, id));
 				}
-				renderArrows(ecs, id, g, camera, screenWidth, screenHeight);
+				//renderArrows(ecs, id, g, camera, screenWidth, screenHeight);
 			}
 		}
 
@@ -144,7 +144,7 @@ public class EditorSystem implements RenderSystem, UpdateSystem {
 		}
 
 		@Override
-		public void start() {
+		public void start(ECS ecs) {
 				// TODO Auto-generated method stub
 		
 		}

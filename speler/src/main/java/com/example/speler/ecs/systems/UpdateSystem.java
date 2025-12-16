@@ -4,5 +4,5 @@ import com.example.speler.ecs.ECS;
 
 public interface UpdateSystem {
 		void update(ECS ecs, float deltaTime);
-		void start();
+		void start(ECS ecs);
 }
