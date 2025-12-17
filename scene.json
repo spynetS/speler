@@ -2,12 +2,89 @@
   "ecs": {
     "entities": [
       {
-        "id": "ee1efb74-1eb6-40aa-874f-d2c2a002353c",
+        "id": "dfb163ef-7403-47d1-8e34-1ae6467de202",
         "components": [
           {
-            "type": "com.example.speler.ecs.components.Renderable",
+            "type": "com.example.speler.ecs.components.SpriteComponent",
             "data": {
-              "sprite": ""
+              "image": "",
+              "inverted": false
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.Transform",
+            "data": {
+              "position": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "scale": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "worldPosition": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "worldScale": {
+                "x": 100.0,
+                "y": 100.0
+              },
+              "rotation": 0.0
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.AnimationComponent",
+            "data": {
+              "currentTrack": 0,
+              "tracks": [
+                {
+                  "loop": true,
+                  "keyframes": [
+                    {
+                      "time": 0.0
+                    },
+                    {
+                      "time": 0.2
+                    },
+                    {
+                      "time": 0.4
+                    },
+                    {
+                      "time": 0.6
+                    },
+                    {
+                      "time": 0.8
+                    },
+                    {
+                      "time": 1.0
+                    }
+                  ]
+                },
+                {
+                  "loop": true,
+                  "keyframes": [
+                    {
+                      "time": 0.0
+                    },
+                    {
+                      "time": 0.2
+                    },
+                    {
+                      "time": 0.4
+                    },
+                    {
+                      "time": 0.6
+                    },
+                    {
+                      "time": 0.8
+                    },
+                    {
+                      "time": 1.0
+                    }
+                  ]
+                }
+              ]
             }
           },
           {
@@ -15,146 +92,167 @@
             "data": {
               "circle": false
             }
-          },
-          {
-            "type": "com.example.speler.ecs.components.Transform",
-            "data": {
-              "rotation": 0.0,
-              "worldRotation": 0.0
-            }
-          }
-        ]
-      },
-      {
-        "id": "51234ae9-60b1-440d-9d83-1287ef3b790c",
-        "components": [
-          {
-            "type": "com.example.speler.ecs.components.Renderable",
-            "data": {
-              "sprite": ""
-            }
-          },
-          {
-            "type": "com.example.speler.ecs.components.ColliderComponent",
-            "data": {
-              "circle": false
-            }
-          },
-          {
-            "type": "com.example.speler.ecs.components.Transform",
-            "data": {
-              "rotation": 0.0,
-              "worldRotation": 0.0
-            }
-          }
-        ]
-      },
-      {
-        "id": "965f8de2-e35c-41ee-badb-f2566b5922c2",
-        "components": [
-          {
-            "type": "com.example.speler.ecs.components.Renderable",
-            "data": {
-              "sprite": ""
-            }
-          },
-          {
-            "type": "com.example.speler.ecs.components.ColliderComponent",
-            "data": {
-              "circle": false
-            }
-          },
-          {
-            "type": "com.example.speler.ecs.components.Transform",
-            "data": {
-              "rotation": 0.0,
-              "worldRotation": 0.0
-            }
-          }
-        ]
-      },
-      {
-        "id": "6ca25a89-4639-4441-b1cf-b841ae727c49",
-        "components": [
-          {
-            "type": "com.example.speler.ecs.components.Renderable",
-            "data": {
-              "sprite": ""
-            }
-          },
-          {
-            "type": "com.example.speler.ecs.components.ColliderComponent",
-            "data": {
-              "circle": false
-            }
-          },
-          {
-            "type": "com.example.speler.ecs.components.Transform",
-            "data": {
-              "rotation": 0.0,
-              "worldRotation": 0.0
-            }
-          }
-        ]
-      },
-      {
-        "id": "bac21cfa-ee30-41a9-b334-8cf0fe9d1825",
-        "components": [
-          {
-            "type": "com.example.speler.ecs.components.Renderable",
-            "data": {
-              "sprite": ""
-            }
-          },
-          {
-            "type": "com.example.speler.ecs.components.ColliderComponent",
-            "data": {
-              "circle": true
-            }
-          },
-          {
-            "type": "com.example.speler.ecs.components.Rigidbody",
-            "data": {}
           },
           {
             "type": "com.example.speler.ecs.components.ScriptComponent",
+            "data": {}
+          },
+          {
+            "type": "com.example.speler.ecs.components.Rigidbody",
+            "data": {}
+          }
+        ]
+      },
+      {
+        "id": "604c2a7b-07c7-4e6b-9f51-ca2b35bdce66",
+        "components": [
+          {
+            "type": "com.example.speler.ecs.components.SpriteComponent",
             "data": {
-              "scriptName": "test"
+              "image": "CU3KHIPNePkGiHyV",
+              "inverted": false
             }
           },
           {
             "type": "com.example.speler.ecs.components.Transform",
             "data": {
-              "rotation": 0.0,
-              "worldRotation": 0.0
-            }
-          }
-        ]
-      },
-      {
-        "id": "bfa58ad9-ebd5-4f72-add3-8d21a16034a8",
-        "components": [
-          {
-            "type": "com.example.speler.ecs.components.Renderable",
-            "data": {
-              "sprite": ""
+              "position": {
+                "x": 0.0,
+                "y": 100.0
+              },
+              "scale": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "worldPosition": {
+                "x": 0.0,
+                "y": 100.0
+              },
+              "worldScale": {
+                "x": 50.0,
+                "y": 50.0
+              },
+              "rotation": 0.0
             }
           },
           {
             "type": "com.example.speler.ecs.components.ColliderComponent",
             "data": {
-              "circle": true
+              "circle": false
             }
-          },
+          }
+        ]
+      },
+      {
+        "id": "0c791f54-f09c-4b5c-804b-f7c318de4707",
+        "components": [
           {
-            "type": "com.example.speler.ecs.components.Rigidbody",
-            "data": {}
+            "type": "com.example.speler.ecs.components.SpriteComponent",
+            "data": {
+              "image": "vNQMl2sO967lCtEl",
+              "inverted": false
+            }
           },
           {
             "type": "com.example.speler.ecs.components.Transform",
             "data": {
-              "rotation": 0.0,
-              "worldRotation": 0.0
+              "position": {
+                "x": 50.0,
+                "y": 100.0
+              },
+              "scale": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "worldPosition": {
+                "x": 50.0,
+                "y": 100.0
+              },
+              "worldScale": {
+                "x": 50.0,
+                "y": 50.0
+              },
+              "rotation": 0.0
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.ColliderComponent",
+            "data": {
+              "circle": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "5ffade56-12a6-4c70-bc3d-6991365ee5cd",
+        "components": [
+          {
+            "type": "com.example.speler.ecs.components.SpriteComponent",
+            "data": {
+              "image": "dTVgy-9Im5qvGlM4",
+              "inverted": false
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.Transform",
+            "data": {
+              "position": {
+                "x": 150.0,
+                "y": 100.0
+              },
+              "scale": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "worldPosition": {
+                "x": 150.0,
+                "y": 100.0
+              },
+              "worldScale": {
+                "x": 50.0,
+                "y": 50.0
+              },
+              "rotation": 0.0
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.ColliderComponent",
+            "data": {
+              "circle": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "b8eda089-f9e6-4cb2-87f2-e30450219ab7",
+        "components": [
+          {
+            "type": "com.example.speler.ecs.components.SpriteComponent",
+            "data": {
+              "image": "/home/spy/dev/playengine/testgame/sprites/Outdoor/Oak_Tree.png",
+              "inverted": false
+            }
+          },
+          {
+            "type": "com.example.speler.ecs.components.Transform",
+            "data": {
+              "position": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "scale": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "worldPosition": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "worldScale": {
+                "x": 200.0,
+                "y": 200.0
+              },
+              "rotation": 0.0
             }
           }
         ]

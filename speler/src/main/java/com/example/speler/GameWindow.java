@@ -3,7 +3,6 @@ import javax.swing.JFrame;
 
 public class GameWindow extends JFrame
 {
-	
 	public GameWindow() {
 		super("example");
 		setSize(800, 600);

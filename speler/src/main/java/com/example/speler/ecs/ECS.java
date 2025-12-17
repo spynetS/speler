@@ -1,4 +1,4 @@
- package com.example.speler.ecs;
+package com.example.speler.ecs;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -14,6 +14,7 @@ import com.example.speler.animations.AnimationTrack;
 import com.example.speler.ecs.systems.UpdateSystem;
 import com.example.speler.ecs.components.ParentComponent;
 import com.example.speler.ecs.listeners.EntityListener;
+import com.example.speler.ecs.listeners.InstantiateListener;
 
 
 public class ECS implements SerializableComponent {
@@ -21,7 +22,8 @@ public class ECS implements SerializableComponent {
     public List<UUID> entities = new ArrayList<>();
     public List<UpdateSystem> updateSystems = new LinkedList<>();
     public List<EntityListener> listeners = new LinkedList<>();
-
+    public List<InstantiateListener> instantiaters = new LinkedList<>();
+		
     // Create a new entity
     public UUID instantiate() {
         UUID uuid = UUID.randomUUID();
@@ -30,45 +32,45 @@ public class ECS implements SerializableComponent {
     }
 
     // Add a system
-	public void addSystem(UpdateSystem system) {
-			for(EntityListener listener: listeners) listener.onSystemAdded(system);
-			updateSystems.add(system);
+		public void addSystem(UpdateSystem system) {
+				for(EntityListener listener: listeners) listener.onSystemAdded(system);
+				updateSystems.add(system);
 		}
 
 		public <T extends Component> void removeComponent(UUID id, Class<T> compClass) {
-			components.get(id).remove(compClass);
+				components.get(id).remove(compClass);
 		}
 
 
     // Add a component to an entity
-	public <T extends Component> void addComponent(UUID entityId, T component) {
+		public <T extends Component> void addComponent(UUID entityId, T component) {
 
-			for(EntityListener listener: listeners) listener.onComponentAdded(entityId, component);
+				for(EntityListener listener: listeners) listener.onComponentAdded(entityId, component);
 			
-			components.computeIfAbsent(entityId, id -> new HashMap<>())
-					.put(component.getClass(), component);
+				components.computeIfAbsent(entityId, id -> new HashMap<>())
+						.put(component.getClass(), component);
     }
 
     // Get a component from an entity
-	public <T> T getComponent(UUID id, Class<T> componentClass) { //
+		public <T> T getComponent(UUID id, Class<T> componentClass) {
 
-		Map<Class<?>, Component> entityComponents = components.get(id);
-		if (entityComponents == null)
-			return null;
-		Component comp = entityComponents.get(componentClass);
-		if (componentClass.isInstance(comp))
-			return componentClass.cast(comp);
-		return null;
-	}
+				Map<Class<?>, Component> entityComponents = components.get(id);
+				if (entityComponents == null)
+						return null;
+				Component comp = entityComponents.get(componentClass);
+				if (componentClass.isInstance(comp))
+						return componentClass.cast(comp);
+				return null;
+		}
 
-	public List<Component> getComponents(UUID id) {
-			return new LinkedList<Component>(components.get(id).values());
-	}
+		public List<Component> getComponents(UUID id) {
+				return new LinkedList<Component>(components.get(id).values());
+		}
 		
     // Get all entities
-	public List<UUID> getEntities() {
-		return entities;
-	}
+		public List<UUID> getEntities() {
+				return entities;
+		}
 
 		public void removeEntity(UUID id) {
 
@@ -95,9 +97,14 @@ public class ECS implements SerializableComponent {
         }
 		}
     // Main update loop: call all systems
-	public void update(float deltaTime) {
-        for (UpdateSystem system : updateSystems) {
-            system.update(this, deltaTime);
+		public void update(float deltaTime) {
+
+				for(InstantiateListener l : instantiaters) l.instantiate();
+			
+				for (UpdateSystem system : updateSystems) {
+						try{
+								system.update(this, deltaTime);
+						} catch(Exception e ){}
         }
     }
 

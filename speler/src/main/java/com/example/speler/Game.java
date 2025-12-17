@@ -83,12 +83,12 @@ public class Game implements Runnable {
 								}
 						}
 				
-						// Print FPS every second
-						// if (System.currentTimeMillis() - timer >= 1000) {
-						//     System.out.println("FPS: " + frames + " dt: "+1/FPS);
-						//     frames = 0;
-						//     timer += 1000;
-						//}
+						//						Print FPS every second
+						if (System.currentTimeMillis() - timer >= 1000) {
+						    getWindow().setTitle("FPS: " + frames + " dt: "+1/FPS);
+						    frames = 0;
+						    timer += 1000;
+						}
 				}
 		}
 
