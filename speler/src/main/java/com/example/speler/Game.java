@@ -99,8 +99,9 @@ public class Game implements Runnable {
     }
 
 		protected void render() {
-				// repaint JPanel or use buffer strategy
-				selectedScene.repaint();
+			// repaint JPanel or use buffer strategy
+			getWindow().validate();
+			selectedScene.repaint();
 		}
 
 
