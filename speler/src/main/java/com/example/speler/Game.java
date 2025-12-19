@@ -22,19 +22,27 @@ public class Game implements Runnable {
 		protected Scene selectedScene;
 		protected ECS ecs;
 
+		public Game(GameWindow window) {
+			init(window, null);
+		}
+
+		
 		public Game(GameWindow window, Scene scene) {
+			init(window, scene);
+		}
+
+		private void init(GameWindow window, Scene scene) {
 				this.window = window;
 				this.ecs = new ECS();
 				// add systems
 				ColliderSystem cs = new ColliderSystem(); // collider first because other systems needs them
 				ecs.listeners.add(cs);
 				ecs.addSystem(new RigidbodySystem());
-				
+
 				ecs.addSystem(new ParentSystem());
 				ecs.addSystem(new ScriptSystem());
 				ecs.addSystem(new AnimationSystem());
 				ecs.addSystem(cs);
-				
 
 				Sprite.game = this;
 				setSelectedScene(scene);
@@ -42,6 +50,8 @@ public class Game implements Runnable {
 		}
 				
 		public void setSelectedScene(Scene scene) {
+				if (scene == null)
+						return;
 				try{
 						scene.setEcs(this.ecs);
 						scene.start(this);

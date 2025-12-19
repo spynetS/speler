@@ -4,28 +4,23 @@ It is developed in Java Swing.
 
 # Getting started
 
-Simplest emo here is creating a scene with an empty rectangle
+Simplest demo here is creating a scene with an empty rectangle
 
-    
-    package com.example.testgame;
-    
-    import com.example.speler.Game;
-    import com.example.speler.swing.JGameWindow;
-    
-    
-    public class Main {
-    
-    
-    		public static void main(String[] args) {
-    				Game game = new Game(new JGameWindow());
-    
-    				Scene myScene = new JScene();
-    
-    				GameObject g1 = new GameObject();
-    				g1.addComponent(new Renderable());
-    
-    				
-    				game.run();
-        }
-    }
+```java
+import com.example.speler.Game;
+import com.example.speler.swing.JGameWindow;
+import com.example.speler.swing.JScene;
+import com.example.speler.scripting.GameObject;
+import com.example.speler.ecs.components.Renderable;
 
+public class Main {
+    public static void main(String[] args) {
+		JScene myScene = new JScene();
+		Game game = new Game(new JGameWindow(), myScene);
+			
+		GameObject g1 = new GameObject(game.getEcs());
+		g1.addComponent(new Renderable());
+		game.run();
+   }
+}
+```
