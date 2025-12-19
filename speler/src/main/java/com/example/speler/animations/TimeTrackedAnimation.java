@@ -2,6 +2,9 @@ package com.example.speler.animations;
 
 import com.example.speler.animations.*;
 
+/**
+	 TimeTrackedanimation is a animationtrack that trackes time based on delta time
+ */
 public class TimeTrackedAnimation<T> extends AnimationTrack<T> {
     private float elapsed = 0f;
 

@@ -46,10 +46,10 @@ public class MyScene extends JScene {
 						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,2,0,0,0,0,0,0,0,0,0,0,0,0},
 						
 				};
+				
 				new Player(ecs);
 
 				SpriteSheet spriteSheet = new SpriteSheet(ResourceManager.loadImage("/home/spy/dev/playengine/testgame/sprites/Tiles/Path_Tile.png"), 48/3, 96/6);
-				
 				for (int y = 0; y < map.length; y++) {
 						for (int x = 0; x < map[y].length; x++) {
 								try{
@@ -115,8 +115,6 @@ public class MyScene extends JScene {
 						trigger.layer = 1;
 						tree.addComponent(trigger);
 
-					
-						//					tree.removeComponent(SpriteComponent.class);
 						tree.addComponent(new ScriptComponent(new KillableEntity()));
 						tree.transform.position = new Vector2(0,-200);
 						tree.transform.worldScale = new Vector2(200,200);

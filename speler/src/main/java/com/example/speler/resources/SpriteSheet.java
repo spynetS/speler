@@ -2,6 +2,14 @@ package com.example.speler.resources;
 
 import java.awt.image.BufferedImage;
 
+
+/***
+
+		SpriteSheet is a class to handle
+		sprites easier.
+		It loads an image of sprites (spritesheet) and takes the size of each sprite
+		then you can can extract each frame with getFrame
+ **/
 public class SpriteSheet {
     private BufferedImage sheet;
     private int frameWidth, frameHeight;

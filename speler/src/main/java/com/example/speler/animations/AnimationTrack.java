@@ -6,6 +6,14 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+	 Use the TimeTrackedanimation if you dont want to track time yourself.
+	 AnimationTrack is a animation of multiple keyFrames where
+	 each keyframe do a apply on a animatable object.
+	 AnimationTrack can be used by the animationComponent that has a list of
+	 them and playes one.
+ */
 public class AnimationTrack<T> implements SerializableComponent {
     public static class Keyframe<T> implements SerializableComponent {
         public float time;

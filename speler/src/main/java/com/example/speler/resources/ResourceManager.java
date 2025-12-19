@@ -15,6 +15,12 @@ import java.io.File;
 import java.io.IOException;
 import java.security.MessageDigest;
 
+
+/**
+	 ResourceManager is responsible to load in all resources in to memory
+	 and to easily make them accessible for the components. It holds the
+	 images in a map with a string as key (often path to the file)
+ */
 public class ResourceManager {
 
 	private static Map<String, BufferedImage> images = new HashMap<>();
@@ -71,7 +77,11 @@ public class ResourceManager {
 			return images.get(path);
 		}
 
-			public static class Sprite {
+		/***
+				The sprite class is a helper class to make it easier to get
+				images from a string or a sprite sheet.
+		 */
+		public static class Sprite {
 				public static Game game;
 				public static String getSprite(String path) throws Exception {
 						game.getResourceManager().loadImage(path);
