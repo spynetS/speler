@@ -8,6 +8,7 @@ import com.example.speler.GameWindow;
 import com.example.speler.Scene;
 import com.example.speler.ecs.*;
 import com.example.speler.ecs.systems.*;
+import com.example.speler.input.Input;
 import com.example.speler.resources.*;
 import com.example.speler.resources.ResourceManager.Sprite;
 import com.example.speler.scripting.ScriptManager;
@@ -90,13 +91,15 @@ public class Game implements Runnable {
 						long frameTime = System.nanoTime() - now;
 						long sleepTime = (long) TIME_PER_FRAME - frameTime;
 						if (sleepTime > 0) {
-								try {
-										Thread.sleep(sleepTime / 1_000_000, (int) (sleepTime % 1_000_000));
-								} catch (InterruptedException e) {
-										e.printStackTrace();
-								}
+							try {
+								Thread.sleep(sleepTime / 1_000_000, (int) (sleepTime % 1_000_000));
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
 						}
-				
+
+						// reset mouse pressed
+						Input.setMousePressed(1000);
 				}
 		}
 

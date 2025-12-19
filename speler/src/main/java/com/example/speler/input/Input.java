@@ -91,7 +91,7 @@ public class Input {
         Input.mousePositionOnCanvas = mousePositionOnCanvas;
     }
 
-    public static void removeMouseButton(MouseEvent e) {
+	public static void removeMouseButton(MouseEvent e) {
 
         if(isMouseDown(e.getButton()))
             mouseButtonDowns.remove(Integer.valueOf(e.getButton()));
@@ -106,7 +106,7 @@ public class Input {
     }
 
     public static boolean isMousePressed(){
-        return mouseIsPressed !=1000;
+        return mouseIsPressed != 1000;
     }
 
     /**
