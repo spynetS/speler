@@ -18,7 +18,6 @@ import com.example.speler.input.*;
 
 import javax.swing.JPanel;
 import com.example.speler.ecs.*;
-import com.example.speler.editor.EditorSystem;
 import com.example.speler.Vector2;
 import com.example.speler.ecs.systems.*;
 import com.example.speler.Game;
