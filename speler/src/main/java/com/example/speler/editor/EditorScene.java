@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import com.example.speler.JScene;
+import com.example.speler.swing.JScene;
 import com.example.speler.Vector2;
 import com.example.speler.ecs.ECS;
 import com.example.speler.input.Input;

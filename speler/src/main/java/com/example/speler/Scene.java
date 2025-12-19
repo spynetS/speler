@@ -20,7 +20,11 @@ public abstract class Scene implements SerializableComponent {
 				this.camera = new Camera(0, 0, 2);
 		}
 
-		public void init(Game game) throws Exception{
+		public Scene() {
+				this.camera = new Camera(0, 0, 2);
+		}
+
+		public void start(Game game) throws Exception{
 				throw new Exception("NOT IMPLEMENTED");
 		}
 		

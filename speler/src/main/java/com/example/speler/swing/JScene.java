@@ -1,4 +1,4 @@
-package com.example.speler;
+package com.example.speler.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,6 +21,9 @@ import com.example.speler.ecs.*;
 import com.example.speler.editor.EditorSystem;
 import com.example.speler.Vector2;
 import com.example.speler.ecs.systems.*;
+import com.example.speler.Game;
+import com.example.speler.Scene;
+
 
 
 public class JScene extends Scene {
@@ -30,21 +33,27 @@ public class JScene extends Scene {
 		
 		public JScene(ECS ecs) {
 				super(ecs);
-				
+				panel.setBackground(new Color(40, 125, 255));
+				panel.initInput();
+				panel.setDoubleBuffered(true); // helps prevent flickering
+		}
+		public JScene() {
+				super();
 				panel.setBackground(new Color(40, 125, 255));
 				panel.initInput();
 				panel.setDoubleBuffered(true); // helps prevent flickering
 		}
 
 		@Override
-		public void init(Game game) throws Exception {
-				if(game.getWindow() instanceof GameWindow)
-						((GameWindow) game.getWindow()).add(panel, BorderLayout.CENTER);
+		public void start(Game game) throws Exception {
+				if(game.getWindow() instanceof JGameWindow)
+						((JGameWindow) game.getWindow()).add(panel, BorderLayout.CENTER);
 				panel.requestFocus();
 		}
 		
 		@Override
 		public void render() throws Exception {
+				panel.validate();
 				panel.repaint();
 		}
 
@@ -62,9 +71,7 @@ public class JScene extends Scene {
 				
 				public void removeInput() {
 						removeMouseListener(getMouseListeners()[0]);
-				}
-
-				
+				}				
 				@Override
 				protected void paintComponent(Graphics g) {
 						super.paintComponent(g);
@@ -75,15 +82,15 @@ public class JScene extends Scene {
 						int y = (int)Input.getMousePositionOnCanvas().y;
 
 						Input.setMousePosition(new Vector2(
-																							 myScene.camera.screenToWorldX(x, getWidth()),
-																							 myScene.camera.screenToWorldY(y, getHeight())
+																							 myScene.getCamera().screenToWorldX(x, getWidth()),
+																							 myScene.getCamera().screenToWorldY(y, getHeight())
 																							 ));
 						Graphics2D graphics2D =  (Graphics2D) g;
 						// graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 						// graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 				
 						RenderSystem renderer = new SpriteRenderSystem();
-						renderer.render(myScene.ecs, graphics2D, myScene.camera, this.getWidth(), this.getHeight());
+						renderer.render(myScene.getEcs(), graphics2D, myScene.getCamera(), this.getWidth(), this.getHeight());
 				}
 
 				

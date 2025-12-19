@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import com.example.speler.Game;
+import com.example.speler.GameWindow;
+import com.example.speler.swing.JGameWindow;
 import com.example.speler.Scene;
 import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.components.*;
@@ -28,11 +30,12 @@ public class Editor extends Game {
 		GameObject selectedGameObject;
 
 		
-    public Editor() {
-				super();
+    public Editor(GameWindow gameWindow) {
+				super(gameWidnow);
 				ecs.updateSystems.clear();
 				ecs.addSystem(new ParentSystem());
 
+				this.window = new JGameWindow();
         this.window.setTitle("speler");
         this.window.setSize(1920-200,1080-200);
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

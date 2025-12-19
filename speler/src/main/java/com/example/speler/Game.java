@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JButton;
 
-import com.example.speler.IGameWindow;
+import com.example.speler.GameWindow;
 import com.example.speler.Scene;
 import com.example.speler.ecs.*;
 import com.example.speler.ecs.systems.*;
@@ -18,12 +18,12 @@ public class Game implements Runnable {
 
 
 		protected ResourceManager resourceManager;
-		protected IGameWindow window;
+		protected GameWindow window;
 		protected Scene selectedScene;
 		protected ECS ecs;
 
-		public Game() {
-				this.window = new GameWindow();
+		public Game(GameWindow window, Scene scene) {
+				this.window = window;
 				this.ecs = new ECS();
 				// add systems
 				ColliderSystem cs = new ColliderSystem(); // collider first because other systems needs them
@@ -37,12 +37,14 @@ public class Game implements Runnable {
 				
 
 				Sprite.game = this;
+				setSelectedScene(scene);
 				resourceManager = new ResourceManager();
 		}
 				
 		public void setSelectedScene(Scene scene) {
 				try{
-						scene.init(this);
+						scene.setEcs(this.ecs);
+						scene.start(this);
 						this.selectedScene = scene;
 				}catch(Exception e){
 						e.printStackTrace();
@@ -95,7 +97,6 @@ public class Game implements Runnable {
     }
 
 		protected void render() {
-			// repaint JPanel or use buffer strategy
 			getWindow().validate();
 			try{
 					selectedScene.render();
@@ -123,11 +124,11 @@ public class Game implements Runnable {
 				this.resourceManager = resourceManager;
 		}
 
-		public IGameWindow getWindow() {
+		public GameWindow getWindow() {
 				return window;
 		}
 
-		public void setWindow(IGameWindow window) {
+		public void setWindow(GameWindow window) {
 				this.window = window;
 		}
 
