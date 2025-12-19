@@ -8,20 +8,22 @@ import java.util.UUID;
 import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.ECS.Component;
 import com.example.speler.ecs.components.*;
+import com.example.speler.ecs.listeners.EntityListener;
 
-public class GameObject {
+public class GameObject  {
 
 		public UUID id;
 		ECS ecs;
 		public final Transform transform;
+		private ArrayList<Component> newComponents = new ArrayList<>();
 
 		public GameObject(ECS ecs) {
 			this.ecs = ecs;
 			this.id = ecs.instantiate();
 			transform = new Transform();
-			this.ecs.addComponent(this.id, transform);
+			this.ecs.addComponent(id, transform);
 		}
-
+		
 		public GameObject(ECS ecs, UUID id){
 				this.ecs = ecs;
 				this.id = id;
@@ -29,7 +31,7 @@ public class GameObject {
 		}	
 		
 		public <T extends Component> void addComponent(T comp){
-				ecs.addComponent(this.id,comp);
+				ecs.addComponent(this.id, comp);
 		}
 
 		public <T extends Component> T getComponent(Class<T> componentClass) {

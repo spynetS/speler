@@ -7,5 +7,6 @@ import com.example.speler.ecs.CollisionEvent;
 public interface CollisionListener {
 
 	public void onCollision(CollisionEvent event);
+	public void onTrigger(CollisionEvent event);
 	
 }

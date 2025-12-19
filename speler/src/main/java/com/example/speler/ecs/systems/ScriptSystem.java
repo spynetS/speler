@@ -39,6 +39,19 @@ public class ScriptSystem implements UpdateSystem, CollisionListener {
 				}
 
 		}
+	@Override
+		public void onTrigger(CollisionEvent event) {
+
+				ScriptComponent sc1 = event.ecs.getComponent(event.a, ScriptComponent.class);
+				ScriptComponent sc2 = event.ecs.getComponent(event.b, ScriptComponent.class);
+				if (sc1 != null && sc1.script != null) {
+						sc1.script.onTrigger(event);
+				}
+				if (sc2 != null && sc2.script != null) {
+						sc2.script.onTrigger(event);
+				}
+
+		}
 
 		
 		@Override

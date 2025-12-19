@@ -1,4 +1,4 @@
-package com.example.speler.ecs.systems;
+package com.example.speler.swing;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -16,10 +16,11 @@ import com.example.speler.input.*;
 
 
 import com.example.speler.ecs.components.*;
+import com.example.speler.ecs.systems.RenderSystem;
 import com.example.speler.ecs.*;
 import com.example.speler.resources.*;
 
-public class SpriteRenderSystem implements RenderSystem {
+public class JSpriteRenderSystem implements RenderSystem {
 
 		private void renderSprite(UUID id, ECS ecs, Graphics2D g, Camera camera, int screenWidth, int screenHeight) {
 			Transform t = ecs.getComponent(id, Transform.class);

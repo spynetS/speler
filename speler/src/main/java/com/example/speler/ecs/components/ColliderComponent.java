@@ -10,8 +10,10 @@ public class ColliderComponent implements Component, SerializableComponent {
 		Vector2 offset = new Vector2();
 		public float radius;   // used if circle
 		public float width, height; // used if rectangle
-		
 		public boolean circle = false;
+
+		public boolean isTrigger = false;
+		public int layer = 0;
 		
 		public ColliderComponent(){}
 

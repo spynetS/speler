@@ -16,14 +16,17 @@ public class RigidbodySystem implements UpdateSystem, CollisionListener {
 		public void onCollision(CollisionEvent event) {
 				Rigidbody rb1 = event.ecs.getComponent(event.a, Rigidbody.class);
 				if(rb1 != null){
-						event.transformA.worldPosition.x -= event.penetrationDepth * event.normalX;
-						event.transformA.worldPosition.y -= event.penetrationDepth * event.normalY;
+						// event.transformA.worldPosition.x -= event.penetrationDepth * event.normalX;
+						// event.transformA.worldPosition.y -= event.penetrationDepth * event.normalY;
 
 						rb1.acceleration.x -= event.penetrationDepth * event.normalX * 200f;
 						rb1.acceleration.y -= event.penetrationDepth * event.normalY * 200f;
 						
 				}
 		}
+
+		@Override
+		public void onTrigger(CollisionEvent event) {		}
 		
 		@Override
 		public void update(ECS ecs, float deltaTime) {

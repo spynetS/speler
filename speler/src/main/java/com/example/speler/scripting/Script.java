@@ -41,4 +41,6 @@ public abstract class Script {
 
 	public void onCollision(CollisionEvent event) {
 	}
+	public void onTrigger(CollisionEvent event) {
+	}
 }

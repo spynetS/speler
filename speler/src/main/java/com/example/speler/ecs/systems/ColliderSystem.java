@@ -50,6 +50,9 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 					if (cb == null)
 						continue;
 
+					if(ca.layer != cb.layer)
+							continue;
+					
 					handleCollision(a, ta, ca, b, tb, cb,ecs);
 				}
 			}
@@ -65,12 +68,20 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 
 			// event.transformB.worldPosition.x -= event.penetrationDepth * event.normalX;
 			// event.transformB.worldPosition.y -= event.penetrationDepth * event.normalY;
-
 			
-			for (CollisionListener listener : onCollisioners) {
-					
-					listener.onCollision(event);
+			if(!event.colliderA.isTrigger && !event.colliderB.isTrigger){
+					event.transformA.position.x -= event.penetrationDepth * event.normalX;
+					event.transformA.position.y -= event.penetrationDepth * event.normalY;
+					for (CollisionListener listener : onCollisioners) {
+							listener.onCollision(event);
+					}
 			}
+			else{
+					for (CollisionListener listener : onCollisioners) {
+							listener.onTrigger(event);
+					}
+			}
+			
 		}
 
 		
@@ -139,7 +150,7 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 
 			float cx = tc.worldPosition.x;
 			float cy = tc.worldPosition.y;
-			float r = tc.worldScale.x / 2;
+			float r = tc.worldScale.x / 2 + rc.height;
 
 			float rx = tr.worldPosition.x;
 			float ry = tr.worldPosition.y;

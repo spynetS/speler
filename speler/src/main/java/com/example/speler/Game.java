@@ -22,11 +22,9 @@ public class Game implements Runnable {
 		protected Scene selectedScene;
 		protected ECS ecs;
 
-		public Game() {
-				this.window = new GameWindow();
+		public Game(GameWindow window, Scene scene) {
+				this.window = window;
 				this.ecs = new ECS();
-				setSelectedScene(new Scene(ecs));
-
 				// add systems
 				ColliderSystem cs = new ColliderSystem(); // collider first because other systems needs them
 				ecs.listeners.add(cs);
@@ -39,12 +37,18 @@ public class Game implements Runnable {
 				
 
 				Sprite.game = this;
+				setSelectedScene(scene);
 				resourceManager = new ResourceManager();
 		}
 				
 		public void setSelectedScene(Scene scene) {
-				this.selectedScene = scene;
-				this.window.add(scene, BorderLayout.CENTER);
+				try{
+						scene.setEcs(this.ecs);
+						scene.start(this);
+						this.selectedScene = scene;
+				}catch(Exception e){
+						e.printStackTrace();
+				}
 		}
 
 		public void run() {
@@ -83,12 +87,6 @@ public class Game implements Runnable {
 								}
 						}
 				
-						// Print FPS every second
-						// if (System.currentTimeMillis() - timer >= 1000) {
-						//     System.out.println("FPS: " + frames + " dt: "+1/FPS);
-						//     frames = 0;
-						//     timer += 1000;
-						//}
 				}
 		}
 
@@ -99,8 +97,14 @@ public class Game implements Runnable {
     }
 
 		protected void render() {
-				// repaint JPanel or use buffer strategy
-				selectedScene.repaint();
+			getWindow().validate();
+			try{
+					selectedScene.render();
+			}
+			catch(Exception e){
+					e.printStackTrace();
+					running = false;
+			}
 		}
 
 
