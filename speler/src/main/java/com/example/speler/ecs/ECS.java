@@ -14,7 +14,6 @@ import com.example.speler.animations.AnimationTrack;
 import com.example.speler.ecs.systems.UpdateSystem;
 import com.example.speler.ecs.components.ParentComponent;
 import com.example.speler.ecs.listeners.EntityListener;
-import com.example.speler.ecs.listeners.InstantiateListener;
 
 
 public class ECS implements SerializableComponent {
@@ -22,7 +21,6 @@ public class ECS implements SerializableComponent {
     public List<UUID> entities = new ArrayList<>();
     public List<UpdateSystem> updateSystems = new LinkedList<>();
     public List<EntityListener> listeners = new LinkedList<>();
-    public List<InstantiateListener> instantiaters = new LinkedList<>();
 		
     // Create a new entity
     public UUID instantiate() {
@@ -99,8 +97,6 @@ public class ECS implements SerializableComponent {
     // Main update loop: call all systems
 		public void update(float deltaTime) {
 
-				for(InstantiateListener l : instantiaters) l.instantiate();
-			
 				for (UpdateSystem system : updateSystems) {
 						try{
 								system.update(this, deltaTime);

@@ -9,7 +9,6 @@ import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.ECS.Component;
 import com.example.speler.ecs.components.*;
 import com.example.speler.ecs.listeners.EntityListener;
-import com.example.speler.ecs.listeners.InstantiateListener;
 
 public class GameObject  {
 
