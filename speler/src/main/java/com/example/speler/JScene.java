@@ -1,5 +1,6 @@
 package com.example.speler;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -34,6 +35,13 @@ public class JScene extends Scene {
 				panel.initInput();
 				panel.setDoubleBuffered(true); // helps prevent flickering
 		}
+
+		@Override
+		public void init(Game game) throws Exception {
+				game.getWindow().add(panel, BorderLayout.CENTER);
+				panel.requestFocus();
+		}
+		
 		@Override
 		public void render() throws Exception {
 				panel.repaint();

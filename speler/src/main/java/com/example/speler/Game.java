@@ -41,8 +41,12 @@ public class Game implements Runnable {
 		}
 				
 		public void setSelectedScene(Scene scene) {
-				this.selectedScene = scene;
-				//				this.window.add(scene, BorderLayout.CENTER);
+				try{
+						scene.init(this);
+						this.selectedScene = scene;
+				}catch(Exception e){
+						e.printStackTrace();
+				}
 		}
 
 		public void run() {

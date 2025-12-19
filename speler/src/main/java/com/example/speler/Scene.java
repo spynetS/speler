@@ -19,6 +19,10 @@ public abstract class Scene implements SerializableComponent {
 				this.ecs = ecs;
 				this.camera = new Camera(0, 0, 2);
 		}
+
+		public void init(Game game) throws Exception{
+				throw new Exception("NOT IMPLEMENTED");
+		}
 		
 		public void render() throws Exception {
 				throw new Exception("RENDER NOT IMPLEMENTED");

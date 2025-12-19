@@ -29,8 +29,6 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 
 			game.setSelectedScene(new MyScene(game.getEcs()));			
-			game.getWindow().add(((MyScene)game.getSelectedScene()).getPanel(), BorderLayout.CENTER);
-			((JScene)game.getSelectedScene()).getPanel().requestFocus();
 			game.run();
 			
     }
