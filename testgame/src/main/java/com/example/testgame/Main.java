@@ -28,8 +28,6 @@ public class Main {
 		public static Game game = new Game(new JGameWindow(), new MyScene());
 		
 		public static void main(String[] args) {
-
-			//game.setSelectedScene(new MyScene(game.getEcs()));			
 				game.run();
     }
 }

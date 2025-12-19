@@ -89,7 +89,7 @@ public class JScene extends Scene {
 						// graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 						// graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 				
-						RenderSystem renderer = new SpriteRenderSystem();
+						RenderSystem renderer = new JSpriteRenderSystem();
 						renderer.render(myScene.getEcs(), graphics2D, myScene.getCamera(), this.getWidth(), this.getHeight());
 				}
 
