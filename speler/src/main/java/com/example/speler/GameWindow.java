@@ -1,7 +1,7 @@
 package com.example.speler;
 import javax.swing.JFrame;
 
-public class GameWindow extends JFrame
+public class GameWindow extends JFrame implements IGameWindow
 {
 	public GameWindow() {
 		super("example");

@@ -38,7 +38,8 @@ public class JScene extends Scene {
 
 		@Override
 		public void init(Game game) throws Exception {
-				game.getWindow().add(panel, BorderLayout.CENTER);
+				if(game.getWindow() instanceof GameWindow)
+						((GameWindow) game.getWindow()).add(panel, BorderLayout.CENTER);
 				panel.requestFocus();
 		}
 		

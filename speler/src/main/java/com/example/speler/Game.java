@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JButton;
 
-import com.example.speler.GameWindow;
+import com.example.speler.IGameWindow;
 import com.example.speler.Scene;
 import com.example.speler.ecs.*;
 import com.example.speler.ecs.systems.*;
@@ -18,7 +18,7 @@ public class Game implements Runnable {
 
 
 		protected ResourceManager resourceManager;
-		protected GameWindow window;
+		protected IGameWindow window;
 		protected Scene selectedScene;
 		protected ECS ecs;
 
@@ -85,12 +85,6 @@ public class Game implements Runnable {
 								}
 						}
 				
-						//						Print FPS every second
-						if (System.currentTimeMillis() - timer >= 1000) {
-						    getWindow().setTitle("FPS: " + frames + " dt: "+1/FPS);
-						    frames = 0;
-						    timer += 1000;
-						}
 				}
 		}
 
@@ -129,11 +123,11 @@ public class Game implements Runnable {
 				this.resourceManager = resourceManager;
 		}
 
-		public GameWindow getWindow() {
+		public IGameWindow getWindow() {
 				return window;
 		}
 
-		public void setWindow(GameWindow window) {
+		public void setWindow(IGameWindow window) {
 				this.window = window;
 		}
 
