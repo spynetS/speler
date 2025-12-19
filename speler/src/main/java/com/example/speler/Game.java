@@ -25,8 +25,6 @@ public class Game implements Runnable {
 		public Game() {
 				this.window = new GameWindow();
 				this.ecs = new ECS();
-				setSelectedScene(new Scene(ecs));
-
 				// add systems
 				ColliderSystem cs = new ColliderSystem(); // collider first because other systems needs them
 				ecs.listeners.add(cs);
@@ -44,7 +42,7 @@ public class Game implements Runnable {
 				
 		public void setSelectedScene(Scene scene) {
 				this.selectedScene = scene;
-				this.window.add(scene, BorderLayout.CENTER);
+				//				this.window.add(scene, BorderLayout.CENTER);
 		}
 
 		public void run() {
@@ -101,7 +99,13 @@ public class Game implements Runnable {
 		protected void render() {
 			// repaint JPanel or use buffer strategy
 			getWindow().validate();
-			selectedScene.repaint();
+			try{
+					selectedScene.render();
+			}
+			catch(Exception e){
+					e.printStackTrace();
+					running = false;
+			}
 		}
 
 

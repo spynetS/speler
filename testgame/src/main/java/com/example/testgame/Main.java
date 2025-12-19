@@ -1,10 +1,12 @@
 
 package com.example.testgame;
 
+import java.awt.BorderLayout;
 import java.io.File;
 
 import com.example.speler.Game;
 import com.example.speler.Scene;
+import com.example.speler.JScene;
 import com.example.speler.Vector2;
 import com.example.speler.ecs.systems.ColliderSystem;
 import com.example.speler.editor.Editor;
@@ -25,9 +27,10 @@ public class Main {
 		public static Game game = new Game();
 		
 	public static void main(String[] args) throws Exception {
-			
-			ResourceManager.registerImage(ResourceManager.loadImage("/home/spy/Pictures/davve.png"));
+
 			game.setSelectedScene(new MyScene(game.getEcs()));			
+			game.getWindow().add(((MyScene)game.getSelectedScene()).getPanel(), BorderLayout.CENTER);
+			((JScene)game.getSelectedScene()).getPanel().requestFocus();
 			game.run();
 			
     }

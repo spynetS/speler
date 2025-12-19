@@ -4,13 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import com.example.speler.Scene;
+import com.example.speler.JScene;
 import com.example.speler.Vector2;
 import com.example.speler.ecs.ECS;
 import com.example.speler.input.Input;
 import com.example.speler.input.Keys;
 
-public class EditorScene extends Scene {
+public class EditorScene extends JScene {
 
 		EditorSystem system = new EditorSystem();
 		Editor editor;

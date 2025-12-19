@@ -1,7 +1,7 @@
 package com.example.testgame;
 
 
-import com.example.speler.Scene;
+import com.example.speler.JScene;
 import com.example.speler.Vector2;
 import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.components.ColliderComponent;
@@ -15,7 +15,7 @@ import com.example.speler.scripting.GameObject;
 import com.example.speler.scripting.Script;
 import com.example.testgame.Player.Player;
 
-public class MyScene extends Scene {
+public class MyScene extends JScene {
 
 		public MyScene(ECS ecs) {
 				super(ecs);
