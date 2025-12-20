@@ -32,7 +32,7 @@ public class ScriptSystem implements UpdateSystem, CollisionListener, EntityList
 						ScriptComponent sc = ecs.getComponent(entity, ScriptComponent.class);
 						if (sc != null && sc.script != null) {
 								if(sc.script.gameObject == null)
-										sc.script.gameObject = new GameObject(ecs, entity);
+										sc.script.initScript(new GameObject(ecs, entity));
 								sc.script.update(deltaTime);
 						}
 				}
