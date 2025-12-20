@@ -86,7 +86,8 @@ public class Game implements Runnable {
 
 						render(); // draw the current state
 						frames++;
-
+						// reset mouse pressed
+						Input.setMousePressed(1000);
 						// Sleep to cap render FPS
 						long frameTime = System.nanoTime() - now;
 						long sleepTime = (long) TIME_PER_FRAME - frameTime;
@@ -98,8 +99,7 @@ public class Game implements Runnable {
 							}
 						}
 
-						// reset mouse pressed
-						Input.setMousePressed(1000);
+
 				}
 		}
 
