@@ -1,7 +1,7 @@
 package com.example.testgame;
 
 import com.example.speler.ecs.ECS;
-import com.example.speler.ecs.components.SpriteComponent;
+import com.example.speler.ecs.components.*;
 import com.example.speler.scripting.GameObject;
 
 public class Tile extends GameObject {

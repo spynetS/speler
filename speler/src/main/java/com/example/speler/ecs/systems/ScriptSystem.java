@@ -3,16 +3,28 @@ package com.example.speler.ecs.systems;
 import com.example.speler.ecs.systems.UpdateSystem;
 import com.example.speler.ecs.CollisionEvent;
 import com.example.speler.ecs.ECS;
+import com.example.speler.ecs.ECS.Component;
 import com.example.speler.ecs.components.*;
 import com.example.speler.ecs.listeners.CollisionListener;
+import com.example.speler.ecs.listeners.EntityListener;
 import com.example.speler.scripting.GameObject;
+import com.example.speler.scripting.Script;
 
+import java.util.LinkedList;
 import java.util.UUID;
 
 // we listen for collisions and send them to the user scripts so they get
 // collision events
-public class ScriptSystem implements UpdateSystem, CollisionListener {
+public class ScriptSystem implements UpdateSystem, CollisionListener, EntityListener {
 
+		LinkedList<Script> shouldStart = new LinkedList<>();
+		
+		@Override
+		public void onComponentAdded(UUID id, Component component) {
+				if(component instanceof ScriptComponent && ((ScriptComponent)component).script != null ){
+						shouldStart.add(((ScriptComponent)component).script);
+				}
+		}
 		
 		@Override
 		public void update(ECS ecs, float deltaTime) {
@@ -24,6 +36,9 @@ public class ScriptSystem implements UpdateSystem, CollisionListener {
 								sc.script.update(deltaTime);
 						}
 				}
+
+				for(Script s : shouldStart) s.start();
+				shouldStart.clear();
 		}
 
 		@Override
@@ -53,7 +68,6 @@ public class ScriptSystem implements UpdateSystem, CollisionListener {
 
 		}
 
-		
 		@Override
 		public void start(ECS ecs) {
 				for (UUID entity : ecs.getEntities()) {
@@ -65,5 +79,10 @@ public class ScriptSystem implements UpdateSystem, CollisionListener {
 									
 						}
 				}
+		}
+
+		@Override
+		public void onSystemAdded(UpdateSystem system) {
+
 		}
 }

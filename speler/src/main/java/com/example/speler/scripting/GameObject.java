@@ -17,20 +17,43 @@ public class GameObject  {
 		public final Transform transform;
 		private ArrayList<Component> newComponents = new ArrayList<>();
 
-		public GameObject(ECS ecs) {
-			this.ecs = ecs;
-			this.id = ecs.instantiate();
-			transform = new Transform();
-			this.ecs.addComponent(id, transform);
+		
+		public GameObject(){
+			this.transform = new Transform();
 		}
 		
+		public GameObject(ECS ecs) {
+			this.ecs = ecs;
+			transform = new Transform();
+			this.instantiate(ecs);
+		}
+
 		public GameObject(ECS ecs, UUID id){
 				this.ecs = ecs;
 				this.id = id;
 				transform = this.ecs.getComponent(this.id,Transform.class);
 		}	
+
+		/**
+			 To instantiate a this {@link GameObject}
+		 */
+		public void instantiate(ECS ecs){
+				this.ecs = ecs;
+				this.id = ecs.instantiate();
+				this.ecs.addComponent(id, transform);
+		}
+		/**
+			 To instantiate a new {@link GameObject}
+		 */
+		public void instantiate(GameObject gameObject){
+				gameObject.ecs = ecs;
+				gameObject.id = ecs.instantiate();
+				this.ecs.addComponent(gameObject.id, gameObject.transform);
+		}
 		
-		public <T extends Component> void addComponent(T comp){
+		public <T extends Component> void addComponent(T comp) {
+				if(ecs == null) return;
+				
 				ecs.addComponent(this.id, comp);
 		}
 

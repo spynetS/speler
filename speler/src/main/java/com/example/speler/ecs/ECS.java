@@ -31,6 +31,8 @@ public class ECS implements SerializableComponent {
 
     // Add a system
 		public void addSystem(UpdateSystem system) {
+				if(system instanceof EntityListener && !listeners.contains(system)) listeners.add(((EntityListener)system));
+				
 				for(EntityListener listener: listeners) listener.onSystemAdded(system);
 				updateSystems.add(system);
 		}

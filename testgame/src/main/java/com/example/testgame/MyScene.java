@@ -15,6 +15,7 @@ import com.example.speler.resources.ResourceManager.Sprite;
 import com.example.speler.scripting.GameObject;
 import com.example.speler.scripting.Script;
 import com.example.testgame.Player.Player;
+import com.example.testgame.Resources.Tree;
 
 public class MyScene extends JScene {
 
@@ -54,8 +55,6 @@ public class MyScene extends JScene {
 						for (int x = 0; x < map[y].length; x++) {
 								try{
 										String image = "";
-										System.out.println(map[y][x]);
-										
 										switch(map[y][x]){
 										case 0:
 												image = Sprite.getSprite("/home/spy/dev/playengine/testgame/sprites/Tiles/Grass_Middle.png");
@@ -101,25 +100,9 @@ public class MyScene extends JScene {
 				floor2.transform.position = new Vector2(150,100);
 				floor2.transform.worldScale = new Vector2(50, 50);
 
-				try{
-						Tile tree = new Tile(ecs,
-																 Sprite.getSprite("/home/spy/dev/playengine/testgame/sprites/Outdoor/Oak_Tree.png"));
-						var collider = new ColliderComponent();
-						collider.height = -170;
-						collider.width = -150;
-						tree.addComponent(collider);
+				Tree tree = new Tree(ecs);
+				tree.transform.position = new Vector2(0,-200);
 
-						var trigger = new ColliderComponent();
-						trigger.height = -100;
-						trigger.width = -150;
-						trigger.layer = 1;
-						tree.addComponent(trigger);
-
-						tree.addComponent(new ScriptComponent(new KillableEntity()));
-						tree.transform.position = new Vector2(0,-200);
-						tree.transform.worldScale = new Vector2(200,200);
-				} catch(Exception e) {
-						e.printStackTrace();
-				}
+				
 		}
 }
