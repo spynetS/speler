@@ -30,7 +30,6 @@ public class KillableEntity extends Script {
 		@Override
 		public void onTrigger(CollisionEvent event) {
 				super.onTrigger(event);
-				System.out.println("TRIGGER");
 				if(--hp <= 0){
 						for(ItemScript item : dropping){
 								GameObject dropped = new GameObject(gameObject.getEcs());

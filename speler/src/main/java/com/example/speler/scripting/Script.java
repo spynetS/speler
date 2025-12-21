@@ -31,6 +31,7 @@ public abstract class Script {
 		public void initScript(GameObject gameObject){
 				this.gameObject = gameObject;
 				this.transform = gameObject.transform;
+				this.start();
 		}
 		
 		/**

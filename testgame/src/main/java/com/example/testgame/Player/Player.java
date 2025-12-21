@@ -27,8 +27,10 @@ public class Player extends GameObject {
 
 
 			addComponent(new AnimationFactory(spriteComponent).getAnimationComponent());
-			addComponent(new ScriptComponent(new Movement()));
-			addComponent(new ScriptComponent(new Inventory()));
+			var script = new ScriptComponent(new Movement());
+			script.addScript(new Inventory());
+			addComponent(script);
+
 			
 			var c = new ColliderComponent();
 			c.height = -50;

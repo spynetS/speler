@@ -15,30 +15,21 @@ import java.util.UUID;
 
 // we listen for collisions and send them to the user scripts so they get
 // collision events
-public class ScriptSystem implements UpdateSystem, CollisionListener, EntityListener {
+public class ScriptSystem implements UpdateSystem, CollisionListener {
 
-		LinkedList<Script> shouldStart = new LinkedList<>();
-		
-		@Override
-		public void onComponentAdded(UUID id, Component component) {
-				if(component instanceof ScriptComponent && ((ScriptComponent)component).script != null ){
-						shouldStart.add(((ScriptComponent)component).script);
-				}
-		}
-		
 		@Override
 		public void update(ECS ecs, float deltaTime) {
 				for (UUID entity : ecs.getEntities()) {
 						ScriptComponent sc = ecs.getComponent(entity, ScriptComponent.class);
-						if (sc != null && sc.script != null) {
-								if(sc.script.gameObject == null)
-										sc.script.initScript(new GameObject(ecs, entity));
-								sc.script.update(deltaTime);
+						if(sc == null) continue;
+						for(Script script : sc.getScripts()) {
+								if(script.gameObject == null){
+										script.initScript(new GameObject(ecs, entity));
+								}
+
+								script.update(deltaTime);
 						}
 				}
-
-				for(Script s : shouldStart) s.start();
-				shouldStart.clear();
 		}
 
 		@Override
@@ -46,43 +37,41 @@ public class ScriptSystem implements UpdateSystem, CollisionListener, EntityList
 
 				ScriptComponent sc1 = event.ecs.getComponent(event.a, ScriptComponent.class);
 				ScriptComponent sc2 = event.ecs.getComponent(event.b, ScriptComponent.class);
-				if (sc1 != null && sc1.script != null) {
-						sc1.script.onCollision(event);
+				
+				for(Script script : sc1.getScripts()) {
+						if (script != null) {
+								script.onCollision(event);
+						}
 				}
-				if (sc2 != null && sc2.script != null) {
-						sc2.script.onCollision(event);
-				}
+				for(Script script : sc2.getScripts()) {
+						if (script != null) {
+								script.onCollision(event);
+						}
+				}				
+
 
 		}
-	@Override
+		@Override
 		public void onTrigger(CollisionEvent event) {
 
 				ScriptComponent sc1 = event.ecs.getComponent(event.a, ScriptComponent.class);
 				ScriptComponent sc2 = event.ecs.getComponent(event.b, ScriptComponent.class);
-				if (sc1 != null && sc1.script != null) {
-						sc1.script.onTrigger(event);
+				for(Script script : sc1.getScripts()) {
+						if (script != null) {
+								script.onTrigger(event);
+						}
 				}
-				if (sc2 != null && sc2.script != null) {
-						sc2.script.onTrigger(event);
-				}
+				for(Script script : sc2.getScripts()) {
+						if (script != null) {
+								script.onTrigger(event);
+						}
+				}				
 
 		}
 
 		@Override
 		public void start(ECS ecs) {
-				for (UUID entity : ecs.getEntities()) {
-						ScriptComponent sc = ecs.getComponent(entity, ScriptComponent.class);
-						if (sc != null && sc.script != null) {
-								if(sc.script.gameObject == null)
-										sc.script.gameObject = new GameObject(ecs, entity);
-									sc.script.start();
-									
-						}
-				}
-		}
-
-		@Override
-		public void onSystemAdded(UpdateSystem system) {
 
 		}
+
 }
