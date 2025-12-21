@@ -20,6 +20,7 @@ public class Wood extends ItemScript {
 						SpriteSheet sheet = new SpriteSheet(ResourceManager.loadImage("/home/spy/dev/playengine/testgame/sprites/Outdoor/Fences.png"), 64/4, 64/4);
 						spriteComponent = new SpriteComponent(Sprite.getSprite(sheet,3, 0));
 						gameObject.addComponent(spriteComponent);
+						//transform.worldScale = new Vector2();
 
 				}catch(Exception e){e.printStackTrace();}
 		}

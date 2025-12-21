@@ -6,6 +6,7 @@ import com.example.speler.Vector2;
 import com.example.speler.ecs.CollisionEvent;
 import com.example.speler.ecs.components.ColliderComponent;
 import com.example.speler.ecs.components.ScriptComponent;
+import com.example.speler.ecs.components.SpriteComponent;
 import com.example.speler.scripting.GameObject;
 import com.example.speler.scripting.Script;
 import com.example.testgame.Player.Inventory;
@@ -26,7 +27,12 @@ public class ItemScript extends Script {
 		@Override
 		public void onTrigger(CollisionEvent event) {
 				player = new GameObject(event.ecs, event.b);
-				((ScriptComponent)player.getComponent(ScriptComponent.class)).getScript(Inventory.class).items.add(this);
+				Inventory inv = ((ScriptComponent)player.getComponent(ScriptComponent.class)).getScript(Inventory.class);
+				if(inv != null) {
+						inv.items.add(this);
+						gameObject.removeComponent(ColliderComponent.class);
+						gameObject.removeComponent(SpriteComponent.class);
+				}
 		}
 
 		public void use(){

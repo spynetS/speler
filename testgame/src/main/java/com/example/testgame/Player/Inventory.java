@@ -21,10 +21,7 @@ public class Inventory extends Script  {
 		public void update(float deltatime) {
 				if(Input.isKeyPressed(com.example.speler.input.Keys.E)){
 						useItem(index);
-
 				}
-				System.out.println(items);
-				
 		}
 		
 }

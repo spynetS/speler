@@ -33,10 +33,8 @@ public class KillableEntity extends Script {
 				if(--hp <= 0){
 						for(ItemScript item : dropping){
 								GameObject dropped = new GameObject(gameObject.getEcs());
-								dropped.transform.worldScale = new Vector2(10,10);
 								dropped.transform.position = gameObject.transform.position;
 								dropped.addComponent(new ScriptComponent(item));
-								
 						}
 						// remove tree
 						gameObject.getEcs().removeEntity(gameObject.id);
