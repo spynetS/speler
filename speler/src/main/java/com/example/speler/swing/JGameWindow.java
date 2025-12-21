@@ -86,8 +86,8 @@ public class JGameWindow extends JFrame implements GameWindow
 						
 						Toolkit.getDefaultToolkit().sync();
 
-						int x = (int)Input.getMousePositionOnCanvas().x;
-						int y = (int)Input.getMousePositionOnCanvas().y;
+						int x = (int)Input.getMousePositionOnCanvas().getX();
+						int y = (int)Input.getMousePositionOnCanvas().getY();
 
 						Input.setMousePosition(new Vector2(
 																							 myScene.getCamera().screenToWorldX(x, getWidth()),

@@ -25,9 +25,8 @@ public class MyScene extends Scene {
 		public void start (Game game) throws Exception {
 				super.start(game);
 
-				//setRenderer(new SwingRenderer(null, camera));
-
-				setRenderer(new GLRenderer(camera));
+				setRenderer(new SwingRenderer(null, camera));
+				//setRenderer(new GLRenderer(camera));
 				
 				int map[][] = {
 						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,2,0,0,0,0,0,0,0,0,0,0,0,0},

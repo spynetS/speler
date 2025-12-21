@@ -169,10 +169,10 @@ public class GLRenderer implements Renderer {
         glUniform1i(uUseTexture, 1);
         
         // Create model matrix
-        int x = camera.worldToScreenX(pos.x, screenW);
-        int y = camera.worldToScreenY(pos.y, screenH);
-        int w = camera.worldToScreenSize((int) scale.x);
-        int h = camera.worldToScreenSize((int) scale.y);
+        int x = camera.worldToScreenX(pos.getX(), screenW);
+        int y = camera.worldToScreenY(pos.getY(), screenH);
+        int w = camera.worldToScreenSize((int) scale.getX());
+        int h = camera.worldToScreenSize((int) scale.getY());
         
         if (flipX) w = -w;
         
@@ -190,10 +190,10 @@ public class GLRenderer implements Renderer {
         glUniform1i(uUseTexture, 0);
         glUniform4f(uColor, 1.0f, 1.0f, 1.0f, 1.0f);
         
-        int x = camera.worldToScreenX(pos.x, screenW);
-        int y = camera.worldToScreenY(pos.y, screenH);
-        int w = camera.worldToScreenSize((int) size.x);
-        int h = camera.worldToScreenSize((int) size.y);
+        int x = camera.worldToScreenX(pos.getX(), screenW);
+        int y = camera.worldToScreenY(pos.getY(), screenH);
+        int w = camera.worldToScreenSize((int) size.getX());
+        int h = camera.worldToScreenSize((int) size.getY());
         
         FloatBuffer model = BufferUtils.createFloatBuffer(16);
         createModelMatrix(x, y, w, h, rot, model);

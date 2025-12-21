@@ -12,7 +12,7 @@ public class Vector2 implements SerializableComponent {
     public static Vector2 right = new Vector2(1,0);
     public static Vector2 left = new Vector2(-1,0);
     public static Vector2 zero = new Vector2(0,0);
-    public float x,y,z;
+    private float x,y,z;
 
     public Vector2() {
         x = 0;

@@ -34,8 +34,8 @@ public class Movement extends Script {
 		@Override
 		public void update(float deltatime) {
 			super.update(deltatime);
-			Main.game.getSelectedScene().getCamera().x = gameObject.transform.position.x;
-			Main.game.getSelectedScene().getCamera().y = gameObject.transform.position.y;
+			Main.game.getSelectedScene().getCamera().x = gameObject.transform.position.getX();
+			Main.game.getSelectedScene().getCamera().y = gameObject.transform.position.getY();
 			ac.currentTrack = 0;
 				if (Input.isKeyDown(Keys.A)) {
 					rb.acceleration = rb.acceleration.add(Vector2.left.multiply(strength));

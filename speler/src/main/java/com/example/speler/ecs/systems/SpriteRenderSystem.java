@@ -39,7 +39,7 @@ public class SpriteRenderSystem implements RenderSystem {
         }
 
         ordered.sort(Comparator.comparing(
-                id -> ecs.getComponent(id, Transform.class).position.y
+																					id -> ecs.getComponent(id, Transform.class).position.getY()
         ));
 
         for (UUID id : ordered)

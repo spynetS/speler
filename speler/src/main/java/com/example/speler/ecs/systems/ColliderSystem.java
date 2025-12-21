@@ -66,12 +66,12 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 			
 			CollisionEvent event = new CollisionEvent(a, b, ta, ca, tb, cb, manifold, ecs);
 
-			// event.transformB.worldPosition.x -= event.penetrationDepth * event.normalX;
+			// event.transformB.worldPosition.getX() -= event.penetrationDepth * event.normalX;
 			// event.transformB.worldPosition.y -= event.penetrationDepth * event.normalY;
 			
 			if(!event.colliderA.isTrigger && !event.colliderB.isTrigger){
-					event.transformA.position.x -= event.penetrationDepth * event.normalX;
-					event.transformA.position.y -= event.penetrationDepth * event.normalY;
+					event.transformA.position.setX(event.transformA.position.getX() - event.penetrationDepth * event.normalX);
+					event.transformA.position.setY(event.transformA.position.getY() - event.penetrationDepth * event.normalY);
 					for (CollisionListener listener : onCollisioners) {
 							listener.onCollision(event);
 					}
@@ -109,13 +109,13 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 		}
 
 		private CollisionManifold circleCircle(Transform at, ColliderComponent ac, Transform bt, ColliderComponent bc) {
-			float ax = at.worldPosition.x;
-			float ay = at.worldPosition.y;
-			float ar = at.worldScale.x / 2;
+			float ax = at.worldPosition.getX();
+			float ay = at.worldPosition.getY();
+			float ar = at.worldScale.getX() / 2;
 
-			float bx = bt.worldPosition.x;
-			float by = bt.worldPosition.y;
-			float br = bt.worldScale.x / 2;
+			float bx = bt.worldPosition.getX();
+			float by = bt.worldPosition.getY();
+			float br = bt.worldScale.getX() / 2;
 
 			float dx = ax - bx;
 			float dy = ay - by;
@@ -148,15 +148,15 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 		private CollisionManifold circleRect(Transform tc, ColliderComponent cc,
 				Transform tr, ColliderComponent rc) {
 
-			float cx = tc.worldPosition.x;
-			float cy = tc.worldPosition.y;
-			float r = tc.worldScale.x / 2 + rc.height;
+			float cx = tc.worldPosition.getX();
+			float cy = tc.worldPosition.getY();
+			float r = tc.worldScale.getX() / 2 + rc.height;
 
-			float rx = tr.worldPosition.x;
-			float ry = tr.worldPosition.y;
+			float rx = tr.worldPosition.getX();
+			float ry = tr.worldPosition.getY();
 
-			float halfW = (tr.worldScale.x + rc.width) * 0.5f;
-			float halfH = (tr.worldScale.y + rc.height) * 0.5f;
+			float halfW = (tr.worldScale.getX() + rc.width) * 0.5f;
+			float halfH = (tr.worldScale.getY() + rc.height) * 0.5f;
 
 			// Find closest point on rectangle to the circle center
 			float closestX = Math.max(rx - halfW, Math.min(cx, rx + halfW));
@@ -197,19 +197,19 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 
 		public CollisionManifold rectRect(Transform tr1, ColliderComponent cr1,
 				Transform tr2, ColliderComponent cr2) {
-			float halfW1 = (tr1.worldScale.x + cr1.width) * 0.5f;
-			float halfH1 = (tr1.worldScale.y + cr1.height) * 0.5f;
-			float minX1 = tr1.worldPosition.x - halfW1;
-			float maxX1 = tr1.worldPosition.x + halfW1;
-			float minY1 = tr1.worldPosition.y - halfH1;
-			float maxY1 = tr1.worldPosition.y + halfH1;
+			float halfW1 = (tr1.worldScale.getX() + cr1.width) * 0.5f;
+			float halfH1 = (tr1.worldScale.getY() + cr1.height) * 0.5f;
+			float minX1 = tr1.worldPosition.getX() - halfW1;
+			float maxX1 = tr1.worldPosition.getX() + halfW1;
+			float minY1 = tr1.worldPosition.getY() - halfH1;
+			float maxY1 = tr1.worldPosition.getY() + halfH1;
 
-			float halfW2 = (tr2.worldScale.x + cr2.width) * 0.5f;
-			float halfH2 = (tr2.worldScale.y + cr2.height) * 0.5f;
-			float minX2 = tr2.worldPosition.x - halfW2;
-			float maxX2 = tr2.worldPosition.x + halfW2;
-			float minY2 = tr2.worldPosition.y - halfH2;
-			float maxY2 = tr2.worldPosition.y + halfH2;
+			float halfW2 = (tr2.worldScale.getX() + cr2.width) * 0.5f;
+			float halfH2 = (tr2.worldScale.getY() + cr2.height) * 0.5f;
+			float minX2 = tr2.worldPosition.getX() - halfW2;
+			float maxX2 = tr2.worldPosition.getX() + halfW2;
+			float minY2 = tr2.worldPosition.getY() - halfH2;
+			float maxY2 = tr2.worldPosition.getY() + halfH2;
 
 			// Check for no overlap (using Separating Axis Theorem for AABBs)
 			if (maxX1 < minX2 || minX1 > maxX2 || maxY1 < minY2 || minY1 > maxY2) {
@@ -220,8 +220,8 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 			CollisionManifold m = new CollisionManifold(true);
 
 			// Vector from center of rect1 to center of rect2
-			float dx = tr2.worldPosition.x - tr1.worldPosition.x;
-			float dy = tr2.worldPosition.y - tr1.worldPosition.y;
+			float dx = tr2.worldPosition.getX() - tr1.worldPosition.getX();
+			float dy = tr2.worldPosition.getY() - tr1.worldPosition.getY();
 
 			// Calculate overlap on each axis
 			float overlapX = (halfW1 + halfW2) - Math.abs(dx);

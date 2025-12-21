@@ -30,12 +30,12 @@ public class ParentSystem implements UpdateSystem {
 						if (parent != null) {
 
 								// Local offset1
-								float ox = child.position.x;
-								float oy = child.position.y;
+								float ox = child.position.getX();
+								float oy = child.position.getY();
 
 								// Parent world position
-								float px = parent.worldPosition.x;
-								float py = parent.worldPosition.y;
+								float px = parent.worldPosition.getX();
+								float py = parent.worldPosition.getY();
 
 								// Apply parent rotation to offset
 								float angleRad = (float) Math.toRadians(parent.worldRotation);
@@ -43,15 +43,15 @@ public class ParentSystem implements UpdateSystem {
 								float rotatedY = (float) (ox * Math.sin(angleRad) + oy * Math.cos(angleRad));
 
 								// Child world position = parent position + rotated offset
-								child.worldPosition.x = (int)(px + rotatedX);
-								child.worldPosition.y = (int) (py + rotatedY);
+								child.worldPosition.setX((px + rotatedX));
+								child.worldPosition.setY((py + rotatedY));
 
 								// Child world rotation = parent rotation + local rotation
 								child.worldRotation = parent.worldRotation + child.rotation;
 
 								// Optional: scale can be multiplied similarly
-								child.worldScale.x = parent.worldScale.x * child.scale.x;
-								child.worldScale.y = parent.worldScale.y * child.scale.y;
+								child.worldScale.setX(parent.worldScale.getX() * child.scale.getX());
+								child.worldScale.setY(parent.worldScale.getY() * child.scale.getY());
 					
 						}
 			

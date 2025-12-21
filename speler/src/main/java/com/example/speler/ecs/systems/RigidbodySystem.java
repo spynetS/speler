@@ -19,8 +19,8 @@ public class RigidbodySystem implements UpdateSystem, CollisionListener {
 						// event.transformA.worldPosition.x -= event.penetrationDepth * event.normalX;
 						// event.transformA.worldPosition.y -= event.penetrationDepth * event.normalY;
 
-						rb1.acceleration.x -= event.penetrationDepth * event.normalX * 200f;
-						rb1.acceleration.y -= event.penetrationDepth * event.normalY * 200f;
+						rb1.acceleration.setX(rb1.acceleration.getX() - event.penetrationDepth * event.normalX * 200f);
+						rb1.acceleration.setY(rb1.acceleration.getY() - event.penetrationDepth * event.normalY * 200f);
 						
 				}
 		}
@@ -36,10 +36,10 @@ public class RigidbodySystem implements UpdateSystem, CollisionListener {
 								rb.acceleration = rb.acceleration.multiply((rb.friction));
 							
 								Transform transform = ecs.getComponent(entity, Transform.class);
-								transform.worldPosition.x += rb.acceleration.x*deltaTime;
-								transform.worldPosition.y += rb.acceleration.y*deltaTime;
+								transform.worldPosition.setX(transform.worldPosition.getX() + rb.acceleration.getX()*deltaTime);
+								transform.worldPosition.setY(transform.worldPosition.getY() + rb.acceleration.getY()*deltaTime);
 								if(rb.useGravity)
-										rb.acceleration.y += 9.82f * 0.5f;
+										rb.acceleration.setY(rb.acceleration.getY() + 9.82f * 0.5f);
 						}
 
 				}

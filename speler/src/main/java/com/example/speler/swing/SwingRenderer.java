@@ -1,6 +1,6 @@
 package com.example.speler.swing;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
@@ -36,10 +36,11 @@ public class SwingRenderer implements Renderer {
     ) {
         BufferedImage img = ResourceManager.getImage(imageId);
 
-        int x = camera.worldToScreenX(pos.x, screenW);
-        int y = camera.worldToScreenY(pos.y, screenH);
-        int w = camera.worldToScreenSize((int) scale.x);
-        int h = camera.worldToScreenSize((int) scale.y);
+        // Round to whole pixels to prevent gaps between tiles
+        int x = Math.round(camera.worldToScreenX(pos.getX(), screenW));
+        int y = Math.round(camera.worldToScreenY(pos.getY(), screenH));
+        int w = Math.round(camera.worldToScreenSize((int) scale.getX()));
+        int h = Math.round(camera.worldToScreenSize((int) scale.getY()));
 
         if (flipX) w = -w;
 
@@ -54,10 +55,11 @@ public class SwingRenderer implements Renderer {
 
     @Override
     public void drawRect(Vector2 pos, Vector2 size, float rot) {
-        int x = camera.worldToScreenX(pos.x, screenW);
-        int y = camera.worldToScreenY(pos.y, screenH);
-        int w = camera.worldToScreenSize((int) size.x);
-        int h = camera.worldToScreenSize((int) size.y);
+        // Round to whole pixels to prevent gaps
+        int x = Math.round(camera.worldToScreenX(pos.getX(), screenW));
+        int y = Math.round(camera.worldToScreenY(pos.getY(), screenH));
+        int w = Math.round(camera.worldToScreenSize((int) size.getX()));
+        int h = Math.round(camera.worldToScreenSize((int) size.getY()));
 
         AffineTransform old = g.getTransform();
 
@@ -68,16 +70,16 @@ public class SwingRenderer implements Renderer {
         g.setTransform(old);
     }
 
-		public Camera getCamera() {
-				return camera;
-		}
+    public Camera getCamera() {
+        return camera;
+    }
 
-		public void setGraphics(Graphics2D g) {
-				this.g = g;
-		}
+    public void setGraphics(Graphics2D g) {
+        this.g = g;
+    }
 
-		@Override
-		public void end() {
-		}
+    @Override
+    public void end() {
+    }
 
 }
