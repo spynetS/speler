@@ -57,6 +57,7 @@ public class Game implements Runnable {
 						scene.setEcs(this.ecs);
 						scene.start(this);
 						this.selectedScene = scene;
+						window.setSelectedScene(scene);
 				}catch(Exception e){
 						e.printStackTrace();
 				}
@@ -87,7 +88,7 @@ public class Game implements Runnable {
 						render(); // draw the current state
 						frames++;
 						// reset mouse pressed
-						Input.setMousePressed(1000);
+						//						Input.setMousePressed(1000);
 						// Sleep to cap render FPS
 						long frameTime = System.nanoTime() - now;
 						long sleepTime = (long) TIME_PER_FRAME - frameTime;
@@ -110,14 +111,7 @@ public class Game implements Runnable {
     }
 
 		protected void render() {
-			getWindow().validate();
-			try{
-					selectedScene.render();
-			}
-			catch(Exception e){
-					e.printStackTrace();
-					running = false;
-			}
+				getWindow().renderWindow();
 		}
 
 

@@ -58,7 +58,7 @@ public class Movement extends Script {
 					rb.acceleration = rb.acceleration.add(Vector2.down.multiply(strength));
 				}
 
-				if(Input.isMousePressed(Keys.LEFTCLICK)){
+				if(Input.isMouseButtonPressed(Keys.LEFTCLICK)){
 						Bullet bullet = new Bullet(Main.game.getEcs());
 						bullet.transform.position = gameObject.transform.position.add(new Vector2(10,0));
 						bullet.send();

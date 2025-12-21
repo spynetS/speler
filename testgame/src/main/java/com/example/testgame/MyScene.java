@@ -1,14 +1,16 @@
 package com.example.testgame;
 
 
-import com.example.speler.swing.JScene;
+import com.example.speler.swing.SwingRenderer;
 import com.example.speler.Game;
+import com.example.speler.Scene;
 import com.example.speler.Vector2;
 import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.components.ColliderComponent;
 import com.example.speler.ecs.components.Rigidbody;
 import com.example.speler.ecs.components.ScriptComponent;
 import com.example.speler.ecs.components.SpriteComponent;
+import com.example.speler.opengl.GLRenderer;
 import com.example.speler.resources.ResourceManager;
 import com.example.speler.resources.SpriteSheet;
 import com.example.speler.resources.ResourceManager.Sprite;
@@ -17,11 +19,16 @@ import com.example.speler.scripting.Script;
 import com.example.testgame.Player.Player;
 import com.example.testgame.Resources.Tree;
 
-public class MyScene extends JScene {
+public class MyScene extends Scene {
 
 		@Override
 		public void start (Game game) throws Exception {
 				super.start(game);
+
+				//setRenderer(new SwingRenderer(null, camera));
+
+				setRenderer(new GLRenderer(camera));
+				
 				int map[][] = {
 						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,2,0,0,0,0,0,0,0,0,0,0,0,0},
 						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,2,0,0,0,0,0,0,0,0,0,0,0,0},
