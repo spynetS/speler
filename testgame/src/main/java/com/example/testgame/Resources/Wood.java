@@ -1,5 +1,6 @@
 package com.example.testgame.Resources;
 
+import com.example.speler.Vector2;
 import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.components.Renderable;
 import com.example.speler.ecs.components.SpriteComponent;
@@ -21,6 +22,11 @@ public class Wood extends ItemScript {
 						gameObject.addComponent(spriteComponent);
 
 				}catch(Exception e){e.printStackTrace();}
+		}
+
+		@Override
+		public void use(){
+				player.transform.worldScale = new Vector2(200,200);
 		}
 		
 }

@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import com.example.speler.Game;
 import com.example.speler.Vector2;
 import com.example.speler.ecs.CollisionEvent;
+import com.example.speler.ecs.components.AnimationComponent;
 import com.example.speler.ecs.components.ColliderComponent;
 import com.example.speler.ecs.components.Renderable;
 import com.example.speler.ecs.components.Rigidbody;
@@ -16,6 +17,14 @@ public class KillableEntity extends Script {
 
 		float hp = 5;
 		LinkedList<ItemScript> dropping = new LinkedList<>();
+
+		AnimationComponent animationComponent;
+		
+		@Override
+		public void start() {
+				// TODO Auto-generated method stub
+				super.start();
+		}
 
 		
 		@Override

@@ -1,12 +1,18 @@
 package com.example.testgame.Resources;
 
+import java.util.UUID;
+
 import com.example.speler.Vector2;
 import com.example.speler.ecs.CollisionEvent;
 import com.example.speler.ecs.components.ColliderComponent;
+import com.example.speler.scripting.GameObject;
 import com.example.speler.scripting.Script;
+import com.example.testgame.Player.Player;
 
 public class ItemScript extends Script {
 
+
+		public GameObject player;
 
 		@Override
 		public void start() {
@@ -17,8 +23,10 @@ public class ItemScript extends Script {
 		
 		@Override
 		public void onTrigger(CollisionEvent event) {
-				gameObject.getEcs().removeEntity(gameObject.id);
-				event.transformB.worldScale = new Vector2(200, 200);
-				event.transformA.worldScale = new Vector2(200, 200);
+				player = new GameObject(event.ecs, event.b);
+		}
+
+		public void use(){
+				
 		}
 }
