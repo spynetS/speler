@@ -57,6 +57,7 @@ public class Game implements Runnable {
 						scene.setEcs(this.ecs);
 						scene.start(this);
 						this.selectedScene = scene;
+						window.setSelectedScene(scene);
 				}catch(Exception e){
 						e.printStackTrace();
 				}
@@ -110,14 +111,7 @@ public class Game implements Runnable {
     }
 
 		protected void render() {
-			getWindow().validate();
-			try{
-					selectedScene.render();
-			}
-			catch(Exception e){
-					e.printStackTrace();
-					running = false;
-			}
+				getWindow().renderWindow();
 		}
 
 

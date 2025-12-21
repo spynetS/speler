@@ -1,11 +1,11 @@
 package com.example.speler.ecs.systems;
 
-import java.awt.Graphics2D;
-
 import com.example.speler.ecs.Camera;
 import com.example.speler.ecs.ECS;
+import com.example.speler.render.Renderer;
 
 public interface RenderSystem {
 
-		public void render(ECS ecs, Graphics2D g2, Camera camera, int screenWidth, int screenHeight);
+		public void render(ECS ecs, Renderer renderer, Camera camera, int w, int h);
+		
 }
