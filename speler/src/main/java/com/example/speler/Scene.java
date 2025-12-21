@@ -39,6 +39,7 @@ public class Scene implements SerializableComponent {
 				if(renderer != null && renderSystem != null){
 						renderSystem.render(ecs, renderer, camera, w,h);
 				}
+				Input.resetMousePressed();
 		}
 
 		

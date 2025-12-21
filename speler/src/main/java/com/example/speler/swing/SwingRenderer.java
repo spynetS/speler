@@ -1,31 +1,11 @@
 package com.example.speler.swing;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.Toolkit;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
-import java.util.List;
-
-import javax.swing.JPanel;
-
-import java.util.LinkedList;
-
-
-
-import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 import com.example.speler.*;
 import com.example.speler.ecs.Camera;
-import com.example.speler.input.Input;
 import com.example.speler.render.Renderer;
 import com.example.speler.resources.ResourceManager;
 

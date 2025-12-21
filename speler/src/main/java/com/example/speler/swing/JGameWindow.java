@@ -1,6 +1,5 @@
 package com.example.speler.swing;
 
-import com.example.speler.Game;
 import com.example.speler.GameWindow;
 import com.example.speler.Scene;
 import com.example.speler.Vector2;
@@ -17,8 +16,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
-import java.util.List;
-import java.util.LinkedList;
 
 import java.awt.Cursor;
 import java.awt.Point;

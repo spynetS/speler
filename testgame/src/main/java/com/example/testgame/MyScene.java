@@ -10,6 +10,7 @@ import com.example.speler.ecs.components.ColliderComponent;
 import com.example.speler.ecs.components.Rigidbody;
 import com.example.speler.ecs.components.ScriptComponent;
 import com.example.speler.ecs.components.SpriteComponent;
+import com.example.speler.opengl.GLRenderer;
 import com.example.speler.resources.ResourceManager;
 import com.example.speler.resources.SpriteSheet;
 import com.example.speler.resources.ResourceManager.Sprite;
@@ -24,7 +25,9 @@ public class MyScene extends Scene {
 		public void start (Game game) throws Exception {
 				super.start(game);
 
-				setRenderer(new SwingRenderer(null, camera));
+				//setRenderer(new SwingRenderer(null, camera));
+
+				setRenderer(new GLRenderer(camera));
 				
 				int map[][] = {
 						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,2,0,0,0,0,0,0,0,0,0,0,0,0},

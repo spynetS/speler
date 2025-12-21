@@ -16,7 +16,72 @@
 
   <name>My Game Engine</name>
 
+  <properties>
+    <lwjgl.version>3.3.3</lwjgl.version>
+    <lwjgl.natives>natives-linux</lwjgl.natives>
+    <!-- Change to natives-macos, natives-linux, etc. based on your OS -->
+  </properties>
+
   <dependencies>
+    <!-- LWJGL Core -->
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl</artifactId>
+      <version>${lwjgl.version}</version>
+    </dependency>
+    
+    <!-- LWJGL GLFW (Window/Input) -->
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl-glfw</artifactId>
+      <version>${lwjgl.version}</version>
+    </dependency>
+    
+    <!-- LWJGL OpenGL -->
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl-opengl</artifactId>
+      <version>${lwjgl.version}</version>
+    </dependency>
+    
+    <!-- LWJGL STB (Image loading) - optional but recommended -->
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl-stb</artifactId>
+      <version>${lwjgl.version}</version>
+    </dependency>
+    
+    <!-- Native libraries - Core -->
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl</artifactId>
+      <version>${lwjgl.version}</version>
+      <classifier>${lwjgl.natives}</classifier>
+    </dependency>
+    
+    <!-- Native libraries - GLFW -->
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl-glfw</artifactId>
+      <version>${lwjgl.version}</version>
+      <classifier>${lwjgl.natives}</classifier>
+    </dependency>
+    
+    <!-- Native libraries - OpenGL -->
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl-opengl</artifactId>
+      <version>${lwjgl.version}</version>
+      <classifier>${lwjgl.natives}</classifier>
+    </dependency>
+    
+    <!-- Native libraries - STB -->
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl-stb</artifactId>
+      <version>${lwjgl.version}</version>
+      <classifier>${lwjgl.natives}</classifier>
+    </dependency>		
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
