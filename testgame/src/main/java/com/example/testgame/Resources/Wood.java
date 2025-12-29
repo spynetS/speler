@@ -2,6 +2,8 @@ package com.example.testgame.Resources;
 
 import com.example.speler.Vector2;
 import com.example.speler.ecs.components.SpriteComponent;
+import com.example.speler.resources.ResourceManager;
+import com.example.speler.resources.SpriteSheet;
 import com.example.speler.resources.ResourceManager.Sprite;
 
 public class Wood extends ItemScript {
