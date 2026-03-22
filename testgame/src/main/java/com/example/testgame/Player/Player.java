@@ -26,7 +26,8 @@ public class Player extends GameObject {
 			addComponent(spriteComponent);
 
 
-			addComponent(new AnimationFactory(spriteComponent).getAnimationComponent());
+			addComponent(new AnimationFactory(spriteComponent,"/home/spy/dev/playengine/testgame/sprites/Player/Player.png").getAnimationComponent());
+
 			var script = new ScriptComponent(new Movement());
 			script.addScript(new Inventory());
 			addComponent(script);

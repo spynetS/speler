@@ -51,7 +51,7 @@ public class ScriptComponent implements Component, SerializableComponent {
     @Override
 	public void deserialize(JsonObject obj) {
 		String name = obj.get("scriptName").getAsString();
-		scripts.add(ScriptManager.getScript(name));
+		//		scripts.add(ScriptManager.getScript(name));
 	}
 
 		
