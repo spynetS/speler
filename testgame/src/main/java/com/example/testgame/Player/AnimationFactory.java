@@ -18,11 +18,11 @@ public class AnimationFactory extends AnimationComponent {
 
 	List<AnimationTrack<?>> animationTracks;
 		
-	public AnimationFactory(SpriteComponent spriteComponent) {
+		public AnimationFactory(SpriteComponent spriteComponent, String path) {
 
 		SpriteSheet spriteSheet = new SpriteSheet(
 				ResourceManager.loadImage(
-						"/home/spy/dev/playengine/testgame/sprites/Player/Player.png"),
+						path),
 				192 / 6, 320 / 10);
 		// IDLE
 		List<AnimationTrack.Keyframe<String>> idleFrames = new LinkedList<>();
