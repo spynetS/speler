@@ -15,6 +15,10 @@ public class SwingRenderer implements Renderer {
     private Camera camera;
     private int screenW, screenH;
 
+    public SwingRenderer(Camera camera) {
+        this.camera = camera;
+    }
+
     public SwingRenderer(Graphics2D g, Camera camera) {
         this.g = g;
         this.camera = camera;

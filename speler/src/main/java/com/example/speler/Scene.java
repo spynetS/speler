@@ -38,7 +38,12 @@ public class Scene implements SerializableComponent {
 		public void render(int w, int h) throws Exception {
 				if(renderer != null && renderSystem != null){
 						renderSystem.render(ecs, renderer, camera, w,h);
+						uiRenderSystem.render(ecs, renderer, camera, w,h);
+				}else if (renderer == null) {
+						throw new Exception("No renderer has been set in the scene");
 				}
+				
+				
 				Input.resetMousePressed();
 		}
 

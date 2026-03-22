@@ -15,11 +15,18 @@ import com.example.speler.ecs.components.Renderable;
 
 public class Main {
     public static void main(String[] args) {
-		JScene myScene = new JScene();
-		Game game = new Game(new JGameWindow(), myScene);
-			
+		// create a scene
+		Scene scene = new Scene();
+		// create a game with swing game window and our scene
+		Game game = new Game(new JGameWindow(), scene);
+		// set the renderer for the scene 
+		scene.setRenderer(new SwingRenderer(scene.getCamera()));
+		// create a gameobject
 		GameObject g1 = new GameObject(game.getEcs());
+		// attach a renderable component to it
 		g1.addComponent(new Renderable());
+
+	    // run the game
 		game.run();
    }
 }

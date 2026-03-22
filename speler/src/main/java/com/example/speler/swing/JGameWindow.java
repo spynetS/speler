@@ -104,7 +104,10 @@ public class JGameWindow extends JFrame implements GameWindow
 								} catch (Exception e) {
 									e.printStackTrace();
 								}
+						} else{
+								System.out.println("No SwingRenderer found in Scene");
 						}
+						
 								
 				}
 
