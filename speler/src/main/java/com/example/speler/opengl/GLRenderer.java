@@ -337,4 +337,35 @@ public class GLRenderer implements Renderer {
             glDeleteTextures(textureId);
         }
     }
+	@Override
+	public void beginUI() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'beginUI'");
+	}
+
+	@Override
+	public void drawUISprite(String imageId, Vector2 screenPosition, Vector2 size) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'drawUISprite'");
+	}
+
+	@Override
+	public void drawUIText(String text, Vector2 screenPosition, float fontSize) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'drawUIText'");
+	}
+
+	@Override
+	public void drawUIRect(Vector2 screenPosition, Vector2 size) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'drawUIRect'");
+	}
+
+	@Override
+	public void endUI() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'endUI'");
+	}
+
+		
 }

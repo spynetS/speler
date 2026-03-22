@@ -21,8 +21,29 @@ public interface Renderer {
             Vector2 size,
             float rotationDeg
     );
-
+		
     void end();
-
 		Camera getCamera();
+
+    void beginUI();
+
+    void drawUISprite(
+            String imageId,
+            Vector2 screenPosition,
+            Vector2 size
+    );
+
+    void drawUIText(
+            String text,
+            Vector2 screenPosition,
+            float fontSize
+    );
+
+    void drawUIRect(
+            Vector2 screenPosition,
+            Vector2 size
+    );
+
+    void endUI();
+		
 }

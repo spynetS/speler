@@ -3,6 +3,7 @@ package com.example.speler;
 import com.example.speler.ecs.*;
 import com.example.speler.ecs.systems.RenderSystem;
 import com.example.speler.ecs.systems.SpriteRenderSystem;
+import com.example.speler.ecs.systems.UiRenderSystem;
 import com.example.speler.input.Input;
 import com.example.speler.render.Renderer;
 import com.google.gson.Gson;
@@ -16,6 +17,7 @@ public class Scene implements SerializableComponent {
 		protected ECS ecs;
 		protected Camera camera;
 		protected RenderSystem renderSystem = new SpriteRenderSystem();
+		protected RenderSystem uiRenderSystem = new UiRenderSystem();
 
 		protected Renderer renderer;
 		
@@ -31,12 +33,12 @@ public class Scene implements SerializableComponent {
 				this.camera = new Camera(0, 0, 2);
 		}
 
-		public void start(Game game) throws Exception{
+		public void start(Game game) throws Exception {
 
 		}
 		
 		public void render(int w, int h) throws Exception {
-				if(renderer != null && renderSystem != null){
+				if(renderer != null && renderSystem != null && uiRenderSystem != null){
 						renderSystem.render(ecs, renderer, camera, w,h);
 						uiRenderSystem.render(ecs, renderer, camera, w,h);
 				}else if (renderer == null) {
