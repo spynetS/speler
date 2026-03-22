@@ -82,4 +82,31 @@ public class SwingRenderer implements Renderer {
     public void end() {
     }
 
+	@Override
+	public void beginUI() {
+	}
+
+	@Override
+	public void drawUISprite(String imageId, Vector2 screenPosition, Vector2 size) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'drawUISprite'");
+	}
+
+	@Override
+	public void drawUIText(String text, Vector2 screenPosition, float fontSize) {
+			Font old = g.getFont();
+			g.setFont(new Font("Arial", 0, (int)fontSize));
+			g.drawString(text, screenPosition.getX(), screenPosition.getY());
+	}
+
+	@Override
+	public void drawUIRect(Vector2 screenPosition, Vector2 size) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'drawUIRect'");
+	}
+
+	@Override
+	public void endUI() {
+	}
+
 }

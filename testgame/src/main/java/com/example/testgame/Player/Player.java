@@ -8,6 +8,7 @@ import com.example.speler.ecs.components.ColliderComponent;
 import com.example.speler.ecs.components.Rigidbody;
 import com.example.speler.ecs.components.ScriptComponent;
 import com.example.speler.ecs.components.SpriteComponent;
+import com.example.speler.ecs.components.ui.TextElement;
 import com.example.speler.resources.ResourceManager.Sprite;
 import com.example.speler.scripting.GameObject;
 
@@ -22,9 +23,14 @@ public class Player extends GameObject {
 			aimer.addComponent(new ScriptComponent(new Aimer()));
 			aimer.transform.worldScale = new Vector2(20,20);
 			
-			spriteComponent = new SpriteComponent();			
+			spriteComponent = new SpriteComponent();
 			addComponent(spriteComponent);
 
+
+
+			GameObject health = new GameObject(ecs);
+			health.addComponent(new TextElement("100HP", 100));
+			health.transform.position = new Vector2(100,100);
 
 			addComponent(new AnimationFactory(spriteComponent,"/home/spy/dev/playengine/testgame/sprites/Player/Player.png").getAnimationComponent());
 
