@@ -44,8 +44,6 @@ public class Scene implements SerializableComponent {
 				}else if (renderer == null) {
 						throw new Exception("No renderer has been set in the scene");
 				}
-				
-				
 				Input.resetMousePressed();
 		}
 

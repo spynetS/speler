@@ -26,3 +26,14 @@ public class Main {
    }
 }
 ```
+
+
+Compile project to jar with static dependencies
+```bash
+mvn clean package
+```
+
+jar is in
+`speler/target/speler-1.0-SNAPSHOT.jar`
+
+
