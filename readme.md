@@ -8,23 +8,34 @@ Simplest demo here is creating a scene with an empty rectangle
 
 ```java
 import com.example.speler.Game;
+import com.example.speler.Scene;
+import com.example.speler.input.Input;
+import com.example.speler.input.Keys;
 import com.example.speler.swing.JGameWindow;
-import com.example.speler.swing.JScene;
+import com.example.speler.swing.SwingRenderer;
+import com.example.speler.opengl.GLRenderer;
+import com.example.speler.opengl.GLGameWindow;
 import com.example.speler.scripting.GameObject;
-import com.example.speler.ecs.components.Renderable;
+import com.example.speler.ecs.components.*;
+import com.example.speler.resources.ResourceManager.Sprite;
+import com.example.speler.ecs.components.ui.TextElement;
+import com.example.speler.Vector2;
+import com.example.speler.scripting.*;
 
 public class Main {
     public static void main(String[] args) {
-		Scene scene = new Scene();
-		Game game = new Game(new JGameWindow(), scene);
-		scene.setRenderer(new SwingRenderer(scene.getCamera()));
+				
+				Scene scene = new Scene();
+				Game game = new Game(new JGameWindow(), scene);
+				scene.setRenderer(new SwingRenderer(scene.getCamera()));
 
-		GameObject g1 = new GameObject(game.getEcs());
-		g1.addComponent(new Renderable());
+				GameObject g1 = new GameObject(game.getEcs());
+				g1.addComponent(new Renderable());
 
-		game.run();
-   }
+				game.run();
+		}
 }
+
 ```
 
 Gameobject with a movement script
