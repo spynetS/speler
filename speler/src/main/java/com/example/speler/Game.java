@@ -40,11 +40,12 @@ public class Game implements Runnable {
 				ecs.listeners.add(cs);
 				ecs.addSystem(new RigidbodySystem());
 
+				ecs.addSystem(new SoundSystem());
 				ecs.addSystem(new ParentSystem());
 				ecs.addSystem(new ScriptSystem());
 				ecs.addSystem(new AnimationSystem());
 				ecs.addSystem(cs);
-
+				
 				Sprite.game = this;
 				setSelectedScene(scene);
 				resourceManager = new ResourceManager();

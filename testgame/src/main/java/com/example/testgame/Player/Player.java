@@ -1,15 +1,15 @@
 package com.example.testgame.Player;
 
+import java.io.File;
+
 import com.example.speler.Vector2;
 import com.example.speler.ecs.ECS;
-import com.example.testgame.Tile;
-import com.example.testgame.Player.AnimationFactory;
 import com.example.speler.ecs.components.ColliderComponent;
 import com.example.speler.ecs.components.Rigidbody;
 import com.example.speler.ecs.components.ScriptComponent;
+import com.example.speler.ecs.components.SoundComponent;
 import com.example.speler.ecs.components.SpriteComponent;
 import com.example.speler.ecs.components.ui.TextElement;
-import com.example.speler.resources.ResourceManager.Sprite;
 import com.example.speler.scripting.GameObject;
 
 public class Player extends GameObject {
@@ -27,6 +27,7 @@ public class Player extends GameObject {
 			addComponent(spriteComponent);
 
 
+			addComponent(new SoundComponent(new File("/home/spy/dev/playengine/sound.wav"), 1));
 
 			GameObject health = new GameObject(ecs);
 			health.addComponent(new TextElement("100HP", 100));
