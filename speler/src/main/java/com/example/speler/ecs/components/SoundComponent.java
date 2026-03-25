@@ -21,6 +21,11 @@ public class SoundComponent implements Component, SerializableComponent {
 				this.volume = volume;
 				this.audioFile = audioFile;
 		}
+		public SoundComponent(File audioFile, float volume, boolean isPlaying){
+				this.volume = volume;
+				this.audioFile = audioFile;
+				this.isPlaying = isPlaying;
+		}
 
 		public JsonObject serialize() {
 				throw new UnsupportedOperationException("Unimplemented method 'serialize'");

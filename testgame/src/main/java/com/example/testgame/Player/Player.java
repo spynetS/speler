@@ -4,11 +4,7 @@ import java.io.File;
 
 import com.example.speler.Vector2;
 import com.example.speler.ecs.ECS;
-import com.example.speler.ecs.components.ColliderComponent;
-import com.example.speler.ecs.components.Rigidbody;
-import com.example.speler.ecs.components.ScriptComponent;
-import com.example.speler.ecs.components.SoundComponent;
-import com.example.speler.ecs.components.SpriteComponent;
+import com.example.speler.ecs.components.*;
 import com.example.speler.ecs.components.ui.TextElement;
 import com.example.speler.scripting.GameObject;
 
@@ -26,8 +22,7 @@ public class Player extends GameObject {
 			spriteComponent = new SpriteComponent();
 			addComponent(spriteComponent);
 
-
-			addComponent(new SoundComponent(new File("/home/spy/dev/playengine/sound.wav"), 1));
+			addComponent(new SoundListenerComponent());
 
 			GameObject health = new GameObject(ecs);
 			health.addComponent(new TextElement("100HP", 100));
@@ -35,6 +30,8 @@ public class Player extends GameObject {
 
 			addComponent(new AnimationFactory(spriteComponent,"/home/spy/dev/playengine/testgame/sprites/Player/Player.png").getAnimationComponent());
 
+			addComponent(new SoundComponent(new File("/home/spy/dev/playengine/gun.wav"), -20, true));
+			
 			var script = new ScriptComponent(new Movement());
 			script.addScript(new Inventory());
 			addComponent(script);

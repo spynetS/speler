@@ -14,32 +14,44 @@ import javax.sound.sampled.LineEvent;
 import com.example.speler.Vector2;
 import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.components.SoundComponent;
+import com.example.speler.ecs.components.SoundListenerComponent;
 import com.example.speler.ecs.components.Transform;
 
 public class SoundSystem implements UpdateSystem {
 
-		CopyOnWriteArrayList<Clip> playingClips = new CopyOnWriteArrayList<>();
-		
-		public void playSound(SoundComponent sc, float panValue) throws Exception {
+		CopyOnWriteArrayList<SoundComponent> playingClips = new CopyOnWriteArrayList<>();
 
+
+		// TODO fix loop bug
+		// TODO fix faster pan change
+		// TODO fix better way to start a sound
+		public void playSound(SoundComponent sc) throws Exception {
+						
 				new Thread(){
 						@Override
 						public void run() {
 								try{
 
-								AudioInputStream audioStream = AudioSystem.getAudioInputStream(sc.audioFile);
-								Clip clip = AudioSystem.getClip();
+										AudioInputStream audioStream = AudioSystem.getAudioInputStream(sc.audioFile);
+										Clip clip = AudioSystem.getClip();
 
-								clip.open(audioStream);
-								clip.start();
-								sc.clip = clip;
-								// Wait for the clip to finish
-								clip.addLineListener(event -> {
-												if (event.getType() == LineEvent.Type.STOP) {
-														clip.close();
-														//sc.isPlaying = false; // allows replay
-												}
-										});
+										clip.open(audioStream);
+										playingClips.add(sc);
+										if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
+												FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+												gainControl.setValue(sc.volume);
+										}
+
+										clip.start();
+										sc.clip = clip;
+										// Wait for the clip to finish
+										clip.addLineListener(event -> {
+														if (event.getType() == LineEvent.Type.STOP) {
+																clip.close();
+																sc.isPlaying = false; // allows replay
+																playingClips.remove(sc);
+														}
+												});
 								} catch (Exception e) {
 										e.printStackTrace();
 								}
@@ -52,6 +64,20 @@ public class SoundSystem implements UpdateSystem {
 		public void update(ECS ecs, float deltaTime) {
 				for (UUID entity : ecs.getEntities()) {
 						SoundComponent sc = ecs.getComponent(entity, SoundComponent.class);
+						if (sc != null) {
+								if(!sc.isPlaying) {
+										try{
+												playSound(sc);
+										}catch (Exception e) {
+												e.printStackTrace();
+										}
+										sc.isPlaying=true;
+								}
+						}
+
+						SoundListenerComponent lc = ecs.getComponent(entity, SoundListenerComponent.class);
+						if (lc == null) continue;
+						
 						Transform transform = ecs.getComponent(entity, Transform.class);
 
 						float panValue = new Vector2(-200,-200).subtract(transform.position).getNormalized().getX();
@@ -60,27 +86,26 @@ public class SoundSystem implements UpdateSystem {
 						float distance = new Vector2(-200,-200).getDistance(transform.position);
 						float maxDistance = 500f;
 						float volume = 1.0f - Math.min(distance / maxDistance, 1.0f); // 0.0 to 1.0
-						float dB = (volume > 0) ? (float)(20 * Math.log10(volume)) : -80f; // to dB
 
-						if(!sc.isPlaying) {
-								try{
-										playSound(sc,panValue);
-								}catch (Exception e) {
-										e.printStackTrace();
-								}
-								sc.isPlaying=true;
-						}else {
-								if (sc.clip.isControlSupported(FloatControl.Type.PAN)) {
-										System.out.println("update");
-										FloatControl pan = (FloatControl) sc.clip.getControl(FloatControl.Type.PAN);
+
+
+						for(SoundComponent psc : playingClips) {
+								
+								if (psc.clip.isControlSupported(FloatControl.Type.PAN)) {
+
+										FloatControl pan = (FloatControl) psc.clip.getControl(FloatControl.Type.PAN);
 										pan.setValue(panValue);
 
-										FloatControl gainControl = (FloatControl) sc.clip.getControl(FloatControl.Type.MASTER_GAIN);
+										FloatControl gainControl = (FloatControl) psc.clip.getControl(FloatControl.Type.MASTER_GAIN);
+										volume *= psc.volume;
+										float dB = (volume > 0) ? (float)(20 * Math.log10(volume)) : -80f; // to dB
 										gainControl.setValue(dB); // typically -80.0 to 6.0
 								} else {
 										System.out.println("Pan control not supported");
+
 								}
 						}
+				
 				}
 		}
 
@@ -88,5 +113,5 @@ public class SoundSystem implements UpdateSystem {
 		public void start(ECS ecs) {
 
 		}
-		
+
 }

@@ -1,7 +1,5 @@
 package com.example.speler.ecs.components;
 
-import java.io.File;
-
 import com.example.speler.ecs.ECS.Component;
 import com.google.gson.JsonObject;
 

@@ -1,5 +1,6 @@
 package com.example.testgame.Resources;
 
+import java.io.File;
 import java.util.LinkedList;
 
 import com.example.speler.Game;
@@ -10,6 +11,7 @@ import com.example.speler.ecs.components.ColliderComponent;
 import com.example.speler.ecs.components.Renderable;
 import com.example.speler.ecs.components.Rigidbody;
 import com.example.speler.ecs.components.ScriptComponent;
+import com.example.speler.ecs.components.SoundComponent;
 import com.example.speler.scripting.GameObject;
 import com.example.speler.scripting.Script;
 
@@ -19,17 +21,19 @@ public class KillableEntity extends Script {
 		LinkedList<ItemScript> dropping = new LinkedList<>();
 
 		AnimationComponent animationComponent;
-		
+
 		@Override
 		public void start() {
 				// TODO Auto-generated method stub
 				super.start();
+
 		}
 
 		
 		@Override
 		public void onTrigger(CollisionEvent event) {
 				super.onTrigger(event);
+								
 				if(--hp <= 0){
 						for(ItemScript item : dropping){
 								GameObject dropped = new GameObject(gameObject.getEcs());

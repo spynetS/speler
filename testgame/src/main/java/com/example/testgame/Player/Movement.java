@@ -4,6 +4,7 @@ import com.example.speler.Vector2;
 import com.example.speler.ecs.components.AnimationComponent;
 import com.example.speler.ecs.components.Renderable;
 import com.example.speler.ecs.components.Rigidbody;
+import com.example.speler.ecs.components.SoundComponent;
 import com.example.speler.ecs.components.SpriteComponent;
 import com.example.speler.input.Input;
 import com.example.speler.input.Keys;
@@ -13,9 +14,10 @@ import com.example.testgame.Main;
 
 public class Movement extends Script {
 
-	Rigidbody rb;
-	AnimationComponent ac;
-	SpriteComponent sc;
+		Rigidbody rb;
+		AnimationComponent ac;
+		SpriteComponent sc;
+		SoundComponent soundComponent;
 
 		float attackTime = 0;
 		
@@ -26,7 +28,8 @@ public class Movement extends Script {
 				rb = gameObject.getComponent(Rigidbody.class);
 				ac = gameObject.getComponent(AnimationComponent.class);
 				sc = gameObject.getComponent(SpriteComponent.class);
-
+				soundComponent = gameObject.getComponent(SoundComponent.class);
+				soundComponent.isPlaying = true;
 		}
 
 		float strength = 20;
@@ -63,6 +66,8 @@ public class Movement extends Script {
 						bullet.transform.position = gameObject.transform.position.add(new Vector2(10,0));
 						bullet.send();
 
+						soundComponent.isPlaying = false;
+						
 						attackTime = 0.3f;
 				}
 				if(attackTime > 0){
