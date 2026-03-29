@@ -107,8 +107,7 @@ public class JGameWindow extends JFrame implements GameWindow
 						} else{
 								System.out.println("No SwingRenderer found in Scene");
 						}
-						
-								
+						Input.resetScrollValue();
 				}
 
 				
@@ -172,12 +171,10 @@ public class JGameWindow extends JFrame implements GameWindow
 												Input.setScrollValue((float) e.getPreciseWheelRotation());
 												Input.setMouseEvent(e);
 										}
-
 								};
 						addMouseListener(mouseAdapter);
 						addMouseMotionListener(mouseAdapter);
 						addMouseWheelListener(mouseAdapter);
 				}
-
 		}		
 }
