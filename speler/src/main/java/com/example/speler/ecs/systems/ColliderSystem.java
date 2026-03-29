@@ -248,6 +248,9 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 
 		@Override
 		public void onComponentAdded(UUID id, Component component) {} // not used
+		@Override
+		public void onComponentRemoved(UUID id, Component component) {} // not used
+
 }
 
 

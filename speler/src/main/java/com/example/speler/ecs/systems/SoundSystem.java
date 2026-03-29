@@ -15,13 +15,13 @@ import javax.sound.sampled.LineEvent;
 
 import com.example.speler.Vector2;
 import com.example.speler.ecs.ECS;
-import com.example.speler.ecs.components.SoundComponent;
-import com.example.speler.ecs.components.SoundListenerComponent;
-import com.example.speler.ecs.components.Transform;
+import com.example.speler.ecs.ECS.Component;
+import com.example.speler.ecs.components.*;
+import com.example.speler.ecs.listeners.*;
 
-public class SoundSystem implements UpdateSystem {
+public class SoundSystem implements UpdateSystem, EntityListener {
 
-		Map<Transform, SoundComponent> playingClips = new HashMap<>();
+		Map<SoundComponent, Transform> playingClips = new HashMap<>();
 
 		// TODO fix loop bug
 		// TODO fix faster pan change
@@ -41,13 +41,12 @@ public class SoundSystem implements UpdateSystem {
 												FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 												gainControl.setValue(sc.volume);
 										}
-										playingClips.put(transform,sc);
+										playingClips.put(sc,transform);
 
 										clip.start();
 										sc.clip = clip;
 										// Wait for the clip to finish
 										clip.addLineListener(event -> {
-														System.out.println("EVENT: "+ event);
 														if (event.getType() == LineEvent.Type.STOP) {
 																clip.close();
 																sc.isPlaying = false; // allows replay
@@ -86,9 +85,9 @@ public class SoundSystem implements UpdateSystem {
 						if (lc == null) continue;
 						
 
-						for (Map.Entry<Transform, SoundComponent> entry : playingClips.entrySet()) {
-								Transform pst = entry.getKey();
-								SoundComponent psc = entry.getValue();
+						for (Map.Entry<SoundComponent, Transform> entry : playingClips.entrySet()) {
+								SoundComponent psc = entry.getKey();
+								Transform pst = entry.getValue();
 
 								float panValue = pst.position.subtract(transform.position).getNormalized().getX();
 								panValue = Math.max(-1.0f, Math.min(1.0f, panValue)); // clamp
@@ -115,7 +114,19 @@ public class SoundSystem implements UpdateSystem {
 		}
 
 		@Override
-		public void start(ECS ecs) {
-
+		public void start(ECS ecs) {}
+		@Override
+		public void onComponentAdded(UUID id, Component component) {}
+		@Override
+		public void onComponentRemoved(UUID id, Component component) {
+				if (playingClips.containsKey(component)) {
+						System.out.println("COMPONENT-REMOVED: "+component);
+						((SoundComponent)component).clip.stop();
+						((SoundComponent)component).isPlaying = false;
+						playingClips.remove(component);
+				}
 		}
+		@Override
+		public void onSystemAdded(UpdateSystem system) {}
+		
 }

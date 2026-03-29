@@ -37,8 +37,8 @@ public class ECS implements SerializableComponent {
 				updateSystems.add(system);
 		}
 
-		public <T extends Component> void removeComponent(UUID id, Class<T> compClass) {
-				components.get(id).remove(compClass);
+		public <T extends Component> void removeComponent(UUID id, Class<T> component) {
+				components.get(id).remove(component.getClass());
 		}
 
 
@@ -83,12 +83,12 @@ public class ECS implements SerializableComponent {
 								removeEntity(uid);
 				}
 		
-				entities.remove(id);
-
 				List<Component> components = getComponents(id);
 				for (Component comp : components) {
+						for(EntityListener listener: listeners) listener.onComponentRemoved(id, comp);
 						removeComponent(id, comp.getClass());
-				}
+				}				
+				entities.remove(id);
 		}
 
 		public void start() {

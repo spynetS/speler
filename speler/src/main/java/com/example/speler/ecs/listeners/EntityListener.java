@@ -12,5 +12,6 @@ import com.example.speler.ecs.systems.UpdateSystem;
  */
 public interface EntityListener {
 		public void onComponentAdded(UUID id, Component component);
+		public void onComponentRemoved(UUID id, Component component);
 		public void onSystemAdded(UpdateSystem system);
  }
