@@ -33,30 +33,36 @@ public class Movement extends Script {
 		
 		@Override
 		public void update(float deltatime) {
-			super.update(deltatime);
-			Main.game.getSelectedScene().getCamera().x = gameObject.transform.position.getX();
-			Main.game.getSelectedScene().getCamera().y = gameObject.transform.position.getY();
-			ac.currentTrack = 0;
+				super.update(deltatime);
+				Main.game.getSelectedScene().getCamera().setPosition(gameObject.transform.position.getX(),gameObject.transform.position.getY());
+
+				Vector2 dir = Vector2.zero;
+			
+				ac.currentTrack = 0;
 				if (Input.isKeyDown(Keys.A)) {
-					rb.acceleration = rb.acceleration.add(Vector2.left.multiply(strength));
-					ac.currentTrack = 1;
-					sc.inverted = true;
+						dir = dir.add(Vector2.left);
+						ac.currentTrack = 1;
+						sc.inverted = true;
 				}
 				if (Input.isKeyDown(Keys.D)) {
-					rb.acceleration = rb.acceleration.add(Vector2.right.multiply(strength));
-					ac.currentTrack = 1;
-					sc.inverted = false;
+						dir = dir.add(Vector2.right);
+
+						ac.currentTrack = 1;
+						sc.inverted = false;
 
 				}
 				if (Input.isKeyDown(Keys.W)) {
-					rb.acceleration = rb.acceleration.add(Vector2.up.multiply(strength));
-					ac.currentTrack = 3;
+						dir = dir.add(Vector2.up);
+						ac.currentTrack = 3;
 
 				}
 				if (Input.isKeyDown(Keys.S)) {
+						dir = dir.add(Vector2.down);
 						ac.currentTrack = 2;											
-					rb.acceleration = rb.acceleration.add(Vector2.down.multiply(strength));
 				}
+
+				rb.acceleration = rb.acceleration.add(dir.getNormalized().multiply(strength));
+				
 
 				if(Input.isMouseButtonPressed(Keys.LEFTCLICK)){
 						Bullet bullet = new Bullet(Main.game.getEcs());
