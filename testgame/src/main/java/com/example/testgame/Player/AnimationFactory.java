@@ -16,10 +16,12 @@ import com.example.speler.animations.AnimationTrack;
 
 public class AnimationFactory extends AnimationComponent {
 
-	List<AnimationTrack<?>> animationTracks;
+		List<AnimationTrack<?>> animationTracks;
+		float speed = 0.1f;
+		float attackSpeed = 0.1f;
 		
 		public AnimationFactory(SpriteComponent spriteComponent, String path) {
-
+				
 		SpriteSheet spriteSheet = new SpriteSheet(
 				ResourceManager.loadImage(
 						path),
@@ -28,35 +30,35 @@ public class AnimationFactory extends AnimationComponent {
 		List<AnimationTrack.Keyframe<String>> idleFrames = new LinkedList<>();
 		for (int i = 0; i < 6; i++) {
 			idleFrames.add(new AnimationTrack.Keyframe<String>(
-					0.2f * i,
+					speed * i,
 					ResourceManager.registerImage(spriteSheet.getFrame(0, i))));
 		}
 		// RUN
 		List<AnimationTrack.Keyframe<String>> runSideFrames = new LinkedList<>();
 		for (int i = 0; i < 6; i++) {
 			runSideFrames.add(new AnimationTrack.Keyframe<String>(
-					0.2f * i,
+					speed * i,
 					ResourceManager.registerImage(spriteSheet.getFrame(4, i))));
 		}
 		// run down
 		List<AnimationTrack.Keyframe<String>> runForwardFrames = new LinkedList<>();
 		for (int i = 0; i < 6; i++) {
 			runForwardFrames.add(new AnimationTrack.Keyframe<String>(
-					0.2f * i,
+					speed * i,
 					ResourceManager.registerImage(spriteSheet.getFrame(3, i))));
 		}
 		// run up
 	List<AnimationTrack.Keyframe<String>> runBackWardsFrames = new LinkedList<>();
 		for (int i = 0; i < 6; i++) {
 			runBackWardsFrames.add(new AnimationTrack.Keyframe<String>(
-					0.2f * i,
+					speed * i,
 					ResourceManager.registerImage(spriteSheet.getFrame(5, i))));
 		}
 
 		List<AnimationTrack.Keyframe<String>> attack = new LinkedList<>();
 		for (int i = 0; i < 4; i++) {
 				attack.add(new AnimationTrack.Keyframe<String>(
-																											 0.1f * i,
+																											 attackSpeed * i,
 																											 ResourceManager.registerImage(spriteSheet.getFrame(6, i))));
 		}
 
