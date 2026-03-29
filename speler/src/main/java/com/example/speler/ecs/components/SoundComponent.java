@@ -12,9 +12,10 @@ import com.example.speler.SerializableComponent;
 public class SoundComponent implements Component, SerializableComponent {
 
 
-		public float volume;
+		public float volume = 1;
 		public File audioFile;
 		public boolean isPlaying = false;
+		public boolean shouldPlay = false;
 		public Clip clip;
 
 		public SoundComponent(File audioFile, float volume){

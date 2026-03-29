@@ -2,6 +2,8 @@ package com.example.speler.ecs.systems;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -19,13 +21,12 @@ import com.example.speler.ecs.components.Transform;
 
 public class SoundSystem implements UpdateSystem {
 
-		CopyOnWriteArrayList<SoundComponent> playingClips = new CopyOnWriteArrayList<>();
-
+		Map<Transform, SoundComponent> playingClips = new HashMap<>();
 
 		// TODO fix loop bug
 		// TODO fix faster pan change
 		// TODO fix better way to start a sound
-		public void playSound(SoundComponent sc) throws Exception {
+		public void playSound(Transform transform, SoundComponent sc) throws Exception {
 						
 				new Thread(){
 						@Override
@@ -36,16 +37,17 @@ public class SoundSystem implements UpdateSystem {
 										Clip clip = AudioSystem.getClip();
 
 										clip.open(audioStream);
-										playingClips.add(sc);
 										if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
 												FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 												gainControl.setValue(sc.volume);
 										}
+										playingClips.put(transform,sc);
 
 										clip.start();
 										sc.clip = clip;
 										// Wait for the clip to finish
 										clip.addLineListener(event -> {
+														System.out.println("EVENT: "+ event);
 														if (event.getType() == LineEvent.Type.STOP) {
 																clip.close();
 																sc.isPlaying = false; // allows replay
@@ -60,36 +62,40 @@ public class SoundSystem implements UpdateSystem {
 
     }
 
+
 		@Override
 		public void update(ECS ecs, float deltaTime) {
 				for (UUID entity : ecs.getEntities()) {
 						SoundComponent sc = ecs.getComponent(entity, SoundComponent.class);
+						Transform transform = ecs.getComponent(entity, Transform.class);
+						
 						if (sc != null) {
-								if(!sc.isPlaying) {
+								if(sc.shouldPlay) {
 										try{
-												playSound(sc);
+												playSound(transform, sc);
 										}catch (Exception e) {
 												e.printStackTrace();
 										}
 										sc.isPlaying=true;
+										sc.shouldPlay=false;
 								}
 						}
 
+						// if we have a soundlistener entity change the volume from it
 						SoundListenerComponent lc = ecs.getComponent(entity, SoundListenerComponent.class);
 						if (lc == null) continue;
 						
-						Transform transform = ecs.getComponent(entity, Transform.class);
 
-						float panValue = new Vector2(-200,-200).subtract(transform.position).getNormalized().getX();
-						panValue = Math.max(-1.0f, Math.min(1.0f, panValue)); // clamp
+						for (Map.Entry<Transform, SoundComponent> entry : playingClips.entrySet()) {
+								Transform pst = entry.getKey();
+								SoundComponent psc = entry.getValue();
 
-						float distance = new Vector2(-200,-200).getDistance(transform.position);
-						float maxDistance = 500f;
-						float volume = 1.0f - Math.min(distance / maxDistance, 1.0f); // 0.0 to 1.0
+								float panValue = pst.position.subtract(transform.position).getNormalized().getX();
+								panValue = Math.max(-1.0f, Math.min(1.0f, panValue)); // clamp
 
-
-
-						for(SoundComponent psc : playingClips) {
+								float distance = pst.position.getDistance(transform.position);
+								float maxDistance = 500f;
+								float volume = 1.0f - Math.min(distance / maxDistance, 1.0f); // 0.0 to 1.0
 								
 								if (psc.clip.isControlSupported(FloatControl.Type.PAN)) {
 
@@ -102,7 +108,6 @@ public class SoundSystem implements UpdateSystem {
 										gainControl.setValue(dB); // typically -80.0 to 6.0
 								} else {
 										System.out.println("Pan control not supported");
-
 								}
 						}
 				
@@ -113,5 +118,4 @@ public class SoundSystem implements UpdateSystem {
 		public void start(ECS ecs) {
 
 		}
-
 }

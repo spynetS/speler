@@ -29,7 +29,6 @@ public class Movement extends Script {
 				ac = gameObject.getComponent(AnimationComponent.class);
 				sc = gameObject.getComponent(SpriteComponent.class);
 				soundComponent = gameObject.getComponent(SoundComponent.class);
-				soundComponent.isPlaying = true;
 		}
 
 		float strength = 20;
@@ -66,7 +65,7 @@ public class Movement extends Script {
 						bullet.transform.position = gameObject.transform.position.add(new Vector2(10,0));
 						bullet.send();
 
-						soundComponent.isPlaying = false;
+						soundComponent.shouldPlay = true;
 						
 						attackTime = 0.3f;
 				}
