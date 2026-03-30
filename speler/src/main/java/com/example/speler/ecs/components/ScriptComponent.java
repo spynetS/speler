@@ -1,15 +1,11 @@
 package com.example.speler.ecs.components;
 
-import com.example.speler.ecs.CollisionEvent;
-import com.example.speler.ecs.listeners.*;
 import com.example.speler.ecs.ECS.*;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import com.example.speler.*;
 import com.example.speler.scripting.*;
@@ -50,8 +46,8 @@ public class ScriptComponent implements Component, SerializableComponent {
 
     @Override
 	public void deserialize(JsonObject obj) {
-		String name = obj.get("scriptName").getAsString();
-		//		scripts.add(ScriptManager.getScript(name));
+				// String name = obj.get("scriptName").getAsString();
+				// scripts.add(ScriptManager.getScript(name));
 	}
 
 		

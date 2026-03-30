@@ -1,7 +1,5 @@
 package com.example.speler.animations;
 
-import com.example.speler.animations.*;
-
 /**
 	 TimeTrackedanimation is a animationtrack that trackes time based on delta time
  */

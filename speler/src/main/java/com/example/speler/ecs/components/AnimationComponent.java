@@ -1,6 +1,5 @@
 package com.example.speler.ecs.components;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.example.speler.SerializableComponent;
@@ -34,12 +33,12 @@ public class AnimationComponent implements Component, SerializableComponent {
     @Override
     public void deserialize(JsonObject obj) {
         currentTrack = obj.get("currentTrack").getAsInt();
-        JsonArray array = obj.getAsJsonArray("tracks");
-        tracks = new ArrayList<>();
-        for (var e : array) {
+				// JsonArray array = obj.getAsJsonArray("tracks");
+        // tracks = new ArrayList<>();
+        //for (var e : array) {
 						//						AnimationTrack<?> track = new AnimationTrack<>();
 						//            track.deserialize(e.getAsJsonObject());
 						//            tracks.add(track);
-        }
+        //}
     }
 }

@@ -1,16 +1,12 @@
 package com.example.speler.ecs.systems;
 
-import com.example.speler.ecs.systems.UpdateSystem;
 import com.example.speler.ecs.CollisionEvent;
 import com.example.speler.ecs.ECS;
-import com.example.speler.ecs.ECS.Component;
 import com.example.speler.ecs.components.*;
 import com.example.speler.ecs.listeners.CollisionListener;
-import com.example.speler.ecs.listeners.EntityListener;
 import com.example.speler.scripting.GameObject;
 import com.example.speler.scripting.Script;
 
-import java.util.LinkedList;
 import java.util.UUID;
 
 // we listen for collisions and send them to the user scripts so they get

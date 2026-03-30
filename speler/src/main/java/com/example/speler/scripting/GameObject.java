@@ -2,21 +2,17 @@ package com.example.speler.scripting;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.ECS.Component;
 import com.example.speler.ecs.components.*;
-import com.example.speler.ecs.listeners.EntityListener;
 
 public class GameObject  {
 
 		public UUID id;
 		ECS ecs;
 		public final Transform transform;
-		private ArrayList<Component> newComponents = new ArrayList<>();
-
 		
 		public GameObject(){
 			this.transform = new Transform();

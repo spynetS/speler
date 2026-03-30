@@ -1,6 +1,5 @@
 package com.example.speler.render;
 
-import com.example.speler.GameWindow;
 import com.example.speler.Vector2;
 import com.example.speler.ecs.Camera;
 

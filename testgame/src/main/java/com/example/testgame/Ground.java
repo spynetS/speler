@@ -30,7 +30,7 @@ public class Ground extends GameObject{
 						break;
 				}
 
-		}catch(Exception e){}
+		}catch(Exception e){e.printStackTrace();}
 		var c = new ColliderComponent();
 		c.height = -50;
 		c.width = -50;

@@ -6,11 +6,8 @@ import com.example.speler.render.Renderer;
 import com.example.speler.resources.ResourceManager;
 
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.util.HashMap;

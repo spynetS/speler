@@ -6,11 +6,10 @@ import java.util.LinkedList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import com.example.speler.scripting.*;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.example.speler.SerializableComponent;
-import com.example.speler.animations.AnimationTrack;
 import com.example.speler.ecs.systems.UpdateSystem;
 import com.example.speler.ecs.components.ParentComponent;
 import com.example.speler.ecs.listeners.EntityListener;
@@ -31,7 +30,7 @@ public class ECS implements SerializableComponent {
 
     // Add a system
 		public void addSystem(UpdateSystem system) {
-				if(system instanceof EntityListener && !listeners.contains(system)) listeners.add(((EntityListener)system));
+				if(system instanceof EntityListener && !listeners.contains(system)) listeners.add((EntityListener)system);
 				
 				for(EntityListener listener: listeners) listener.onSystemAdded(system);
 				updateSystems.add(system);
@@ -102,7 +101,7 @@ public class ECS implements SerializableComponent {
 				for (UpdateSystem system : updateSystems) {
 						try{
 								system.update(this, deltaTime);
-						} catch(Exception e ){}
+						} catch(Exception e ){e.printStackTrace();}
         }
     }
 
@@ -177,6 +176,6 @@ public class ECS implements SerializableComponent {
     }
 
 
-    public static interface Component {}
+    public interface Component {}
 
 }

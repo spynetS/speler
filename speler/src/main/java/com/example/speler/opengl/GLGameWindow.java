@@ -1,12 +1,10 @@
 package com.example.speler.opengl;
 
-import com.example.speler.Game;
 import com.example.speler.GameWindow;
 import com.example.speler.Scene;
 import com.example.speler.Vector2;
 import com.example.speler.input.Input;
 
-import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;

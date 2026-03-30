@@ -2,7 +2,6 @@ package com.example.speler.ecs.systems;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import com.example.speler.ecs.CollisionEvent;
@@ -12,8 +11,6 @@ import com.example.speler.ecs.ECS.Component;
 import com.example.speler.ecs.components.*;
 import com.example.speler.ecs.listeners.CollisionListener;
 import com.example.speler.ecs.listeners.EntityListener;
-
-import jdk.jshell.spi.ExecutionControl.NotImplementedException;
 
 public class ColliderSystem implements UpdateSystem, EntityListener {
 
@@ -93,14 +90,14 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 
 				// Circle vs Rectangle
 				if (aCircle && !bCircle) {
-					var m = circleRect(ta, ca, tb, cb);
+					var m = circleRect(ta, tb, cb);
 					onCollision(a, ta, ca, b, tb, cb,m,ecs);
 					
 				} else if (!aCircle && bCircle) {
-						var m  = circleRect(tb, cb, ta, ca);
+						var m  = circleRect(tb, ta, ca);
 						onCollision(a, ta, ca,b, tb, cb,m,ecs);
 				} else if (aCircle && bCircle) {
-						var m = circleCircle(tb,cb,ta,ca);
+						var m = circleCircle(tb,ta);
 						onCollision(a, ta, ca,b, tb, cb,m,ecs);
 				} else if (!aCircle && !bCircle) {
 						var m = rectRect(ta,ca,tb,cb);
@@ -108,7 +105,7 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 				}
 		}
 
-		private CollisionManifold circleCircle(Transform at, ColliderComponent ac, Transform bt, ColliderComponent bc) {
+		private CollisionManifold circleCircle(Transform at, Transform bt) {
 			float ax = at.worldPosition.getX();
 			float ay = at.worldPosition.getY();
 			float ar = at.worldScale.getX() / 2;
@@ -145,7 +142,7 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 		}
 		
 
-		private CollisionManifold circleRect(Transform tc, ColliderComponent cc,
+		private CollisionManifold circleRect(Transform tc,
 				Transform tr, ColliderComponent rc) {
 
 			float cx = tc.worldPosition.getX();
@@ -224,8 +221,8 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 			float dy = tr2.worldPosition.getY() - tr1.worldPosition.getY();
 
 			// Calculate overlap on each axis
-			float overlapX = (halfW1 + halfW2) - Math.abs(dx);
-			float overlapY = (halfH1 + halfH2) - Math.abs(dy);
+			float overlapX = halfW1 + halfW2 - Math.abs(dx);
+			float overlapY = halfH1 + halfH2 - Math.abs(dy);
 
 			// The axis of minimum penetration is the collision axis
 			if (overlapX < overlapY) {

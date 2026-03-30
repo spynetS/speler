@@ -1,9 +1,8 @@
 package com.example.speler;
 
-import com.example.speler.SerializableComponent;
-import com.google.gson.JsonObject;
-
 import java.util.Objects;
+
+import com.google.gson.JsonObject;
 
 public class Vector2 implements SerializableComponent {
 
@@ -59,9 +58,8 @@ public class Vector2 implements SerializableComponent {
         this.z = z;
     }
 
-    public String toString()
-    {
-        return ("{x:{"+x+"} y:{"+y+"}}");
+    public String toString(){
+        return "{x:{"+x+"} y:{"+y+"}}";
     }
 
     public Vector2 multiply(float multiple) {
@@ -112,10 +110,6 @@ public class Vector2 implements SerializableComponent {
         if(getMagnitude()!=0)
             return divide(getMagnitude());
         return Vector2.zero;
-    }
-
-    private float getHighest() {
-        return Math.max(Math.abs(x), Math.abs(y));
     }
 
     /**
