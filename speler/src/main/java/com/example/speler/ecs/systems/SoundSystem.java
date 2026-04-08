@@ -36,6 +36,13 @@ public class SoundSystem implements UpdateSystem, EntityListener {
 										Clip clip = AudioSystem.getClip();
 
 										clip.open(audioStream);
+                    // Set volume to 0 before starting
+                    if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
+                        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                        gainControl.setValue(-80f); // -80 dB ≈ silence
+                    }
+                    clip.start();
+                    
 										playingClips.put(sc,transform);
 
 										sc.clip = clip;
@@ -90,7 +97,7 @@ private int spatialUpdateCounter = 0;
         for (Map.Entry<SoundComponent, Transform> entry : playingClips.entrySet()) {
             SoundComponent psc = entry.getKey();
             Transform pst = entry.getValue();
-            if (!psc.clip.isRunning()) psc.clip.start();
+
             
             float panValue = pst.position.subtract(listener.position).getNormalized().getX();
             panValue = Math.max(-1.0f, Math.min(1.0f, panValue)); // clamp
