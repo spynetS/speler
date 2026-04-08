@@ -19,29 +19,25 @@ import com.example.speler.ecs.ECS.Component;
 import com.example.speler.ecs.components.*;
 import com.example.speler.ecs.listeners.*;
 
+// TODO fix so sounds are preloaded
 public class SoundSystem implements UpdateSystem, EntityListener {
 
 		Map<SoundComponent, Transform> playingClips = new HashMap<>();
 
-    // TODO fix so sounds are preloaded
+    // (we are actually starting the clips later when a listener is present in updateSpatialAudio)
 		public void playSound(Transform transform, SoundComponent sc) throws Exception {
 						
 				new Thread(){
 						@Override
-						public void run() {
+						public void run() {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 								try{
 
 										AudioInputStream audioStream = AudioSystem.getAudioInputStream(sc.audioFile);
 										Clip clip = AudioSystem.getClip();
 
 										clip.open(audioStream);
-										if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
-												FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-												gainControl.setValue(sc.volume);
-										}
 										playingClips.put(sc,transform);
 
-										clip.start();
 										sc.clip = clip;
 										// Wait for the clip to finish
 										clip.addLineListener(event -> {
@@ -84,7 +80,7 @@ private int spatialUpdateCounter = 0;
 						SoundListenerComponent lc = ecs.getComponent(entity, SoundListenerComponent.class);
 						if (lc == null) continue;
 						
-            if (++spatialUpdateCounter % 10 == 0) {
+            if (++spatialUpdateCounter % 5 == 0) {
                 updateSpatialAudio(transform);
             }				
 				}
@@ -94,7 +90,8 @@ private int spatialUpdateCounter = 0;
         for (Map.Entry<SoundComponent, Transform> entry : playingClips.entrySet()) {
             SoundComponent psc = entry.getKey();
             Transform pst = entry.getValue();
-
+            if (!psc.clip.isRunning()) psc.clip.start();
+            
             float panValue = pst.position.subtract(listener.position).getNormalized().getX();
             panValue = Math.max(-1.0f, Math.min(1.0f, panValue)); // clamp
 

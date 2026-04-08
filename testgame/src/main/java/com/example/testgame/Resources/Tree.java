@@ -21,7 +21,7 @@ public class Tree extends GameObject {
 				collider.width = -150;
 				this.addComponent(collider);
 
-				addComponent(new SoundComponent(new File("/home/spy/dev/playengine/sound.wav"), 0.4f));
+				addComponent(new SoundComponent(new File("/home/spy/dev/playengine/sound.wav"), 0.2f));
 				getComponent(SoundComponent.class).shouldPlay = true;
 
 				var trigger = new ColliderComponent();
