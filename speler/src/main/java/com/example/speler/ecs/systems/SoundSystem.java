@@ -67,6 +67,7 @@ private int spatialUpdateCounter = 0;
 
 		@Override
 		public void update(ECS ecs, float deltaTime) {
+        spatialUpdateCounter++;
 				for (UUID entity : ecs.getEntities()) {
 						SoundComponent sc = ecs.getComponent(entity, SoundComponent.class);
 						Transform transform = ecs.getComponent(entity, Transform.class);
@@ -87,7 +88,7 @@ private int spatialUpdateCounter = 0;
 						SoundListenerComponent lc = ecs.getComponent(entity, SoundListenerComponent.class);
 						if (lc == null) continue;
 						
-            if (++spatialUpdateCounter % 5 == 0) {
+            if (spatialUpdateCounter % 5 == 0) {
                 updateSpatialAudio(transform);
             }				
 				}
