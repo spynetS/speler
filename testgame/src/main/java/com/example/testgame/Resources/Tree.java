@@ -1,5 +1,7 @@
 package com.example.testgame.Resources;
 
+import java.io.File;
+
 import com.example.speler.Vector2;
 import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.components.*;
@@ -19,12 +21,18 @@ public class Tree extends GameObject {
 				collider.width = -150;
 				this.addComponent(collider);
 
+				addComponent(new SoundComponent(new File("/home/spy/dev/playengine/sound.wav"), 0.2f));
+				getComponent(SoundComponent.class).shouldPlay = true;
+
 				var trigger = new ColliderComponent();
 				trigger.height = -100;
 				trigger.width = -150;
 				trigger.layer = 1;
 				this.addComponent(trigger);
+
 				var script = new KillableEntity();
+
+				
 				script.dropping.add(new Wood());
 				this.addComponent(new ScriptComponent(script));
 				this.transform.worldScale = new Vector2(200,200);

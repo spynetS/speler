@@ -137,8 +137,6 @@ public class MyScene extends Scene {
 				floor2.transform.worldScale = new Vector2(50, 50);
 
 				Tree tree = new Tree(ecs);
-				tree.transform.position = new Vector2(0,-200);
-
-				
+				tree.transform.position = new Vector2(200,-200);
 		}
 }

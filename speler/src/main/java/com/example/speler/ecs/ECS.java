@@ -54,7 +54,7 @@ public class ECS implements SerializableComponent {
 
 		public <T extends Component> void removeComponent(UUID id, Class<T> compClass) {
         queueEntity(()->{components.get(id).remove(compClass);});
-				
+
 		}
 
 
@@ -99,13 +99,13 @@ public class ECS implements SerializableComponent {
                         removeEntity(uid);
                 }
 		
-                entities.remove(id);
-
                 List<Component> components = getComponents(id);
                 for (Component comp : components) {
+                    for(EntityListener listener: listeners) listener.onComponentRemoved(id, comp);
                     removeComponent(id, comp.getClass());
-                }
-        });
+                }				
+                entities.remove(id);
+            });
 		}
 
 		public void start() {
