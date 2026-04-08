@@ -1,7 +1,6 @@
 package com.example.speler.ecs.systems;
 
 import java.util.UUID;
-import java.util.concurrent.TransferQueue;
 
 import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.components.ParentComponent;
@@ -43,8 +42,8 @@ public class ParentSystem implements UpdateSystem {
 								float rotatedY = (float) (ox * Math.sin(angleRad) + oy * Math.cos(angleRad));
 
 								// Child world position = parent position + rotated offset
-								child.worldPosition.setX((px + rotatedX));
-								child.worldPosition.setY((py + rotatedY));
+								child.worldPosition.setX(px + rotatedX);
+								child.worldPosition.setY(py + rotatedY);
 
 								// Child world rotation = parent rotation + local rotation
 								child.worldRotation = parent.worldRotation + child.rotation;

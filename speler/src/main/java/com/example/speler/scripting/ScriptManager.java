@@ -5,7 +5,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 public class ScriptManager {
     private static final Map<String, Class<? extends Script>> scriptRegistry = new HashMap<>();

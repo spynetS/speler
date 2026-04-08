@@ -23,14 +23,14 @@ public class Scene implements SerializableComponent {
 		
 		public Scene(ECS ecs) {
 				this.ecs = ecs;
-				this.camera = new Camera(0, 0, 2);
+				this.camera = new Camera(0, 0, 1);
 		}
 		public Scene(Renderer renderer) {
 				this.renderer = renderer;
-				this.camera = new Camera(0, 0, 2);
+				this.camera = new Camera(0, 0, 1);
 		}
 		public Scene() {
-				this.camera = new Camera(0, 0, 2);
+				this.camera = new Camera(0, 0, 1);
 		}
 
 		public void start(Game game) throws Exception {

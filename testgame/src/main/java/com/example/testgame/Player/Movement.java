@@ -32,14 +32,14 @@ public class Movement extends Script {
 		}
 
 		float strength = 20;
-		
+		float zoom = 0;
 		@Override
 		public void update(float deltatime) {
 				super.update(deltatime);
 				Main.game.getSelectedScene().getCamera().setPosition(gameObject.transform.position.getX(),gameObject.transform.position.getY());
-
+				
 				Vector2 dir = Vector2.zero;
-			
+
 				ac.currentTrack = 0;
 				if (Input.isKeyDown(Keys.A)) {
 						dir = dir.add(Vector2.left);

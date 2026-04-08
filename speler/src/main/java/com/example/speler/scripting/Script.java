@@ -1,16 +1,7 @@
 package com.example.speler.scripting;
 
-import com.example.speler.scripting.GameObject;
-import com.example.speler.ecs.ECS.Component;
 import com.example.speler.ecs.components.Transform;
-
-import java.util.UUID;
-
-import com.example.speler.SerializableComponent;
-
 import com.example.speler.ecs.CollisionEvent;
-import com.example.speler.ecs.listeners.CollisionListener;
-import com.example.speler.ecs.systems.UpdateSystem;
 
 
 public abstract class Script {

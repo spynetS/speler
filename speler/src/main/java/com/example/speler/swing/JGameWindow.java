@@ -9,7 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -19,7 +18,6 @@ import java.awt.event.MouseWheelEvent;
 
 import java.awt.Cursor;
 import java.awt.Point;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
@@ -107,8 +105,7 @@ public class JGameWindow extends JFrame implements GameWindow
 						} else{
 								System.out.println("No SwingRenderer found in Scene");
 						}
-						
-								
+						Input.resetScrollValue();
 				}
 
 				
@@ -172,12 +169,10 @@ public class JGameWindow extends JFrame implements GameWindow
 												Input.setScrollValue((float) e.getPreciseWheelRotation());
 												Input.setMouseEvent(e);
 										}
-
 								};
 						addMouseListener(mouseAdapter);
 						addMouseMotionListener(mouseAdapter);
 						addMouseWheelListener(mouseAdapter);
 				}
-
 		}		
 }

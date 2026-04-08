@@ -6,11 +6,10 @@ import java.util.LinkedList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import com.example.speler.scripting.*;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.example.speler.SerializableComponent;
-import com.example.speler.animations.AnimationTrack;
 import com.example.speler.ecs.systems.UpdateSystem;
 import com.example.speler.ecs.components.ParentComponent;
 import com.example.speler.ecs.listeners.EntityListener;
@@ -21,34 +20,51 @@ public class ECS implements SerializableComponent {
     public List<UUID> entities = new ArrayList<>();
     public List<UpdateSystem> updateSystems = new LinkedList<>();
     public List<EntityListener> listeners = new LinkedList<>();
-		
+    private final List<Runnable> commandQueue = new ArrayList<>();
+
+    // Instead of creating entities directly, queue them
+    public void queueEntity(Runnable createFn) {
+        commandQueue.add(createFn);
+    }
+
+    // Call this at the END of your game loop, after all systems have updated
+    public void flushCommandQueue() {
+        for (Runnable cmd : commandQueue) {
+            cmd.run();
+        }
+        commandQueue.clear();
+    }
+
     // Create a new entity
     public UUID instantiate() {
         UUID uuid = UUID.randomUUID();
-        entities.add(uuid);
+        queueEntity(()-> {
+                entities.add(uuid);
+            });
         return uuid;
     }
 
     // Add a system
 		public void addSystem(UpdateSystem system) {
-				if(system instanceof EntityListener && !listeners.contains(system)) listeners.add(((EntityListener)system));
+				if(system instanceof EntityListener && !listeners.contains(system)) listeners.add((EntityListener)system);
 				
 				for(EntityListener listener: listeners) listener.onSystemAdded(system);
 				updateSystems.add(system);
 		}
 
-		public <T extends Component> void removeComponent(UUID id, Class<T> component) {
-				components.get(id).remove(component.getClass());
+		public <T extends Component> void removeComponent(UUID id, Class<T> compClass) {
+        queueEntity(()->{components.get(id).remove(compClass);});
+
 		}
 
 
     // Add a component to an entity
 		public <T extends Component> void addComponent(UUID entityId, T component) {
-
-				for(EntityListener listener: listeners) listener.onComponentAdded(entityId, component);
-			
-				components.computeIfAbsent(entityId, id -> new HashMap<>())
-						.put(component.getClass(), component);
+        queueEntity(()->{
+                for(EntityListener listener: listeners) listener.onComponentAdded(entityId, component);
+                components.computeIfAbsent(entityId, id -> new HashMap<>())
+                    .put(component.getClass(), component);
+            });
     }
 
     // Get a component from an entity
@@ -73,22 +89,23 @@ public class ECS implements SerializableComponent {
 		}
 
 		public void removeEntity(UUID id) {
+        queueEntity(()->{
+                for (UUID uid : entities) {
+                    if (uid.equals(id))
+                        continue;
+                    ParentComponent p = getComponent(uid, ParentComponent.class);
 
-				for (UUID uid : entities) {
-						if (uid.equals(id))
-								continue;
-						ParentComponent p = getComponent(uid, ParentComponent.class);
-
-						if(p != null && p.parentId.equals(id))
-								removeEntity(uid);
-				}
+                    if(p != null && p.parentId.equals(id))
+                        removeEntity(uid);
+                }
 		
-				List<Component> components = getComponents(id);
-				for (Component comp : components) {
-						for(EntityListener listener: listeners) listener.onComponentRemoved(id, comp);
-						removeComponent(id, comp.getClass());
-				}				
-				entities.remove(id);
+                List<Component> components = getComponents(id);
+                for (Component comp : components) {
+                    for(EntityListener listener: listeners) listener.onComponentRemoved(id, comp);
+                    removeComponent(id, comp.getClass());
+                }				
+                entities.remove(id);
+            });
 		}
 
 		public void start() {
@@ -102,8 +119,9 @@ public class ECS implements SerializableComponent {
 				for (UpdateSystem system : updateSystems) {
 						try{
 								system.update(this, deltaTime);
-						} catch(Exception e ){}
+						} catch(Exception e ){e.printStackTrace();}
         }
+        flushCommandQueue();
     }
 
 
@@ -177,6 +195,6 @@ public class ECS implements SerializableComponent {
     }
 
 
-    public static interface Component {}
+    public interface Component {}
 
 }

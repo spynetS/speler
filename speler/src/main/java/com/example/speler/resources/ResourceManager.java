@@ -8,7 +8,6 @@ import com.example.speler.Game;
 
 import java.util.Base64;
 import java.util.HashMap;
-import java.util.UUID;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;

@@ -101,6 +101,7 @@ public class SwingRenderer implements Renderer {
 			Font old = g.getFont();
 			g.setFont(new Font("Arial", 0, (int)fontSize));
 			g.drawString(text, screenPosition.getX(), screenPosition.getY());
+			g.setFont(old);
 	}
 
 	@Override

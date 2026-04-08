@@ -1,17 +1,9 @@
 package com.example.speler;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JButton;
-
-import com.example.speler.GameWindow;
-import com.example.speler.Scene;
 import com.example.speler.ecs.*;
 import com.example.speler.ecs.systems.*;
-import com.example.speler.input.Input;
 import com.example.speler.resources.*;
 import com.example.speler.resources.ResourceManager.Sprite;
-import com.example.speler.scripting.ScriptManager;
 
 
 public class Game implements Runnable {
@@ -73,8 +65,8 @@ public class Game implements Runnable {
 				long lastTime = System.nanoTime();
 				double delta = 0;
 
-				long timer = System.currentTimeMillis(); // for FPS counting
-				int frames = 0; // rendered frames
+				// long timer = System.currentTimeMillis(); // for FPS counting
+				// int frames = 0; // rendered frames
 
 				while (running) {
 						long now = System.nanoTime();
@@ -87,7 +79,7 @@ public class Game implements Runnable {
 						}
 
 						render(); // draw the current state
-						frames++;
+						// frames++;
 						// reset mouse pressed
 						//						Input.setMousePressed(1000);
 						// Sleep to cap render FPS

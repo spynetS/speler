@@ -6,6 +6,6 @@ import com.example.speler.render.Renderer;
 
 public interface RenderSystem {
 
-		public void render(ECS ecs, Renderer renderer, Camera camera, int w, int h);
+		void render(ECS ecs, Renderer renderer, Camera camera, int w, int h);
 		
 }

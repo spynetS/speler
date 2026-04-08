@@ -1,7 +1,7 @@
 package com.example.speler;
 
 public interface GameWindow {
-		public void setSelectedScene(Scene scene);
-		public void renderWindow();
-		public void setBlankCursor();
+		void setSelectedScene(Scene scene);
+		void renderWindow();
+		void setBlankCursor();
 }

@@ -54,7 +54,7 @@ public class AnimationTrack<T> implements SerializableComponent {
         if (keyframes.size() == 0) return;
 
         float totalDuration = keyframes.get(keyframes.size() - 1).time;
-        float t = loop ? (elapsedTime % totalDuration) : Math.min(elapsedTime, totalDuration);
+        float t = loop ? elapsedTime % totalDuration : Math.min(elapsedTime, totalDuration);
 
         for (int i = 0; i < keyframes.size() - 1; i++) {
             Keyframe<T> k1 = keyframes.get(i);

@@ -26,7 +26,7 @@ public class SpriteRenderSystem implements RenderSystem {
 
             if (sprite != null) {
                 if (sprite.order) ordered.add(id);
-                else draw(id, ecs, renderer, camera, w, h);
+                else draw(id, ecs, renderer);
             }
 
             if (r != null) {
@@ -43,7 +43,7 @@ public class SpriteRenderSystem implements RenderSystem {
         ));
 
         for (UUID id : ordered)
-            draw(id, ecs, renderer, camera, w, h);
+            draw(id, ecs, renderer);
 
         renderer.end();
     }
@@ -51,11 +51,7 @@ public class SpriteRenderSystem implements RenderSystem {
     private void draw(
             UUID id,
             ECS ecs,
-            Renderer renderer,
-            Camera camera,
-            int w,
-            int h
-    ) {
+            Renderer renderer) {
         Transform t = ecs.getComponent(id, Transform.class);
         SpriteComponent s = ecs.getComponent(id, SpriteComponent.class);
 
