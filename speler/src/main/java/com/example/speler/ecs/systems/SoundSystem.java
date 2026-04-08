@@ -23,9 +23,7 @@ public class SoundSystem implements UpdateSystem, EntityListener {
 
 		Map<SoundComponent, Transform> playingClips = new HashMap<>();
 
-		// TODO fix loop bug
-		// TODO fix faster pan change
-		// TODO fix better way to start a sound
+    // TODO fix so sounds are preloaded
 		public void playSound(Transform transform, SoundComponent sc) throws Exception {
 						
 				new Thread(){
@@ -61,6 +59,8 @@ public class SoundSystem implements UpdateSystem, EntityListener {
 
     }
 
+private int spatialUpdateCounter = 0;
+
 
 		@Override
 		public void update(ECS ecs, float deltaTime) {
@@ -84,35 +84,40 @@ public class SoundSystem implements UpdateSystem, EntityListener {
 						SoundListenerComponent lc = ecs.getComponent(entity, SoundListenerComponent.class);
 						if (lc == null) continue;
 						
-
-						for (Map.Entry<SoundComponent, Transform> entry : playingClips.entrySet()) {
-								SoundComponent psc = entry.getKey();
-								Transform pst = entry.getValue();
-
-								float panValue = pst.position.subtract(transform.position).getNormalized().getX();
-								panValue = Math.max(-1.0f, Math.min(1.0f, panValue)); // clamp
-
-								float distance = pst.position.getDistance(transform.position);
-								float maxDistance = 500f;
-								float volume = 1.0f - Math.min(distance / maxDistance, 1.0f); // 0.0 to 1.0
-								
-								if (psc.clip.isControlSupported(FloatControl.Type.PAN)) {
-
-										FloatControl pan = (FloatControl) psc.clip.getControl(FloatControl.Type.PAN);
-										pan.setValue(panValue);
-
-										FloatControl gainControl = (FloatControl) psc.clip.getControl(FloatControl.Type.MASTER_GAIN);
-										volume *= psc.volume;
-										float dB = (volume > 0) ? (float)(20 * Math.log10(volume)) : -80f; // to dB
-										gainControl.setValue(dB); // typically -80.0 to 6.0
-								} else {
-										System.out.println("Pan control not supported");
-								}
-						}
-				
+            if (++spatialUpdateCounter % 10 == 0) {
+                updateSpatialAudio(transform);
+            }				
 				}
 		}
 
+    private void updateSpatialAudio(Transform listener){
+        for (Map.Entry<SoundComponent, Transform> entry : playingClips.entrySet()) {
+            SoundComponent psc = entry.getKey();
+            Transform pst = entry.getValue();
+
+            float panValue = pst.position.subtract(listener.position).getNormalized().getX();
+            panValue = Math.max(-1.0f, Math.min(1.0f, panValue)); // clamp
+
+            float distance = pst.position.getDistance(listener.position);
+            float maxDistance = 500f;
+            float volume = 1.0f - Math.min(distance / maxDistance, 1.0f); // 0.0 to 1.0
+								
+            if (psc.clip.isControlSupported(FloatControl.Type.PAN)) {
+
+                FloatControl pan = (FloatControl) psc.clip.getControl(FloatControl.Type.PAN);
+                pan.setValue(panValue);
+
+                FloatControl gainControl = (FloatControl) psc.clip.getControl(FloatControl.Type.MASTER_GAIN);
+                volume *= psc.volume;
+                float dB = (volume > 0) ? (float)(20 * Math.log10(volume)) : -80f; // to dB
+                gainControl.setValue(dB); // typically -80.0 to 6.0
+            } else {
+                System.out.println("Pan control not supported");
+            }
+        }
+
+    }
+    
 		@Override
 		public void start(ECS ecs) {}
 		@Override
