@@ -8,12 +8,20 @@ import java.util.List;
 
 
 /**
-	 Use the TimeTrackedanimation if you dont want to track time yourself.
-	 AnimationTrack is a animation of multiple keyFrames where
-	 each keyframe do a apply on a animatable object.
-	 AnimationTrack can be used by the animationComponent that has a list of
-	 them and playes one.
+ * Represents an animation consisting of multiple keyframes.
+ *
+ * <p>Each keyframe specifies a value at a particular point in time.
+ * The animation interpolates between consecutive keyframes and applies
+ * the resulting value to a target {@link Animatable}.
+ *
+ * <p>An {@code AnimationTrack} can be used by an {@code AnimationComponent}
+ * to animate an object as part of the entity-component system.
+ *
+ * <p>For automatic time tracking, consider using {@code TimeTrackedAnimation}.
+ *
+ * @param <T> the type of values animated by this track
  */
+
 public class AnimationTrack<T> implements SerializableComponent {
     public static class Keyframe<T> implements SerializableComponent {
         public float time;

@@ -89,8 +89,7 @@ public class JGameWindow extends JFrame implements GameWindow
 
 						Input.setMousePosition(new Vector2(
 																							 myScene.getCamera().screenToWorldX(x, getWidth()),
-																							 myScene.getCamera().screenToWorldY(y, getHeight())
-																							 ));
+																							 myScene.getCamera().screenToWorldY(y, getHeight())));
 						Graphics2D graphics2D =  (Graphics2D) g;
 						// graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 						// graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);

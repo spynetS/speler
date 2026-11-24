@@ -7,6 +7,15 @@ import com.example.speler.animations.*;
 import com.example.speler.ecs.ECS;
 import com.example.speler.ecs.components.AnimationComponent;
 
+/**
+ * ECS system responsible for updating and advancing animations.
+ *
+ * <p>The system updates registered animation tracks and processes
+ * the currently selected animation track of entities containing
+ * an {@link AnimationComponent}.
+ *
+ * <p>Time-tracked animations are advanced using the frame's delta time.
+ */
 public class AnimationSystem implements UpdateSystem {
     private List<AnimationTrack<?>> activeTracks = new ArrayList<>();
 

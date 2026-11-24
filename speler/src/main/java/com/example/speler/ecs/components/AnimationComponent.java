@@ -10,8 +10,8 @@ import com.google.gson.JsonObject;
 
 public class AnimationComponent implements Component, SerializableComponent {
     public List<AnimationTrack<?>> tracks;
-	public int currentTrack;
-
+    public int currentTrack;
+    
 		public AnimationComponent(){}
     public AnimationComponent(List<AnimationTrack<?>> tracks) {
         this.tracks = tracks;

@@ -1,4 +1,10 @@
+.PHONY: run compile clean
+
 run: compile
-	export _JAVA_AWT_WM_NONREPARENTING=1; cd testgame; mvn exec:java -Dexec.mainClass="com.example.Main"
+	cd testgame && _JAVA_AWT_WM_NONREPARENTING=1 mvn exec:java -Dexec.mainClass="com.example.Main"
+
 compile:
-	mvn clean install
+	mvn install
+
+clean:
+	mvn clean
