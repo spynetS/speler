@@ -13,7 +13,6 @@
 
   <modules>
     <module>speler</module>
-    <module>testgame</module>
   </modules>
 
   <properties>
