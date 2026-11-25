@@ -1,0 +1,50 @@
+package com.github.spynets.speler.ecs.systems;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import com.github.spynets.speler.animations.*;
+import com.github.spynets.speler.ecs.ECS;
+import com.github.spynets.speler.ecs.components.AnimationComponent;
+
+/**
+ * ECS system responsible for updating and advancing animations.
+ *
+ * <p>The system updates registered animation tracks and processes
+ * the currently selected animation track of entities containing
+ * an {@link AnimationComponent}.
+ *
+ * <p>Time-tracked animations are advanced using the frame's delta time.
+ */
+public class AnimationSystem implements UpdateSystem {
+    private List<AnimationTrack<?>> activeTracks = new ArrayList<>();
+
+    public void addTrack(AnimationTrack<?> track) {
+        activeTracks.add(track);
+    }
+
+		public void update(ECS ecs, float deltaTime) {
+				for (AnimationTrack<?> track : activeTracks) {
+						// Each track should track its own elapsed time
+						if (track instanceof TimeTrackedAnimation<?> timeTracked) {
+								timeTracked.update(deltaTime);
+						}
+				}
+
+				for (UUID entityId : ecs.getEntities()) {
+						AnimationComponent ac = ecs.getComponent(entityId, AnimationComponent.class);
+						if (ac == null)
+								continue;
+						AnimationTrack<?> track = ac.tracks.get(ac.currentTrack);
+						if (track instanceof TimeTrackedAnimation) {
+								((TimeTrackedAnimation) track).update(deltaTime);
+						}
+				}
+		}
+
+		@Override
+		public void start(ECS ecs) {
+				// TODO Auto-generated method stub
+
+		}
+}

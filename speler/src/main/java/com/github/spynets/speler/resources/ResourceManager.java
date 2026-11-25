@@ -1,0 +1,96 @@
+package com.github.spynets.speler.resources;
+
+import java.util.Map;
+
+import javax.imageio.ImageIO;
+
+import com.github.spynets.speler.Game;
+
+import java.util.Base64;
+import java.util.HashMap;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.security.MessageDigest;
+
+
+/**
+	 ResourceManager is responsible to load in all resources in to memory
+	 and to easily make them accessible for the components. It holds the
+	 images in a map with a string as key (often path to the file)
+ */
+public class ResourceManager {
+
+	private static Map<String, BufferedImage> images = new HashMap<>();
+
+	public static void loadFolder(File folder) {
+			for (final File fileEntry : folder.listFiles()) {
+					if (fileEntry.isDirectory()) {
+							loadFolder(fileEntry);
+					} else {
+						System.out.println(fileEntry.getName());
+						loadImage(fileEntry.getPath());
+					}
+			}
+	}
+		
+    public static BufferedImage loadImage(String path) {
+        if (!images.containsKey(path)) {
+            try {
+                BufferedImage img = ImageIO.read(new File(path));
+                images.put(path, img);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        return images.get(path);
+    }
+
+		public static String registerImage(BufferedImage image) {
+				try {
+						// Convert image to byte array (e.g., PNG format)
+						ByteArrayOutputStream baos = new ByteArrayOutputStream();
+						ImageIO.write(image, "png", baos);
+						byte[] imageBytes = baos.toByteArray();
+
+						// Compute SHA-256 hash of image bytes
+						MessageDigest digest = MessageDigest.getInstance("SHA-256");
+						byte[] hash = digest.digest(imageBytes);
+
+						// Encode hash to Base64 or hex for readable key
+						String key = Base64.getUrlEncoder().withoutPadding().encodeToString(hash);
+
+						// Optional: shorten key for convenience
+						key = key.substring(0, 16); // first 16 chars is usually enough
+
+						images.put(key, image);
+						return key;
+				} catch (Exception e) {
+						throw new RuntimeException("Error generating image key", e);
+				}
+		}
+
+		public static BufferedImage getImage(String path) {
+			return images.get(path);
+		}
+
+		/***
+				The sprite class is a helper class to make it easier to get
+				images from a string or a sprite sheet.
+		 */
+		public static class Sprite {
+				public static Game game;
+				public static String getSprite(String path) throws Exception {
+						game.getResourceManager().loadImage(path);
+						return path;
+				}
+				public static String getSprite(SpriteSheet sheet, int row, int col) throws Exception {
+						return game.getResourceManager().registerImage(sheet.getFrame(row,col));
+				}
+			 
+		}
+		
+
+}

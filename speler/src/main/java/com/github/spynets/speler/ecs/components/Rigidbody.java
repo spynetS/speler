@@ -1,0 +1,29 @@
+package com.github.spynets.speler.ecs.components;
+
+import com.github.spynets.speler.SerializableComponent;
+import com.github.spynets.speler.Vector2;
+import com.github.spynets.speler.ecs.ECS.Component;
+import com.google.gson.JsonObject;
+
+public class Rigidbody implements Component, SerializableComponent {
+
+		public Vector2 acceleration = new Vector2(0f,1f);
+		public Vector2 friction = new Vector2(0.98f,1f);
+		public boolean useGravity = true;
+		
+		
+		public Rigidbody(){}
+		public Rigidbody(boolean useGravity){ this.useGravity = useGravity;}
+
+		//TODO Serilize correct
+    @Override
+    public JsonObject serialize() {
+		JsonObject obj = new JsonObject();
+
+        return obj;
+    }
+
+    @Override
+    public void deserialize(JsonObject obj) {
+    }
+}

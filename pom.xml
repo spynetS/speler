@@ -1,90 +1,260 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.example</groupId>
-  <artifactId>speler-proj</artifactId>
-  <version>1.0-SNAPSHOT</version>
+
+  <groupId>com.github.spynetS</groupId>
+  <artifactId>speler-parent</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>My Game Engine Parent</name>
+  <name>Speler Parent</name>
+  <description>Aggregator for the Speler game engine and its demos.</description>
+  <url>https://github.com/spynetS/speler</url>
+
+  <licenses>
+    <license>
+      <name>GNU General Public License v3.0</name>
+      <url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
+    </license>
+  </licenses>
+
+  <scm>
+    <url>https://github.com/spynetS/speler</url>
+    <connection>scm:git:https://github.com/spynetS/speler.git</connection>
+    <developerConnection>scm:git:git@github.com:spynetS/speler.git</developerConnection>
+  </scm>
 
   <modules>
     <module>speler</module>
+    <!-- Demos are added here as sibling modules, e.g.:
+         <module>demos/platformer</module> -->
   </modules>
 
   <properties>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <lwjgl.version>3.3.3</lwjgl.version>
+    <gson.version>2.11.0</gson.version>
+    <flatlaf.version>3.6.2</flatlaf.version>
+    <tiledreader.version>1.1.0</tiledreader.version>
+    <junit.version>5.11.4</junit.version>
   </properties>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>3.3.1</version>
-				<configuration>
-					<configLocation>google_checks.xml</configLocation>
-					<failOnViolation>true</failOnViolation>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>verify</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<!-- <plugin> -->
-			<!-- 	<groupId>org.apache.maven.plugins</groupId> -->
-			<!-- 	<artifactId>maven-pmd-plugin</artifactId> -->
-			<!-- 	<version>3.21.0</version> -->
-			<!-- 	<configuration> -->
-			<!-- 		<rulesets> -->
-      <!--       <ruleset>pmd-ruleset.xml</ruleset> -->
-			<!-- 		</rulesets> -->
-			<!-- 		<failOnViolation>true</failOnViolation> -->
-			<!-- 	</configuration> -->
-			<!-- 	<executions> -->
-			<!-- 		<execution> -->
-			<!-- 			<phase>verify</phase> -->
-			<!-- 			<goals> -->
-			<!-- 				<goal>check</goal> -->
-			<!-- 			</goals> -->
-			<!-- 		</execution> -->
-			<!-- 	</executions> -->
-			<!-- </plugin> -->
-
-			
-		</plugins>
-	</build>
-
-
+  <!-- Versions only. Modules declare WHICH deps they need, never which version. -->
   <dependencyManagement>
     <dependencies>
-      <!-- Shared dependencies or versions go here -->
+      <!-- Manages every org.lwjgl artifact, including natives classifiers. -->
       <dependency>
-        <groupId>com.formdev</groupId>
-        <artifactId>flatlaf</artifactId>
-        <version>3.6.2</version>
+        <groupId>org.lwjgl</groupId>
+        <artifactId>lwjgl-bom</artifactId>
+        <version>${lwjgl.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.tiledreader</groupId>
+        <artifactId>TiledReader</artifactId>
+        <version>${tiledreader.version}</version>
       </dependency>
       <dependency>
         <groupId>com.google.code.gson</groupId>
         <artifactId>gson</artifactId>
-        <version>2.11.0</version>
+        <version>${gson.version}</version>
       </dependency>
       <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>3.8.1</version>
-        <scope>test</scope>
+        <groupId>com.formdev</groupId>
+        <artifactId>flatlaf</artifactId>
+        <version>${flatlaf.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <build>
+    <!-- Plugin versions/config only. A module opts in by naming the plugin
+         with no version; demos pick up shade, the engine picks up javadoc. -->
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.13.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.2.5</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.4.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>3.3.1</version>
+          <executions>
+            <execution>
+              <id>attach-sources</id>
+              <goals>
+                <goal>jar-no-fork</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>3.6.3</version>
+          <configuration>
+            <!-- Engine javadoc is incomplete; don't fail the build over it. -->
+            <doclint>none</doclint>
+            <quiet>true</quiet>
+          </configuration>
+          <executions>
+            <execution>
+              <id>attach-javadocs</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <!-- Only demos/tools should bind this. A library must not be shaded. -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>3.5.3</version>
+          <configuration>
+            <createDependencyReducedPom>false</createDependencyReducedPom>
+            <filters>
+              <filter>
+                <artifact>*:*</artifact>
+                <excludes>
+                  <exclude>META-INF/*.SF</exclude>
+                  <exclude>META-INF/*.DSA</exclude>
+                  <exclude>META-INF/*.RSA</exclude>
+                  <exclude>module-info.class</exclude>
+                </excludes>
+              </filter>
+            </filters>
+          </configuration>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>shade</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>3.2.0</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.3.1</version>
+        <configuration>
+          <configLocation>google_checks.xml</configLocation>
+          <failOnViolation>true</failOnViolation>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <!-- Picks the right LWJGL natives for whoever is building or consuming.
+       These are re-evaluated on the consumer's machine, so a Windows user
+       depending on the engine resolves natives-windows, not natives-linux. -->
+  <profiles>
+    <profile>
+      <id>natives-linux</id>
+      <activation>
+        <os>
+          <family>unix</family>
+          <name>linux</name>
+          <arch>amd64</arch>
+        </os>
+      </activation>
+      <properties>
+        <lwjgl.natives>natives-linux</lwjgl.natives>
+      </properties>
+    </profile>
+    <profile>
+      <id>natives-linux-arm64</id>
+      <activation>
+        <os>
+          <family>unix</family>
+          <name>linux</name>
+          <arch>aarch64</arch>
+        </os>
+      </activation>
+      <properties>
+        <lwjgl.natives>natives-linux-arm64</lwjgl.natives>
+      </properties>
+    </profile>
+    <profile>
+      <id>natives-macos</id>
+      <activation>
+        <os>
+          <family>mac</family>
+          <arch>x86_64</arch>
+        </os>
+      </activation>
+      <properties>
+        <lwjgl.natives>natives-macos</lwjgl.natives>
+      </properties>
+    </profile>
+    <profile>
+      <id>natives-macos-arm64</id>
+      <activation>
+        <os>
+          <family>mac</family>
+          <arch>aarch64</arch>
+        </os>
+      </activation>
+      <properties>
+        <lwjgl.natives>natives-macos-arm64</lwjgl.natives>
+      </properties>
+    </profile>
+    <profile>
+      <id>natives-windows</id>
+      <activation>
+        <os>
+          <family>windows</family>
+          <arch>amd64</arch>
+        </os>
+      </activation>
+      <properties>
+        <lwjgl.natives>natives-windows</lwjgl.natives>
+      </properties>
+    </profile>
+  </profiles>
 </project>

@@ -24,8 +24,8 @@ Thumbs.db
 
 # Ignore generated files (optional, if any)
 /out/
-/speler/target/
-/testgame/target/
+target/
+dependency-reduced-pom.xml
 
 # Ignore libs if you don't want to commit dependencies
 /lib/

@@ -1,26 +1,57 @@
 This is a simple 2D engine with simular structure to unity.
 It is developed in Java Swing.
 
+# Installation
+
+Speler is a library — add it to your own game project rather than building inside
+this repo. Releases are served by [JitPack](https://jitpack.io) straight from git tags.
+
+```xml
+<repositories>
+  <repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+  </repository>
+</repositories>
+
+<dependencies>
+  <dependency>
+    <groupId>com.github.spynetS.speler</groupId>
+    <artifactId>speler</artifactId>
+    <version>v0.1.0</version>
+  </dependency>
+</dependencies>
+```
+
+Requires Java 17 or newer. The correct LWJGL native libraries for your platform
+(Linux, macOS incl. Apple Silicon, and Windows) are selected automatically — you
+do not need to declare them yourself.
+
+To build the engine from source instead:
+
+```sh
+mvn install     # or: make install
+```
 
 # Getting started
 
 Simplest demo here is creating a scene with an empty rectangle
 
 ```java
-import com.example.speler.Game;
-import com.example.speler.Scene;
-import com.example.speler.input.Input;
-import com.example.speler.input.Keys;
-import com.example.speler.swing.JGameWindow;
-import com.example.speler.swing.SwingRenderer;
-import com.example.speler.opengl.GLRenderer;
-import com.example.speler.opengl.GLGameWindow;
-import com.example.speler.scripting.GameObject;
-import com.example.speler.ecs.components.*;
-import com.example.speler.resources.ResourceManager.Sprite;
-import com.example.speler.ecs.components.ui.TextElement;
-import com.example.speler.Vector2;
-import com.example.speler.scripting.*;
+import com.github.spynets.speler.Game;
+import com.github.spynets.speler.Scene;
+import com.github.spynets.speler.input.Input;
+import com.github.spynets.speler.input.Keys;
+import com.github.spynets.speler.swing.JGameWindow;
+import com.github.spynets.speler.swing.SwingRenderer;
+import com.github.spynets.speler.opengl.GLRenderer;
+import com.github.spynets.speler.opengl.GLGameWindow;
+import com.github.spynets.speler.scripting.GameObject;
+import com.github.spynets.speler.ecs.components.*;
+import com.github.spynets.speler.resources.ResourceManager.Sprite;
+import com.github.spynets.speler.ecs.components.ui.TextElement;
+import com.github.spynets.speler.Vector2;
+import com.github.spynets.speler.scripting.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -77,20 +108,20 @@ public class Main {
 Gameobject with movement using rigidbody
 
 ```java
-import com.example.speler.Game;
-import com.example.speler.Scene;
-import com.example.speler.input.Input;
-import com.example.speler.input.Keys;
-import com.example.speler.swing.JGameWindow;
-import com.example.speler.swing.SwingRenderer;
-import com.example.speler.opengl.GLRenderer;
-import com.example.speler.opengl.GLGameWindow;
-import com.example.speler.scripting.GameObject;
-import com.example.speler.ecs.components.*;
-import com.example.speler.resources.ResourceManager.Sprite;
-import com.example.speler.ecs.components.ui.TextElement;
-import com.example.speler.Vector2;
-import com.example.speler.scripting.*;
+import com.github.spynets.speler.Game;
+import com.github.spynets.speler.Scene;
+import com.github.spynets.speler.input.Input;
+import com.github.spynets.speler.input.Keys;
+import com.github.spynets.speler.swing.JGameWindow;
+import com.github.spynets.speler.swing.SwingRenderer;
+import com.github.spynets.speler.opengl.GLRenderer;
+import com.github.spynets.speler.opengl.GLGameWindow;
+import com.github.spynets.speler.scripting.GameObject;
+import com.github.spynets.speler.ecs.components.*;
+import com.github.spynets.speler.resources.ResourceManager.Sprite;
+import com.github.spynets.speler.ecs.components.ui.TextElement;
+import com.github.spynets.speler.Vector2;
+import com.github.spynets.speler.scripting.*;
 
 public class Main {
     public static void main(String[] args) {
