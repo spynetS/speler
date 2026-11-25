@@ -17,11 +17,11 @@
             }
         },
         "map.tmx": {
-            "scale": 0.75,
-            "selectedLayer": 1,
+            "scale": 1.5,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 420,
-                "y": 385.99999999999994
+                "x": 230.66666666666669,
+                "y": 165.66666666666663
             }
         },
         "plants free.tsj": {
@@ -47,13 +47,12 @@
     "map.tileWidth": 16,
     "openFiles": [
         "map.tmx",
-        "spring farm tilemap.tsx",
-        "map.tmx"
+        "spring farm tilemap.tsx"
     ],
     "project": "farm.tiled-project",
     "recentFiles": [
-        "map.tmx",
         "spring farm tilemap.tsx",
+        "map.tmx",
         "map.tmj"
     ],
     "tileset.lastUsedFormat": "tsx",

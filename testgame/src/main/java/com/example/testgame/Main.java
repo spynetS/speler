@@ -65,7 +65,7 @@ public class Main {
                             ob.addComponent(component);
 
                             ob.transform.worldScale = new Vector2(size,size);
-                            ob.transform.position = new Vector2(x*size-100,y*size-100);
+                            ob.transform.position = new Vector2((x-map.getWidth()/2)*size,(y-map.getHeight()/2)*size);
 
                 
                         } catch(Exception e){
