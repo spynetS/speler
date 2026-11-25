@@ -1,6 +1,7 @@
 package com.github.spynets.speler.ecs.components;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import com.github.spynets.speler.SerializableComponent;
 import com.github.spynets.speler.animations.AnimationTrack;
@@ -9,7 +10,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class AnimationComponent implements Component, SerializableComponent {
-    public List<AnimationTrack<?>> tracks;
+    public List<AnimationTrack<?>> tracks = new ArrayList<>();
     public int currentTrack;
     
 		public AnimationComponent(){}

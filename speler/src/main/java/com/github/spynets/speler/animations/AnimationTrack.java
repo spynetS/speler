@@ -23,7 +23,8 @@ import java.util.List;
  */
 
 public class AnimationTrack<T> implements SerializableComponent {
-    public static class Keyframe<T> implements SerializableComponent {
+  
+  public static class Keyframe<T> implements SerializableComponent {
         public float time;
         public T value;
 
@@ -31,6 +32,11 @@ public class AnimationTrack<T> implements SerializableComponent {
             this.time = time;
             this.value = value;
         }
+
+      @Override
+      public String toString() {
+          return (String)value;
+      }
 
         @Override
         public JsonObject serialize() {
