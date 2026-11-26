@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
+import com.github.spynets.speler.ecs.Camera;
 import com.github.spynets.speler.ecs.CollisionEvent;
 import com.github.spynets.speler.ecs.CollisionManifold;
 import com.github.spynets.speler.ecs.ECS;
@@ -11,6 +12,7 @@ import com.github.spynets.speler.ecs.ECS.Component;
 import com.github.spynets.speler.ecs.components.*;
 import com.github.spynets.speler.ecs.listeners.CollisionListener;
 import com.github.spynets.speler.ecs.listeners.EntityListener;
+import com.github.spynets.speler.render.Renderer;
 
 public class ColliderSystem implements UpdateSystem, EntityListener {
 
@@ -247,7 +249,6 @@ public class ColliderSystem implements UpdateSystem, EntityListener {
 		public void onComponentAdded(UUID id, Component component) {} // not used
 		@Override
 		public void onComponentRemoved(UUID id, Component component) {} // not used
-
 }
 
 

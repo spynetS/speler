@@ -13,7 +13,7 @@ package com.github.spynets.speler.animations;
  *
  * @param <T> the type of values animated by this track
  */
-public class TimeTrackedAnimation<T> extends AnimationTrack<T> {
+public class TimeTrackedAnimation<T> extends AnimationTrack<T>  {
     private float elapsed = 0f;
 
     public TimeTrackedAnimation(java.util.List<Keyframe<T>> keyframes, Animatable<T> target, boolean loop) {
@@ -24,4 +24,13 @@ public class TimeTrackedAnimation<T> extends AnimationTrack<T> {
         elapsed += deltaTime;
         apply(elapsed);
     }
+
+    @Override
+    protected void animationEnded() {
+        // TODO Auto-generated method stub
+        super.animationEnded();
+        this.elapsed = 0;
+    }
+
+
 }

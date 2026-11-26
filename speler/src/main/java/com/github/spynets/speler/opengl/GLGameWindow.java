@@ -3,6 +3,7 @@ package com.github.spynets.speler.opengl;
 import com.github.spynets.speler.GameWindow;
 import com.github.spynets.speler.Scene;
 import com.github.spynets.speler.Vector2;
+import com.github.spynets.speler.debug.DebugInfo;
 import com.github.spynets.speler.input.Input;
 
 import org.lwjgl.glfw.*;
@@ -220,5 +221,8 @@ public class GLGameWindow implements GameWindow {
 
     public GLRenderer getRenderer() {
         return renderer;
+    }
+
+    public void renderDebug(DebugInfo info) {
     }
 }

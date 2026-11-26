@@ -21,6 +21,7 @@ public class SpriteRenderSystem implements RenderSystem {
             Transform t = ecs.getComponent(id, Transform.class);
             SpriteComponent sprite = ecs.getComponent(id, SpriteComponent.class);
             Renderable r = ecs.getComponent(id, Renderable.class);
+            ColliderComponent cp = ecs.getComponent(id, ColliderComponent.class);
 
             if (t == null) continue;
 
@@ -33,6 +34,14 @@ public class SpriteRenderSystem implements RenderSystem {
                 renderer.drawRect(
                         t.worldPosition,
                         t.worldScale,
+                        t.worldRotation
+                );
+            }
+
+            if (cp != null) {
+                renderer.drawRect(
+                        t.worldPosition,
+                        t.worldScale.add(new Vector2(cp.width, cp.height)),
                         t.worldRotation
                 );
             }

@@ -1,6 +1,7 @@
 package com.github.spynets.speler;
 
 import com.github.spynets.speler.ecs.*;
+import com.github.spynets.speler.ecs.systems.ColliderSystem;
 import com.github.spynets.speler.ecs.systems.RenderSystem;
 import com.github.spynets.speler.ecs.systems.SpriteRenderSystem;
 import com.github.spynets.speler.ecs.systems.UiRenderSystem;

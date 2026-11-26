@@ -1,6 +1,7 @@
 package com.github.spynets.speler.animations;
 
 import com.github.spynets.speler.SerializableComponent;
+import com.github.spynets.speler.animations.AnimationListener;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.util.ArrayList;
@@ -22,9 +23,9 @@ import java.util.List;
  * @param <T> the type of values animated by this track
  */
 
-public class AnimationTrack<T> implements SerializableComponent {
+public abstract class AnimationTrack<T> implements SerializableComponent {
   
-  public static class Keyframe<T> implements SerializableComponent {
+    public static class Keyframe<T> implements SerializableComponent {
         public float time;
         public T value;
 
@@ -33,10 +34,10 @@ public class AnimationTrack<T> implements SerializableComponent {
             this.value = value;
         }
 
-      @Override
-      public String toString() {
-          return (String)value;
-      }
+        @Override
+        public String toString() {
+            return (String)value;
+        }
 
         @Override
         public JsonObject serialize() {
@@ -57,6 +58,7 @@ public class AnimationTrack<T> implements SerializableComponent {
     private List<Keyframe<T>> keyframes;
     private Animatable<T> target;
     private boolean loop;
+    private List<AnimationListener> listeners = new ArrayList();
 
     public AnimationTrack(List<Keyframe<T>> keyframes, Animatable<T> target, boolean loop) {
         this.keyframes = keyframes;
@@ -64,10 +66,38 @@ public class AnimationTrack<T> implements SerializableComponent {
         this.loop = loop;
     }
 
+    public void addListener(AnimationListener listener) {
+        this.listeners.add(listener);
+    }
+
+    /**
+     * Applies the value for the given point in time to the target.
+     *
+     * <p>The last keyframe marks where the track ends: its time is the total
+     * duration, and when looping the cycle wraps before reaching it. A track
+     * of N visible values therefore needs N+1 keyframes, the last acting as a
+     * terminator that supplies the duration of the one before it.
+     *
+     * @param elapsedTime seconds since the animation started
+     */
     public void apply(float elapsedTime) {
         if (keyframes.size() == 0) return;
 
+        if(elapsedTime == 0) {
+            this.animationStarted();
+        }
+
         float totalDuration = keyframes.get(keyframes.size() - 1).time;
+
+        if (elapsedTime >= totalDuration) {
+            this.animationEnded();
+        }
+        // A single keyframe, or one sitting at time zero, has no span to walk
+        // across; apply it directly rather than dividing by a zero duration.
+        if (totalDuration <= 0f) {
+            target.apply(keyframes.get(0).value);
+            return;
+        }
         float t = loop ? elapsedTime % totalDuration : Math.min(elapsedTime, totalDuration);
 
         for (int i = 0; i < keyframes.size() - 1; i++) {
@@ -80,6 +110,7 @@ public class AnimationTrack<T> implements SerializableComponent {
                 return;
             }
         }
+    
         target.apply(keyframes.get(keyframes.size() - 1).value);
     }
 
@@ -93,6 +124,20 @@ public class AnimationTrack<T> implements SerializableComponent {
         // Extend for Vector2, Color, etc.
         return v1;
     }
+
+
+    protected void animationEnded(){
+        for(AnimationListener listener : listeners) {
+            listener.animationEnded();
+        }
+    }
+
+    protected void animationStarted(){
+        for(AnimationListener listener : listeners) {
+            listener.animationStarted();
+        }
+    }
+
 
     // Serialization for the whole track
     @Override

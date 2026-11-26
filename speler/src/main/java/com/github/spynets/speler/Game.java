@@ -1,5 +1,6 @@
 package com.github.spynets.speler;
 
+import com.github.spynets.speler.debug.DebugInfo;
 import com.github.spynets.speler.ecs.*;
 import com.github.spynets.speler.ecs.systems.*;
 import com.github.spynets.speler.resources.*;
@@ -8,7 +9,7 @@ import com.github.spynets.speler.resources.ResourceManager.Sprite;
 
 public class Game implements Runnable {
 		private boolean running = true;
-
+    private int current_fps = 60;
 
 		protected ResourceManager resourceManager;
 		protected GameWindow window;
@@ -65,8 +66,10 @@ public class Game implements Runnable {
 				long lastTime = System.nanoTime();
 				double delta = 0;
 
-				// long timer = System.currentTimeMillis(); // for FPS counting
-				// int frames = 0; // rendered frames
+
+
+				long lastFpsTime = System.nanoTime(); // for FPS counting
+				int frames = 0; // rendered frames
 
 				while (running) {
 						long now = System.nanoTime();
@@ -78,13 +81,21 @@ public class Game implements Runnable {
 								delta--;
 						}
 
-						render(); // draw the current state
-						// frames++;
+            render(); // draw the current state
+            frames++;
+            // Update FPS once per second
+            if (now - lastFpsTime >= 1_000_000_000L) {
+                current_fps = frames;
+                frames = 0;
+                lastFpsTime += 1_000_000_000L;
+            }
+
 						// reset mouse pressed
 						//						Input.setMousePressed(1000);
 						// Sleep to cap render FPS
 						long frameTime = System.nanoTime() - now;
 						long sleepTime = (long) TIME_PER_FRAME - frameTime;
+
 						if (sleepTime > 0) {
 							try {
 								Thread.sleep(sleepTime / 1_000_000, (int) (sleepTime % 1_000_000));
@@ -105,6 +116,22 @@ public class Game implements Runnable {
 
 		protected void render() {
 				getWindow().renderWindow();
+
+        Runtime runtime = Runtime.getRuntime();
+
+        long usedMemory = runtime.totalMemory() - runtime.freeMemory();
+        long maxMemory = runtime.maxMemory();
+
+				getWindow().renderDebug(new DebugInfo(this.current_fps,
+                                              0.0f,
+                                              ecs.getEntities().size(),
+                                              0,
+                                              ecs.updateSystems.size(),
+                                              0,
+                                              0,
+                                              usedMemory,
+                                              maxMemory));
+        
 		}
 
 

@@ -35,6 +35,10 @@ public class AnimationSystem implements UpdateSystem {
 						AnimationComponent ac = ecs.getComponent(entityId, AnimationComponent.class);
 						if (ac == null)
 								continue;
+						// A component with no tracks yet would throw out of the update
+						// loop and stop every other entity's animation with it.
+						if (ac.currentTrack < 0 || ac.currentTrack >= ac.tracks.size())
+								continue;
 						AnimationTrack<?> track = ac.tracks.get(ac.currentTrack);
 						if (track instanceof TimeTrackedAnimation) {
 								((TimeTrackedAnimation) track).update(deltaTime);
