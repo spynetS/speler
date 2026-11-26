@@ -35,14 +35,14 @@ public class LevelLoader {
     private final Map<TiledTileset, SpriteSheet> sheets = new HashMap<>();
     private final Map<TiledTile, String> spriteKeys = new HashMap<>();
 
-    private List<ObjectListener> objectListeners = new ArrayList<>();
-    private ObjectListener objectHandler;
+    private ObjectHandler objectHandler;
+    private TiledMap map;
 
     public LevelLoader(Game game) {
         this.game = game;
     }
 
-    public void setObjectHandler(ObjectListener listener) {
+    public void setObjectHandler(ObjectHandler listener) {
         this.objectHandler = listener;
     }
 
@@ -50,8 +50,8 @@ public class LevelLoader {
     public void load(String mapPath) throws Exception {
 
         FileSystemTiledReader reader = new FileSystemTiledReader();
-        TiledMap map = reader.getMap(mapPath);
-
+        this.map = reader.getMap(mapPath);
+        
         for(TiledTileset tileset : map.getTilesets()){
             ResourceManager.loadImage(tileset.getImage().getSource());
         }
@@ -71,18 +71,17 @@ public class LevelLoader {
                         SpriteComponent spriteComponent = new SpriteComponent();
                         spriteComponent.order = false;
                         ob.addComponent(spriteComponent);
-                        //ob.addComponent(new Renderable());
 
                         if (tile.getNumAnimationFrames() > 0) {
                             ob.addComponent(animationFor(tile, spriteComponent));
                         } else {
                             spriteComponent.image = spriteFor(tile);
                         }
-                        
+
 
                         ob.transform.worldScale = new Vector2(size,size);
-                        //                        ob.transform.position = new Vector2((x-map.getWidth()/2)*size,(y-map.getHeight()/2)*size);
-                        ob.transform.position = new Vector2((x)*size,(y)*size);
+                        ob.transform.position = new Vector2((x-map.getWidth()/2)*size,(y-map.getHeight()/2)*size);
+                        //ob.transform.position = new Vector2((x)*(size),(y)*size);
                     }
                 }
             }
@@ -92,7 +91,12 @@ public class LevelLoader {
                     if (objectHandler == null){
                         throw new Exception("No object handler was here");
                     }
-                    objectHandler.loadedObject(obj);
+                    Vector2 position = tiledToWorld(
+                                                    obj.getX() + obj.getWidth() / 2f,
+                                                    obj.getY() + obj.getHeight() / 2f,
+                                                    map
+                                                   );
+                    objectHandler.instaniateObject(obj, position);
                 }
             }
         }
@@ -130,6 +134,19 @@ public class LevelLoader {
         component.currentTrack = 0;
         return component;
     }
+
+    public Vector2 tiledToWorld(float x, float y, TiledMap map) {
+        float scale = 50f / map.getTileWidth();
+
+        float mapWidth = map.getWidth() * map.getTileWidth();
+        float mapHeight = map.getHeight() * map.getTileHeight();
+
+        return new Vector2(
+                           (x - mapWidth / 2f) * scale,
+                           (mapHeight / 2f - y) * scale
+                          );
+    }
+
 
     /***
         Slices a tile out of its tileset image and returns the resource key the
