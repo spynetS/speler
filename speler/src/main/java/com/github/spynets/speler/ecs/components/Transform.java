@@ -12,7 +12,10 @@ import com.google.gson.JsonObject;
 
 public class Transform implements Component, SerializableComponent {
 		public Vector2 position = new Vector2();
-		public Vector2 scale = new Vector2();
+		// Local scale is a multiplier against the parent's worldScale, so it has
+		// to start at identity. At (0,0) every child collapses to zero size the
+		// moment it is parented.
+		public Vector2 scale = new Vector2(1,1);
     public float rotation = 0;
 
 		public Vector2 worldPosition = new Vector2();

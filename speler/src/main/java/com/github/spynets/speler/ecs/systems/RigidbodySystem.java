@@ -33,8 +33,12 @@ public class RigidbodySystem implements UpdateSystem, CollisionListener {
 								rb.acceleration = rb.acceleration.multiply(rb.friction);
 							
 								Transform transform = ecs.getComponent(entity, Transform.class);
-								transform.worldPosition.setX(transform.worldPosition.getX() + rb.acceleration.getX()*deltaTime);
-								transform.worldPosition.setY(transform.worldPosition.getY() + rb.acceleration.getY()*deltaTime);
+								if(transform == null) continue;
+								// Integrate into the local position: ParentSystem derives
+								// worldPosition from it every frame, so anything written to
+								// worldPosition here is overwritten before it is ever drawn.
+								transform.position.setX(transform.position.getX() + rb.acceleration.getX()*deltaTime);
+								transform.position.setY(transform.position.getY() + rb.acceleration.getY()*deltaTime);
 								if(rb.useGravity)
 										rb.acceleration.setY(rb.acceleration.getY() + 9.82f * 0.5f);
 						}

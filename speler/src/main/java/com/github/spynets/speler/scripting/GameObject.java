@@ -76,7 +76,7 @@ public class GameObject  {
 				if (pc == null)
 					continue;
 
-				if (pc.parentId == this.id) {
+				if (this.id.equals(pc.parentId)) {
 					children.add(new GameObject(ecs, entity));
 				}
 
