@@ -96,7 +96,7 @@ public class LevelLoader {
                                                     obj.getY() + obj.getHeight() / 2f,
                                                     map
                                                    );
-                    objectHandler.instaniateObject(obj, position);
+                    objectHandler.instaniateObject(obj, position.multiply(new Vector2(1,-1)));
                 }
             }
         }
