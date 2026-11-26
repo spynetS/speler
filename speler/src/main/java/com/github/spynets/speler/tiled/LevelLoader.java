@@ -28,6 +28,14 @@ import com.github.spynets.speler.scripting.GameObject;
 
 
 public class LevelLoader {
+
+    /***
+        World units a single tile is drawn at, whatever its authored pixel size.
+        Everything that converts Tiled coordinates scales by this, so it has to
+        be the one place the number lives.
+     **/
+    public static final float TILE_WORLD_SIZE = 50f;
+
     Game game = null;
 
     // org.mapeditor.core.Map is the Tiled map, so the lookup table has to name
@@ -54,7 +62,6 @@ public class LevelLoader {
         // nothing to preload here.
         this.map = reader.readMap(mapPath);
 
-        int size = 50;
         for(MapLayer layer: map.getLayers()){
 
             if (layer instanceof TileLayer) {
@@ -78,9 +85,18 @@ public class LevelLoader {
                         }
 
 
-                        ob.transform.worldScale = new Vector2(size,size);
-                        ob.transform.position = new Vector2((x-map.getWidth()/2)*size,(y-map.getHeight()/2)*size);
-                        //ob.transform.position = new Vector2((x)*(size),(y)*size);
+                        ob.transform.worldScale = new Vector2(TILE_WORLD_SIZE, TILE_WORLD_SIZE);
+                        // The renderer draws a sprite centred on its position, so
+                        // place the tile at the centre of its cell and run it
+                        // through the same transform the object layers use. Using
+                        // the grid index alone put every tile half a tile up and
+                        // left of the objects, and map.getWidth()/2 truncated on
+                        // odd sized maps for another half tile on top.
+                        ob.transform.position = tiledToWorld(
+                                (x + 0.5f) * map.getTileWidth(),
+                                (y + 0.5f) * map.getTileHeight(),
+                                map
+                            ).multiply(new Vector2(1,-1));
                     }
                 }
             }
@@ -98,7 +114,6 @@ public class LevelLoader {
                     Vector2 position = tiledToWorld((float)(obj.getX() + width / 2d),
                                                     (float)(obj.getY() + height / 2d),
                                                     map);
-
                     Transform trans = new Transform();
                     trans.position = position.multiply(new Vector2(1,-1));
 
@@ -119,6 +134,33 @@ public class LevelLoader {
 
     }
 
+    public Vector2 tiledSizeToWorld(float width, float height, Map map) {
+        return new Vector2(
+                           width * TILE_WORLD_SIZE / map.getTileWidth(),
+                           height * TILE_WORLD_SIZE / map.getTileHeight()
+                          );
+    }
+
+    /***
+        Maps a point in Tiled pixel space to world space, origin at the centre
+        of the map and Y pointing up.
+     **/
+    public Vector2 tiledToWorld(float x, float y, Map map) {
+        // Each axis scales by its own ratio: a tile is always drawn
+        // TILE_WORLD_SIZE square no matter how its pixels were authored, so
+        // reusing the X ratio for Y skews every coordinate on a map whose
+        // tiles are not square.
+        float scaleX = TILE_WORLD_SIZE / map.getTileWidth();
+        float scaleY = TILE_WORLD_SIZE / map.getTileHeight();
+
+        float mapWidth = map.getWidth() * TILE_WORLD_SIZE;
+        float mapHeight = map.getHeight() * TILE_WORLD_SIZE;
+
+        return new Vector2(
+                           x * scaleX - mapWidth / 2f,
+                           mapHeight / 2f - y * scaleY
+                          );
+    }
 
     /***
         Returns the tile's animation, or null when it is a still tile. An empty
@@ -170,27 +212,6 @@ public class LevelLoader {
         return component;
     }
 
-    public Vector2 tiledSizeToWorld(float width, float height, Map map) {
-        float scaleX = 50f / map.getTileWidth();
-        float scaleY = 50f / map.getTileHeight();
-
-        return new Vector2(
-                           width * scaleX,
-                           height * scaleY
-                          );
-    }
-
-    public Vector2 tiledToWorld(float x, float y, Map map) {
-        float scale = 50f / map.getTileWidth();
-
-        float mapWidth = map.getWidth() * 50f;
-        float mapHeight = map.getHeight() * map.getTileHeight() * scale;
-
-        return new Vector2(
-                           x * scale - mapWidth / 2f,
-                           mapHeight / 2f - y * scale
-                          );
-    }
 
 
     /***
