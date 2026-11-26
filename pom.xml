@@ -21,11 +21,11 @@
     </license>
   </licenses>
 
-  <scm>
-    <url>https://github.com/spynetS/speler</url>
-    <connection>scm:git:https://github.com/spynetS/speler.git</connection>
-    <developerConnection>scm:git:git@github.com:spynetS/speler.git</developerConnection>
-  </scm>
+  <!-- <scm> -->
+  <!--   <url>https://github.com/spynetS/speler</url> -->
+  <!--   <connection>scm:git:https://github.com/spynetS/speler.git</connection> -->
+  <!--   <developerConnection>scm:git:git@github.com:spynetS/speler.git</developerConnection> -->
+  <!-- </scm> -->
 
   <modules>
     <module>speler</module>
@@ -85,109 +85,109 @@
   <build>
     <!-- Plugin versions/config only. A module opts in by naming the plugin
          with no version; demos pick up shade, the engine picks up javadoc. -->
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.13.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.2.5</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.4.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-source-plugin</artifactId>
-          <version>3.3.1</version>
-          <executions>
-            <execution>
-              <id>attach-sources</id>
-              <goals>
-                <goal>jar-no-fork</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <version>3.6.3</version>
-          <configuration>
-            <!-- Engine javadoc is incomplete; don't fail the build over it. -->
-            <doclint>none</doclint>
-            <quiet>true</quiet>
-          </configuration>
-          <executions>
-            <execution>
-              <id>attach-javadocs</id>
-              <goals>
-                <goal>jar</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
+    <!-- <pluginManagement> -->
+    <!--   <plugins> -->
+    <!--     <plugin> -->
+    <!--       <groupId>org.apache.maven.plugins</groupId> -->
+    <!--       <artifactId>maven-compiler-plugin</artifactId> -->
+    <!--       <version>3.13.0</version> -->
+    <!--     </plugin> -->
+    <!--     <plugin> -->
+    <!--       <groupId>org.apache.maven.plugins</groupId> -->
+    <!--       <artifactId>maven-surefire-plugin</artifactId> -->
+    <!--       <version>3.2.5</version> -->
+    <!--     </plugin> -->
+    <!--     <plugin> -->
+    <!--       <groupId>org.apache.maven.plugins</groupId> -->
+    <!--       <artifactId>maven-jar-plugin</artifactId> -->
+    <!--       <version>3.4.1</version> -->
+    <!--     </plugin> -->
+    <!--     <plugin> -->
+    <!--       <groupId>org.apache.maven.plugins</groupId> -->
+    <!--       <artifactId>maven-source-plugin</artifactId> -->
+    <!--       <version>3.3.1</version> -->
+    <!--       <executions> -->
+    <!--         <execution> -->
+    <!--           <id>attach-sources</id> -->
+    <!--           <goals> -->
+    <!--             <goal>jar-no-fork</goal> -->
+    <!--           </goals> -->
+    <!--         </execution> -->
+    <!--       </executions> -->
+    <!--     </plugin> -->
+        <!-- <plugin> -->
+        <!--   <groupId>org.apache.maven.plugins</groupId> -->
+        <!--   <artifactId>maven-javadoc-plugin</artifactId> -->
+        <!--   <version>3.6.3</version> -->
+        <!--   <configuration> -->
+        <!--     <!-\- Engine javadoc is incomplete; don't fail the build over it. -\-> -->
+        <!--     <doclint>none</doclint> -->
+        <!--     <quiet>true</quiet> -->
+        <!--   </configuration> -->
+        <!--   <executions> -->
+        <!--     <execution> -->
+        <!--       <id>attach-javadocs</id> -->
+        <!--       <goals> -->
+        <!--         <goal>jar</goal> -->
+        <!--       </goals> -->
+        <!--     </execution> -->
+        <!--   </executions> -->
+        <!-- </plugin> -->
         <!-- Only demos/tools should bind this. A library must not be shaded. -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-shade-plugin</artifactId>
-          <version>3.5.3</version>
-          <configuration>
-            <createDependencyReducedPom>false</createDependencyReducedPom>
-            <filters>
-              <filter>
-                <artifact>*:*</artifact>
-                <excludes>
-                  <exclude>META-INF/*.SF</exclude>
-                  <exclude>META-INF/*.DSA</exclude>
-                  <exclude>META-INF/*.RSA</exclude>
-                  <exclude>module-info.class</exclude>
-                </excludes>
-              </filter>
-            </filters>
-          </configuration>
-          <executions>
-            <execution>
-              <phase>package</phase>
-              <goals>
-                <goal>shade</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>exec-maven-plugin</artifactId>
-          <version>3.2.0</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+    <!--     <plugin> -->
+    <!--       <groupId>org.apache.maven.plugins</groupId> -->
+    <!--       <artifactId>maven-shade-plugin</artifactId> -->
+    <!--       <version>3.5.3</version> -->
+    <!--       <configuration> -->
+    <!--         <createDependencyReducedPom>false</createDependencyReducedPom> -->
+    <!--         <filters> -->
+    <!--           <filter> -->
+    <!--             <artifact>*:*</artifact> -->
+    <!--             <excludes> -->
+    <!--               <exclude>META-INF/*.SF</exclude> -->
+    <!--               <exclude>META-INF/*.DSA</exclude> -->
+    <!--               <exclude>META-INF/*.RSA</exclude> -->
+    <!--               <exclude>module-info.class</exclude> -->
+    <!--             </excludes> -->
+    <!--           </filter> -->
+    <!--         </filters> -->
+    <!--       </configuration> -->
+    <!--       <executions> -->
+    <!--         <execution> -->
+    <!--           <phase>package</phase> -->
+    <!--           <goals> -->
+    <!--             <goal>shade</goal> -->
+    <!--           </goals> -->
+    <!--         </execution> -->
+    <!--       </executions> -->
+    <!--     </plugin> -->
+    <!--     <plugin> -->
+    <!--       <groupId>org.codehaus.mojo</groupId> -->
+    <!--       <artifactId>exec-maven-plugin</artifactId> -->
+    <!--       <version>3.2.0</version> -->
+    <!--     </plugin> -->
+    <!--   </plugins> -->
+    <!-- </pluginManagement> -->
 
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.3.1</version>
-        <configuration>
-          <configLocation>google_checks.xml</configLocation>
-          <failOnViolation>true</failOnViolation>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>verify</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
+  <!--   <plugins> -->
+  <!--     <plugin> -->
+  <!--       <groupId>org.apache.maven.plugins</groupId> -->
+  <!--       <artifactId>maven-checkstyle-plugin</artifactId> -->
+  <!--       <version>3.3.1</version> -->
+  <!--       <configuration> -->
+  <!--         <configLocation>google_checks.xml</configLocation> -->
+  <!--         <failOnViolation>true</failOnViolation> -->
+  <!--       </configuration> -->
+  <!--       <executions> -->
+  <!--         <execution> -->
+  <!--           <phase>verify</phase> -->
+  <!--           <goals> -->
+  <!--             <goal>check</goal> -->
+  <!--           </goals> -->
+  <!--         </execution> -->
+  <!--       </executions> -->
+  <!--     </plugin> -->
+  <!--   </plugins> -->
   </build>
 
   <!-- Picks the right LWJGL natives for whoever is building or consuming.

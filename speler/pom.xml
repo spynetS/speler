@@ -17,20 +17,20 @@
   <name>Speler Engine</name>
   <description>A 2D game engine library: ECS, Swing and OpenGL renderers, Tiled maps, sprites and input.</description>
 
-  <build>
-    <plugins>
-      <!-- Ship sources and javadoc so consumers get docs and
-           click-through-to-source in their IDE. -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
+  <!-- <build> -->
+  <!--   <plugins> -->
+  <!--     <!-\- Ship sources and javadoc so consumers get docs and -->
+  <!--          click-through-to-source in their IDE. -\-> -->
+  <!--     <plugin> -->
+  <!--       <groupId>org.apache.maven.plugins</groupId> -->
+  <!--       <artifactId>maven-source-plugin</artifactId> -->
+  <!--     </plugin> -->
+  <!--     <plugin> -->
+  <!--       <groupId>org.apache.maven.plugins</groupId> -->
+  <!--       <artifactId>maven-javadoc-plugin</artifactId> -->
+  <!--     </plugin> -->
+  <!--   </plugins> -->
+  <!-- </build> -->
 
   <dependencies>
     <dependency>
