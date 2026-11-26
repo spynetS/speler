@@ -12,16 +12,13 @@ import com.github.spynets.speler.resources.ResourceManager;
 public class SwingRenderer implements Renderer {
 
     private Graphics2D g;
-    private Camera camera;
     private int screenW, screenH;
 
-    public SwingRenderer(Camera camera) {
-        this.camera = camera;
+    public SwingRenderer() {
     }
 
-    public SwingRenderer(Graphics2D g, Camera camera) {
+    public SwingRenderer(Graphics2D g) {
         this.g = g;
-        this.camera = camera;
     }
 
     @Override
@@ -31,7 +28,17 @@ public class SwingRenderer implements Renderer {
     }
 
     @Override
+    public void setWindowSize(Vector2 size) {}
+
+    @Override
+    public Vector2 getWindowSize(){
+        return new Vector2(screenW, screenH);
+    }
+
+
+    @Override
     public void drawSprite(
+                           Camera camera,
             String imageId,
             Vector2 pos,
             float rot,
@@ -58,7 +65,7 @@ public class SwingRenderer implements Renderer {
     }
 
     @Override
-    public void drawRect(Vector2 position, Vector2 size, float rotationDeg, Color color) {
+    public void drawRect(Camera camera, Vector2 position, Vector2 size, float rotationDeg, Color color) {
         int x = Math.round(camera.worldToScreenX(position.getX(), screenW));
         int y = Math.round(camera.worldToScreenY(position.getY(), screenH));
         int w = Math.round(camera.worldToScreenSize((int) size.getX()));
@@ -75,7 +82,7 @@ public class SwingRenderer implements Renderer {
 
 
     @Override
-    public void fillRect(Vector2 pos, Vector2 size, float rot, Color color) {
+    public void fillRect(Camera camera, Vector2 pos, Vector2 size, float rot, Color color) {
         // Round to whole pixels to prevent gaps
         int x = Math.round(camera.worldToScreenX(pos.getX(), screenW));
         int y = Math.round(camera.worldToScreenY(pos.getY(), screenH));
@@ -89,10 +96,6 @@ public class SwingRenderer implements Renderer {
         g.fillRect(-w / 2, -h / 2, w, h);
 
         g.setTransform(old);
-    }
-
-    public Camera getCamera() {
-        return camera;
     }
 
     public void setGraphics(Graphics2D g) {

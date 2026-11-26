@@ -2,10 +2,11 @@ package com.github.spynets.speler.ecs;
 
 import com.github.spynets.speler.SerializableComponent;
 import com.github.spynets.speler.Vector2;
+import com.github.spynets.speler.ecs.ECS.Component;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
-public class Camera implements SerializableComponent {
+public class Camera implements Component, SerializableComponent {
     public float x, y;     // Camera position in world coordinates
     public float zoom;     // Zoom factor (1.0 = normal size)
     

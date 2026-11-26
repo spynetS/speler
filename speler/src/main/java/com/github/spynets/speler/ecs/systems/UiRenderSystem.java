@@ -11,7 +11,7 @@ import com.github.spynets.speler.render.Renderer;
 public class UiRenderSystem implements RenderSystem {
 
     @Override
-    public void render(ECS ecs, Renderer renderer, Camera camera, int w, int h) {
+    public void render(ECS ecs, Renderer renderer, int w, int h) {
 
 				renderer.beginUI();
 				for (UUID id : ecs.getEntities()) {

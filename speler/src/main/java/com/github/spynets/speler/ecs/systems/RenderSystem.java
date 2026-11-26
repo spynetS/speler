@@ -6,6 +6,6 @@ import com.github.spynets.speler.render.Renderer;
 
 public interface RenderSystem {
 
-		void render(ECS ecs, Renderer renderer, Camera camera, int w, int h);
+		void render(ECS ecs, Renderer renderer, int w, int h);
 		
 }

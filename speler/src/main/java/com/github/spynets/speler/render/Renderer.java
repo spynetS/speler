@@ -6,10 +6,14 @@ import com.github.spynets.speler.Vector2;
 import com.github.spynets.speler.ecs.Camera;
 
 public interface Renderer {
+
+    void setWindowSize(Vector2 size);
+    Vector2 getWindowSize();
 		
     void begin(int screenWidth, int screenHeight);
 
     void drawSprite(
+                    Camera camera,
             String imageId,
             Vector2 position,
             float rotationDeg,
@@ -18,6 +22,7 @@ public interface Renderer {
     );
 
     void drawRect(
+                  Camera camera,
             Vector2 position,
             Vector2 size,
             float rotationDeg,
@@ -25,6 +30,7 @@ public interface Renderer {
     );
 
     void fillRect(
+            Camera camera,
             Vector2 position,
             Vector2 size,
             float rotationDeg,
@@ -32,7 +38,6 @@ public interface Renderer {
     );
 		
     void end();
-		Camera getCamera();
 
     void beginUI();
 

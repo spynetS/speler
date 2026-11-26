@@ -16,7 +16,6 @@ import java.nio.file.Path;
 public class Scene implements SerializableComponent {
 
 		protected ECS ecs;
-		protected Camera camera;
 		protected RenderSystem renderSystem = new SpriteRenderSystem();
 		protected RenderSystem uiRenderSystem = new UiRenderSystem();
 
@@ -24,14 +23,11 @@ public class Scene implements SerializableComponent {
 		
 		public Scene(ECS ecs) {
 				this.ecs = ecs;
-				this.camera = new Camera(0, 0, 1);
 		}
 		public Scene(Renderer renderer) {
 				this.renderer = renderer;
-				this.camera = new Camera(0, 0, 1);
 		}
 		public Scene() {
-				this.camera = new Camera(0, 0, 1);
 		}
 
 		public void start(Game game) throws Exception {
@@ -40,8 +36,8 @@ public class Scene implements SerializableComponent {
 		
 		public void render(int w, int h) throws Exception {
 				if(renderer != null && renderSystem != null && uiRenderSystem != null){
-						renderSystem.render(ecs, renderer, camera, w,h);
-						uiRenderSystem.render(ecs, renderer, camera, w,h);
+						renderSystem.render(ecs, renderer, w,h);
+						uiRenderSystem.render(ecs, renderer, w,h);
 				}else if (renderer == null) {
 						throw new Exception("No renderer has been set in the scene");
 				}
@@ -55,14 +51,6 @@ public class Scene implements SerializableComponent {
 
 		public void setEcs(ECS ecs) {
 				this.ecs = ecs;
-		}
-
-		public Camera getCamera() {
-				return camera;
-		}
-
-		public void setCamera(Camera camera) {
-				this.camera = camera;
 		}
 
 		public Renderer getRenderer() {
@@ -88,10 +76,6 @@ public class Scene implements SerializableComponent {
 
 				// Serialize camera
 				JsonObject cameraJson = new JsonObject();
-				cameraJson.addProperty("x", camera.x);
-				cameraJson.addProperty("y", camera.y);
-				cameraJson.addProperty("zoom", camera.zoom);
-				sceneJson.add("camera", cameraJson);
 
 				return sceneJson;
 		}
@@ -101,11 +85,6 @@ public class Scene implements SerializableComponent {
 				// Deserialize ECS
 				ecs.deserialize(json.getAsJsonObject("ecs"));
 
-				// Deserialize camera
-				JsonObject cameraJson = json.getAsJsonObject("camera");
-				camera.x = cameraJson.get("x").getAsFloat();
-				camera.y = cameraJson.get("y").getAsFloat();
-				camera.zoom = cameraJson.get("zoom").getAsFloat();
 		}
 		public void saveScene(String path) throws Exception {
 				Gson gson = new GsonBuilder().setPrettyPrinting().create();
