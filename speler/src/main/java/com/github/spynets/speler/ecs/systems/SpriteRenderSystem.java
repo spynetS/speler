@@ -1,5 +1,6 @@
 package com.github.spynets.speler.ecs.systems;
 
+import java.awt.Color;
 import java.util.*;
 
 import com.github.spynets.speler.*;
@@ -31,10 +32,11 @@ public class SpriteRenderSystem implements RenderSystem {
             }
 
             if (r != null) {
-                renderer.drawRect(
+                renderer.fillRect(
                         t.worldPosition,
                         t.worldScale,
-                        t.worldRotation
+                        t.worldRotation,
+                        new Color(225,225,225)
                 );
             }
 
@@ -42,7 +44,8 @@ public class SpriteRenderSystem implements RenderSystem {
                 renderer.drawRect(
                         t.worldPosition,
                         t.worldScale.add(new Vector2(cp.width, cp.height)),
-                        t.worldRotation
+                        t.worldRotation,
+                        new Color(0,225,0)
                 );
             }
         }
@@ -66,7 +69,7 @@ public class SpriteRenderSystem implements RenderSystem {
 
         renderer.drawSprite(
                 s.image,
-                t.worldPosition,
+                t.worldPosition.add(s.offset),
                 t.worldRotation,
                 t.worldScale,
                 s.inverted

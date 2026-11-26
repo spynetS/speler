@@ -7,6 +7,7 @@ import com.github.spynets.speler.resources.ResourceManager;
 
 import org.lwjgl.BufferUtils;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -183,7 +184,7 @@ public class GLRenderer implements Renderer {
     }
 
     @Override
-    public void drawRect(Vector2 pos, Vector2 size, float rot) {
+    public void drawRect(Vector2 pos, Vector2 size, float rot, Color color) {
         glUniform1i(uUseTexture, 0);
         glUniform4f(uColor, 1.0f, 1.0f, 1.0f, 1.0f);
         
@@ -362,6 +363,12 @@ public class GLRenderer implements Renderer {
 	public void endUI() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("Unimplemented method 'endUI'");
+	}
+
+	@Override
+	public void fillRect(Vector2 position, Vector2 size, float rotationDeg, Color color) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'fillRect'");
 	}
 
 		

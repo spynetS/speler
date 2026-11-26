@@ -19,6 +19,7 @@ public class Transform implements Component, SerializableComponent {
     public float worldRotation = 0;
 		public Vector2 worldScale = new Vector2(100,100);
 
+    public String tag;
 
     @Override
     public JsonObject serialize() {

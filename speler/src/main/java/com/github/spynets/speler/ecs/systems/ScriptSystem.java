@@ -33,16 +33,21 @@ public class ScriptSystem implements UpdateSystem, CollisionListener {
 
 				ScriptComponent sc1 = event.ecs.getComponent(event.a, ScriptComponent.class);
 				ScriptComponent sc2 = event.ecs.getComponent(event.b, ScriptComponent.class);
-				
-				for(Script script : sc1.getScripts()) {
-						if (script != null) {
-								script.onCollision(event);
-						}
-				}
-				for(Script script : sc2.getScripts()) {
-						if (script != null) {
-								script.onCollision(event);
-						}
+
+        
+        if(sc1 != null) {
+            for(Script script : sc1.getScripts()) {
+                if (script != null) {
+                    script.onCollision(event);
+                }
+            }
+        }
+        if(sc2 != null) {
+            for(Script script : sc2.getScripts()) {
+                if (script != null) {
+                    script.onCollision(event);
+                }
+            }				
 				}				
 
 
@@ -52,15 +57,19 @@ public class ScriptSystem implements UpdateSystem, CollisionListener {
 
 				ScriptComponent sc1 = event.ecs.getComponent(event.a, ScriptComponent.class);
 				ScriptComponent sc2 = event.ecs.getComponent(event.b, ScriptComponent.class);
-				for(Script script : sc1.getScripts()) {
-						if (script != null) {
-								script.onTrigger(event);
-						}
-				}
-				for(Script script : sc2.getScripts()) {
-						if (script != null) {
-								script.onTrigger(event);
-						}
+        if(sc1 != null) {
+            for(Script script : sc1.getScripts()) {
+                if (script != null) {
+                    script.onTrigger(event);
+                }
+            }
+        }
+        if(sc2 != null) {
+            for(Script script : sc2.getScripts()) {
+                if (script != null) {
+                    script.onTrigger(event);
+                }
+            }				
 				}				
 
 		}

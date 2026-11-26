@@ -34,8 +34,25 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.tiledreader</groupId>
-      <artifactId>TiledReader</artifactId>
+      <groupId>org.mapeditor</groupId>
+      <artifactId>libtiled</artifactId>
+    </dependency>
+
+    <!-- libtiled hides these behind a jdk>=9 profile that Maven won't activate
+         for us, and they are not in the JDK as of 11. Without them
+         new TMXMapReader() throws at runtime. -->
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.annotation</groupId>
+      <artifactId>jakarta.annotation-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <scope>runtime</scope>
     </dependency>
 
     <dependency>

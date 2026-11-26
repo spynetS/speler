@@ -1,5 +1,7 @@
 package com.github.spynets.speler.render;
 
+import java.awt.Color;
+
 import com.github.spynets.speler.Vector2;
 import com.github.spynets.speler.ecs.Camera;
 
@@ -18,7 +20,15 @@ public interface Renderer {
     void drawRect(
             Vector2 position,
             Vector2 size,
-            float rotationDeg
+            float rotationDeg,
+            Color color
+    );
+
+    void fillRect(
+            Vector2 position,
+            Vector2 size,
+            float rotationDeg,
+            Color color
     );
 		
     void end();

@@ -41,7 +41,11 @@
     <lwjgl.version>3.3.3</lwjgl.version>
     <gson.version>2.11.0</gson.version>
     <flatlaf.version>3.6.2</flatlaf.version>
-    <tiledreader.version>1.1.0</tiledreader.version>
+    <libtiled.version>1.5.0</libtiled.version>
+    <!-- libtiled is JAXB-bound; see the dependencyManagement note below. -->
+    <jaxb.api.version>4.0.5</jaxb.api.version>
+    <jaxb.runtime.version>4.0.6</jaxb.runtime.version>
+    <jakarta.annotation.version>3.0.0</jakarta.annotation.version>
     <junit.version>5.11.4</junit.version>
   </properties>
 
@@ -65,9 +69,31 @@
       </dependency>
 
       <dependency>
-        <groupId>org.tiledreader</groupId>
-        <artifactId>TiledReader</artifactId>
-        <version>${tiledreader.version}</version>
+        <groupId>org.mapeditor</groupId>
+        <artifactId>libtiled</artifactId>
+        <version>${libtiled.version}</version>
+      </dependency>
+
+      <!-- libtiled's TMX model is JAXB-generated and TMXMapReader builds an
+           Unmarshaller, but it only declares the JAXB stack inside a profile
+           activated by jdk >= 9 - and Maven does not activate profiles from a
+           dependency's POM when resolving transitively. JAXB left the JDK in
+           11, so we target 17 without it on the module path. Declare the stack
+           ourselves or new TMXMapReader() fails at runtime. -->
+      <dependency>
+        <groupId>jakarta.xml.bind</groupId>
+        <artifactId>jakarta.xml.bind-api</artifactId>
+        <version>${jaxb.api.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.annotation</groupId>
+        <artifactId>jakarta.annotation-api</artifactId>
+        <version>${jakarta.annotation.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>jaxb-runtime</artifactId>
+        <version>${jaxb.runtime.version}</version>
       </dependency>
       <dependency>
         <groupId>com.google.code.gson</groupId>

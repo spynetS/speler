@@ -58,7 +58,24 @@ public class SwingRenderer implements Renderer {
     }
 
     @Override
-    public void drawRect(Vector2 pos, Vector2 size, float rot) {
+    public void drawRect(Vector2 position, Vector2 size, float rotationDeg, Color color) {
+        int x = Math.round(camera.worldToScreenX(position.getX(), screenW));
+        int y = Math.round(camera.worldToScreenY(position.getY(), screenH));
+        int w = Math.round(camera.worldToScreenSize((int) size.getX()));
+        int h = Math.round(camera.worldToScreenSize((int) size.getY()));
+
+        AffineTransform old = g.getTransform();
+
+        g.translate(x, y);
+        g.rotate(Math.toRadians(rotationDeg));
+        g.drawRect(-w / 2, -h / 2, w, h);
+
+        g.setTransform(old);
+    }
+
+
+    @Override
+    public void fillRect(Vector2 pos, Vector2 size, float rot, Color color) {
         // Round to whole pixels to prevent gaps
         int x = Math.round(camera.worldToScreenX(pos.getX(), screenW));
         int y = Math.round(camera.worldToScreenY(pos.getY(), screenH));
@@ -113,5 +130,6 @@ public class SwingRenderer implements Renderer {
 	@Override
 	public void endUI() {
 	}
+
 
 }
