@@ -1,0 +1,13 @@
+
+
+
+public class DebugInfo {
+    public int fps;
+    public float frameTime;
+    public int entityCount;
+    public int componentCount;
+    public int systemCount;
+    public int drawCalls;
+    public int activeAnimations;
+    public long memoryUsed;
+}
